@@ -63,10 +63,15 @@ static struct {
     int ret_cmd, flags, y, x;
     char *text;
 } panelize_but [BUTTONS] = {
-    { B_CANCEL, NORMAL_BUTTON, 0, 53, N_("&Cancel")   },
-    { B_ADD, NORMAL_BUTTON,    0, 28, N_("&Add new")  },
-    { B_REMOVE, NORMAL_BUTTON, 0, 16, N_("&Remove")   },
-    { B_ENTER, DEFPUSH_BUTTON, 0,  0, N_("Pane&lize") },
+    { B_CANCEL, NORMAL_BUTTON, 0, 0, N_("&Cancel")   },
+    { B_ADD, NORMAL_BUTTON,    0, 0, N_("&Add new")  },
+    { B_REMOVE, NORMAL_BUTTON, 0, 0, N_("&Remove")   },
+    { B_ENTER, DEFPUSH_BUTTON, 0, 0, N_("Pane&lize") },
+
+/*     { B_CANCEL, NORMAL_BUTTON, 0, 53, N_("&Cancel")   }, */
+/*     { B_ADD, NORMAL_BUTTON,    0, 28, N_("&Add new")  }, */
+/*     { B_REMOVE, NORMAL_BUTTON, 0, 16, N_("&Remove")   }, */
+/*     { B_ENTER, DEFPUSH_BUTTON, 0,  0, N_("Pane&lize") }, */
 };
 
 static char *panelize_section = "Panelize";
@@ -151,22 +156,29 @@ init_panelize (void)
     panelize_dlg =
 	create_dlg (0, 0, 22, panelize_cols, dialog_colors,
 		    panelize_callback, "[External panelize]",
-		    _("External panelize"), DLG_CENTER | DLG_REVERSE);
+		    _("External panelize"), DLG_REVERSE);
+    /*		    _("External panelize"), DLG_CENTER | DLG_REVERSE); */
 
     for (i = 0; i < BUTTONS; i++)
 	add_widget (panelize_dlg,
 		    button_new (BY + panelize_but[i].y,
-				BX + panelize_but[i].x,
+				0,
 				panelize_but[i].ret_cmd,
 				panelize_but[i].flags,
 				panelize_but[i].text, 0));
+/* 		    button_new (BY + panelize_but[i].y, */
+/* 				BX + panelize_but[i].x, */
+/* 				panelize_but[i].ret_cmd, */
+/* 				panelize_but[i].flags, */
+/* 				panelize_but[i].text, 0)); */
 
     pname =
 	input_new (UY + 14, UX, INPUT_COLOR, panelize_dlg->cols - 10, "",
 		   "in");
     add_widget (panelize_dlg, pname);
 
-    add_widget (panelize_dlg, label_new (UY + 13, UX, _("Command")));
+    add_widget (panelize_dlg, label_new (UY + 13, 0, _("Command")));
+/*     add_widget (panelize_dlg, label_new (UY + 13, UX, _("Command"))); */
 
     /* get new listbox */
     l_panelize =

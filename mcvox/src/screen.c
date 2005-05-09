@@ -529,6 +529,8 @@ format_file (char *dest, int limit, WPanel *panel, int file_index, int width, in
     else
 	color = NORMAL_COLOR;
 
+
+
     for (format = home; format; format = format->next){
 
     	if (length == width)
@@ -537,6 +539,8 @@ format_file (char *dest, int limit, WPanel *panel, int file_index, int width, in
 	if (format->string_fn){
 	    int len;
 
+	    redrawwin(stdscr);
+	  
 	    if (empty_line)
 		txt = " ";
 	    else
@@ -555,6 +559,21 @@ format_file (char *dest, int limit, WPanel *panel, int file_index, int width, in
 	    length += len;
 
             attrset (color);
+
+
+/*     /\* RAF GC : erase the single line *\/ */
+/*       { */
+/*       move(2,1); */
+/* 	char* eff="***********************"; */
+/* 	addstr (eff); */
+/* 	sleep(1); */
+/* /\* 	int still = 50; *\/ */
+/* /\* 	while (still--) *\/ */
+/* /\* 	    addch (' '); *\/ */
+/*       } */
+/*       move(2,1); */
+
+
 
             if (permission_mode && !strcmp(format->id, "perm"))
                 add_permission_string (old_pos, format->field_len, fe, attr, color, 0);
@@ -605,13 +624,18 @@ repaint_file (WPanel *panel, int file_index, int mv, int attr, int isstatus)
 	return;
 
     if (mv){
-	if (!isstatus && panel->split){
-	    widget_move (&panel->widget,
-			 (file_index - panel->top_file) %
-			 llines (panel) + 2,
-			 (offset + 1));
-	} else
-	    widget_move (&panel->widget, file_index - panel->top_file + 2, 1);
+/* RAF GC */
+/*       int index=0;  */
+      
+      widget_move (&panel->widget, 2, 1);
+	
+/* 	if (!isstatus && panel->split){ */
+/* 	    widget_move (&panel->widget, */
+/* 			 (file_index - panel->top_file) % */
+/* 			 llines (panel) + 2, */
+/* 			 (offset + 1)); */
+/* 	} else */
+/* 	    widget_move (&panel->widget, file_index - panel->top_file + 2, 1); */
     }
 
     format_file (buffer, sizeof(buffer), panel, file_index, width, attr, isstatus);
@@ -690,21 +714,25 @@ display_mini_info (WPanel *panel)
 static void
 paint_dir (WPanel *panel)
 {
-    int i;
+/*     int i; */
     int color;			/* Color value of the line */
-    int items;			/* Number of items */
+/*     int items;			/\* Number of items *\/ */
 
-    items = llines (panel) * (panel->split ? 2 : 1);
+/* raf gc */
+    color = 1;
+    repaint_file (panel, panel->selected, 1, color, 0); /* 
+ */
 
-    for (i = 0; i < items; i++){
-	if (i+panel->top_file >= panel->count)
-	    color = 0;
-	else {
-	    color = 2 * (panel->dir.list [i+panel->top_file].f.marked);
-	    color += (panel->selected==i+panel->top_file && panel->active);
-	}
-	repaint_file (panel, i+panel->top_file, 1, color, 0);
-    }
+/*     items = llines (panel) * (panel->split ? 2 : 1); */
+/*     for (i = 0; i < items; i++){ */
+/* 	if (i+panel->top_file >= panel->count) */
+/* 	    color = 0; */
+/* 	else { */
+/* 	    color = 2 * (panel->dir.list [i+panel->top_file].f.marked); */
+/* 	    color += (panel->selected==i+panel->top_file && panel->active); */
+/* 	} */
+/* 	repaint_file (panel, i+panel->top_file, 1, color, 0); */
+/*     } */
     standend ();
 }
 
@@ -787,6 +815,18 @@ panel_update_contents (WPanel *panel)
     show_dir (panel);
     paint_dir (panel);
     display_mini_info (panel);
+
+    /* RAF (GC) */
+    widget_move(&panel->widget, 2, 1);
+
+/*     { */
+/*       int index=0; */
+/*     widget_move(&panel->widget, (index - panel->top_file) % llines (panel) + 2, 1); */
+/*     } */
+/*     /\* Change by Yannick PLASSIARD (3 April 2005) > *\/ */
+/*     widget_move(&panel->widget, (panel->selected - panel->top_file) % llines (panel) + 2, 1); */
+/*     /\* < *\/ */
+
     panel->dirty = 0;
 }
 
@@ -958,8 +998,10 @@ panel_new (const char *panel_name)
     init_widget (&panel->widget, 0, 0, 0, 0, (callback_fn)
 		 panel_callback, (mouse_h) panel_event);
 
-    /* We do not want the cursor */
-    widget_want_cursor (panel->widget, 0);
+    /* Change by Yannick PLASSIARD (3 April 2005) > */
+    /* We do want the cursor */
+    widget_want_cursor (panel->widget, 1);
+    /* < */
 
     mc_get_current_wd (panel->cwd, sizeof (panel->cwd) - 2);
     strcpy (panel->lwd, ".");
@@ -1541,6 +1583,8 @@ unmark_files (WPanel *panel)
 static void
 unselect_item (WPanel *panel)
 {
+  /* raf gc */
+  return;
     repaint_file (panel, panel->selected, 1, 2*selection (panel)->f.marked, 0);
 }
 
@@ -2129,10 +2173,14 @@ panel_key (WPanel *panel, int key)
     /* We do not want to take a key press if nothing can be done with it */
     /* The command line widget may do something more useful */
     if (key == KEY_LEFT)
-	return move_left (panel, key);
+      return MSG_HANDLED; 
+/* 	return move_left (panel, key); */
 
     if (key == KEY_RIGHT)
+      return MSG_HANDLED; 
+/* RAF GC 
 	return move_right (panel, key);
+*/
 
     if (is_abort_char (key)) {
 	panel->searching = 0;
@@ -2164,8 +2212,8 @@ panel_callback (WPanel *panel, widget_msg_t msg, int parm)
 
     switch (msg) {
     case WIDGET_DRAW:
-	paint_panel (panel);
-	return MSG_HANDLED;
+      paint_panel (panel);
+      return MSG_HANDLED;
 
     case WIDGET_FOCUS:
 	current_panel = panel;

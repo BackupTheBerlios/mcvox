@@ -789,11 +789,12 @@ listmode_cmd (void)
 
 /* NOTICE: hotkeys specified here are overriden in menubar_paint_idx (alex) */
 static menu_entry LeftMenu[] = {
-    {' ', N_("&Listing mode..."), 'L', listing_cmd},
-    {' ', N_("&Quick view     C-x q"), 'Q', quick_view_cmd},
-    {' ', N_("&Info           C-x i"), 'I', info_cmd},
-    {' ', N_("&Tree"), 'T', tree_cmd},
-    {' ', "", ' ', 0},
+/*     {' ', N_("&Listing mode..."), 'L', listing_cmd}, */
+/*     {' ', N_("&Quick view     C-x q"), 'Q', quick_view_cmd}, */
+/*     {' ', N_("&Info           C-x i"), 'I', info_cmd}, */
+/*     {' ', N_("&Tree"), 'T', tree_cmd}, */
+/*     {' ', "", ' ', 0}, */
+    {' ', N_(" &Left "), ' ', 0},
     {' ', N_("&Sort order..."), 'S', sort_cmd},
     {' ', "", ' ', 0},
     {' ', N_("&Filter..."), 'F', filter_cmd},
@@ -813,11 +814,12 @@ static menu_entry LeftMenu[] = {
 };
 
 static menu_entry RightMenu[] = {
-    {' ', N_("&Listing mode..."), 'L', listing_cmd},
-    {' ', N_("&Quick view     C-x q"), 'Q', quick_view_cmd},
-    {' ', N_("&Info           C-x i"), 'I', info_cmd},
-    {' ', N_("&Tree"), 'T', tree_cmd},
-    {' ', "", ' ', 0},
+    {' ', N_(" &Right "), ' ', 0},
+/*     {' ', N_("&Listing mode..."), 'L', listing_cmd}, */
+/*     {' ', N_("&Quick view     C-x q"), 'Q', quick_view_cmd}, */
+/*     {' ', N_("&Info           C-x i"), 'I', info_cmd}, */
+/*     {' ', N_("&Tree"), 'T', tree_cmd}, */
+/*     {' ', "", ' ', 0}, */
     {' ', N_("&Sort order..."), 'S', sort_cmd},
     {' ', "", ' ', 0},
     {' ', N_("&Filter..."), 'F', filter_cmd},
@@ -837,6 +839,7 @@ static menu_entry RightMenu[] = {
 };
 
 static menu_entry FileMenu[] = {
+    {' ', N_(" &File "), ' ', 0},
     {' ', N_("&User menu          F2"), 'U', user_file_menu_cmd},
     {' ', N_("&View               F3"), 'V', view_cmd},
     {' ', N_("Vie&w file...         "), 'W', view_file_cmd},
@@ -866,13 +869,14 @@ static menu_entry CmdMenu[] = {
      * as a panel still has some problems, I have not yet finished
      * the WTree widget port, sorry.
      */
-    {' ', N_("&Directory tree"), 'D', treebox_cmd},
+    {' ', N_(" &Command "), ' ', 0},
+/*     {' ', N_("&Directory tree"), 'D', treebox_cmd}, */
     {' ', N_("&Find file            M-?"), 'F', find_cmd},
-    {' ', N_("s&Wap panels          C-u"), 'W', swap_cmd},
-    {' ', N_("switch &Panels on/off C-o"), 'P', view_other_cmd},
-    {' ', N_("&Compare directories  C-x d"), 'C', compare_dirs_cmd},
+/*     {' ', N_("s&Wap panels          C-u"), 'W', swap_cmd}, */
+/*     {' ', N_("switch &Panels on/off C-o"), 'P', view_other_cmd}, */
+/*     {' ', N_("&Compare directories  C-x d"), 'C', compare_dirs_cmd}, */
     {' ', N_("e&Xternal panelize    C-x !"), 'X', external_panelize},
-    {' ', N_("show directory s&Izes"), 'I', dirsizes_cmd},
+/*     {' ', N_("show directory s&Izes"), 'I', dirsizes_cmd}, */
     {' ', "", ' ', 0},
     {' ', N_("command &History"), 'H', history_cmd},
     {' ', N_("di&Rectory hotlist    C-\\"), 'R', quick_chdir_cmd},
@@ -902,8 +906,9 @@ static menu_entry CmdMenu[] = {
 
 /* Must keep in sync with the constants in menu_cmd */
 static menu_entry OptMenu[] = {
+    {' ', N_(" &Options "), ' ', 0},
     {' ', N_("&Configuration..."), 'C', configure_box},
-    {' ', N_("&Layout..."), 'L', layout_cmd},
+/*     {' ', N_("&Layout..."), 'L', layout_cmd}, */
     {' ', N_("c&Onfirmation..."), 'O', confirm_box},
     {' ', N_("&Display bits..."), 'D', display_bits_box},
     {' ', N_("learn &Keys..."), 'K', learn_keys},
@@ -916,7 +921,9 @@ static menu_entry OptMenu[] = {
 
 #define menu_entries(x) sizeof(x)/sizeof(menu_entry)
 
-static Menu *MenuBar[5];
+/* static Menu *MenuBar[5]; */
+#define MAX_MENU_BAR 4
+static Menu *MenuBar[MAX_MENU_BAR];
 
 void
 init_menu (void)
@@ -924,7 +931,8 @@ init_menu (void)
     MenuBar[0] =
 	create_menu (horizontal_split ? _(" &Above ") : _(" &Left "),
 		     LeftMenu, menu_entries (LeftMenu),
-		     "[Left and Right Menus]");
+		     "[Menu Bar]"); 
+/* 		     "[Left and Right Menus]"); */
     MenuBar[1] =
 	create_menu (_(" &File "), FileMenu, menu_entries (FileMenu),
 		     "[File Menu]");
@@ -934,10 +942,10 @@ init_menu (void)
     MenuBar[3] =
 	create_menu (_(" &Options "), OptMenu, menu_entries (OptMenu),
 		     "[Options Menu]");
-    MenuBar[4] =
-	create_menu (horizontal_split ? _(" &Below ") : _(" &Right "),
-		     RightMenu, menu_entries (RightMenu),
-		     "[Left and Right Menus]");
+/*     MenuBar[4] = */
+/* 	create_menu (horizontal_split ? _(" &Below ") : _(" &Right "), */
+/* 		     RightMenu, menu_entries (RightMenu), */
+/* 		     "[Left and Right Menus]"); */
 }
 
 void
@@ -945,7 +953,7 @@ done_menu (void)
 {
     int i;
 
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_MENU_BAR; i++) {
 	destroy_menu (MenuBar[i]);
     }
 }
@@ -965,10 +973,12 @@ menu_cmd (void)
     if (the_menubar->active)
 	return;
 
-    if ((get_current_index () == 0) ^ (!current_panel->active))
-	the_menubar->selected = 0;
-    else
-	the_menubar->selected = 4;
+    the_menubar->selected = 0;
+
+/*     if ((get_current_index () == 0) ^ (!current_panel->active)) */
+/* 	the_menubar->selected = 0; */
+/*     else */
+/* 	the_menubar->selected = 4; */
     menu_last_selected_cmd ();
 }
 
@@ -1086,7 +1096,7 @@ create_panels (void)
     the_hint->auto_adjust_cols = 0;
     the_hint->widget.cols = COLS;
 
-    the_menubar = menubar_new (0, 0, COLS, MenuBar, 5);
+    the_menubar = menubar_new (0, 0, COLS, MenuBar, MAX_MENU_BAR);
 }
 
 static void
@@ -1210,7 +1220,7 @@ init_labels (void)
 
 static const key_map ctl_x_map[] = {
     {XCTRL ('c'), quit_cmd},
-    {'d', compare_dirs_cmd},
+/*     {'d', compare_dirs_cmd}, */
 #ifdef USE_VFS
     {'a', reselect_vfs},
 #endif				/* USE_VFS */
@@ -1225,8 +1235,8 @@ static const key_map ctl_x_map[] = {
     {'l', link_cmd},
     {'s', symlink_cmd},
     {XCTRL ('s'), edit_symlink_cmd},
-    {'i', info_cmd_no_menu},
-    {'q', quick_cmd_no_menu},
+/*     {'i', info_cmd_no_menu}, */
+/*     {'q', quick_cmd_no_menu}, */
     {'h', add2hotlist_cmd},
     {'!', external_panelize},
 #ifdef WITH_BACKGROUND
@@ -1274,13 +1284,13 @@ static const key_map default_map[] = {
     {XCTRL ('r'), reread_cmd},
 
     /* Toggle listing between long, user defined and full formats */
-    {ALT ('t'), toggle_listing_cmd},
+/*     {ALT ('t'), toggle_listing_cmd}, */
 
     /* Swap panels */
-    {XCTRL ('u'), swap_cmd},
+/*     {XCTRL ('u'), swap_cmd}, */
 
     /* View output */
-    {XCTRL ('o'), view_other_cmd},
+/*     {XCTRL ('o'), view_other_cmd}, */
 
     /* Control-X keybindings */
     {XCTRL ('x'), ctl_x_cmd},
@@ -1725,7 +1735,10 @@ do_nc (void)
     int midnight_colors[4];
 
     midnight_colors[0] = NORMAL_COLOR;	/* NORMALC */
-    midnight_colors[1] = REVERSE_COLOR;	/* FOCUSC */
+    midnight_colors[1] = NORMAL_COLOR;	/* NORMALC */
+    /*RAF GC
+    midnight_colors[1] = REVERSE_COLOR;	/ * FOCUSC * /
+    */
     midnight_colors[2] = INPUT_COLOR;	/* HOT_NORMALC */
     midnight_colors[3] = NORMAL_COLOR;	/* HOT_FOCUSC */
 
@@ -1853,8 +1866,9 @@ print_mc_usage (poptContext ctx, FILE *stream)
 	     _("Set initial line number for the internal editor"));
     fputs (_
 	   ("\n"
-	    "Please send any bug reports (including the output of `mc -V')\n"
-	    "to mc-devel@gnome.org\n"), stream);
+	    "Please send any bug reports\n"
+	    /*	    "Please send any bug reports (including the output of `mc -V')\n"*/
+	    "to contact@oralux.org\n"), stream);
     version (0);
 }
 

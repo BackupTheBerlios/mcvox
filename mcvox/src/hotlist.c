@@ -112,12 +112,19 @@ static struct _hotlist_but {
     char *text;
     int   type;
 } hotlist_but[] = {
-    { B_MOVE, NORMAL_BUTTON,         1,   42, N_("&Move"),       LIST_HOTLIST},
-    { B_REMOVE, NORMAL_BUTTON,       1,   30, N_("&Remove"),     LIST_HOTLIST},
-    { B_APPEND, NORMAL_BUTTON,       1,   15, N_("&Append"),     LIST_MOVELIST},
-    { B_INSERT, NORMAL_BUTTON,       1,    0, N_("&Insert"),     LIST_MOVELIST},
-    { B_NEW_ENTRY, NORMAL_BUTTON,    1,   15, N_("New &Entry"),  LIST_HOTLIST},
-    { B_NEW_GROUP, NORMAL_BUTTON,    1,    0, N_("New &Group"),  LIST_HOTLIST},
+/*     { B_MOVE, NORMAL_BUTTON,         1,   42, N_("&Move"),       LIST_HOTLIST}, */
+/*     { B_REMOVE, NORMAL_BUTTON,       1,   30, N_("&Remove"),     LIST_HOTLIST}, */
+/*     { B_APPEND, NORMAL_BUTTON,       1,   15, N_("&Append"),     LIST_MOVELIST}, */
+/*     { B_INSERT, NORMAL_BUTTON,       1,    0, N_("&Insert"),     LIST_MOVELIST}, */
+/*     { B_NEW_ENTRY, NORMAL_BUTTON,    1,   15, N_("New &Entry"),  LIST_HOTLIST}, */
+/*     { B_NEW_GROUP, NORMAL_BUTTON,    1,    0, N_("New &Group"),  LIST_HOTLIST}, */
+
+    { B_MOVE, NORMAL_BUTTON,         0,   42, N_("&Move"),       LIST_HOTLIST},
+    { B_REMOVE, NORMAL_BUTTON,       0,   30, N_("&Remove"),     LIST_HOTLIST},
+    { B_APPEND, NORMAL_BUTTON,       0,   15, N_("&Append"),     LIST_MOVELIST},
+    { B_INSERT, NORMAL_BUTTON,       0,    0, N_("&Insert"),     LIST_MOVELIST},
+    { B_NEW_ENTRY, NORMAL_BUTTON,    0,   15, N_("New &Entry"),  LIST_HOTLIST},
+    { B_NEW_GROUP, NORMAL_BUTTON,    0,    0, N_("New &Group"),  LIST_HOTLIST},
     { B_CANCEL, NORMAL_BUTTON,       0,   53, N_("&Cancel"),     LIST_HOTLIST|LIST_VFSLIST|LIST_MOVELIST},
     { B_UP_GROUP, NORMAL_BUTTON,     0,   42, N_("&Up"),         LIST_HOTLIST|LIST_MOVELIST},
     { B_ADD_CURRENT, NORMAL_BUTTON,  0,   20, N_("&Add current"), LIST_HOTLIST},
@@ -621,11 +628,15 @@ init_hotlist (int list_type)
 	if (hotlist_but[i].type & list_type)
 	    add_widget (hotlist_dlg,
 			button_new (BY + hotlist_but[i].y,
-				    BX + hotlist_but[i].x,
+				    0,
 				    hotlist_but[i].ret_cmd,
 				    hotlist_but[i].flags,
 				    hotlist_but[i].text,
 				    hotlist_button_callback));
+
+/* 				    BX + hotlist_but[i].x, */
+
+
     }
 
     /* We add the labels. 
@@ -679,11 +690,13 @@ init_movelist (int list_type, struct hotlist *item)
 	if (hotlist_but[i].type & list_type)
 	    add_widget (movelist_dlg,
 			button_new (BY - 4 + hotlist_but[i].y,
-				    BX + hotlist_but[i].x,
+				    0,
 				    hotlist_but[i].ret_cmd,
 				    hotlist_but[i].flags,
 				    hotlist_but[i].text,
 				    hotlist_button_callback));
+
+/* 				    BX + hotlist_but[i].x, */
     }
 
     /* We add the labels.  We are interested in the last one,

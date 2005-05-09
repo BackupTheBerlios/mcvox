@@ -31,8 +31,15 @@
 #include "win.h"
 #include "key.h"	/* For mi_getch() */
 
+/* RAF GC */
+#include "panel.h"
+
+
 int menubar_visible = 1;	/* This is the new default */
 
+/*
+#define attrset(a) attrset(SELECTED_COLOR)
+*/
 static void
 menu_scan_hotkey (Menu *menu)
 {
@@ -91,12 +98,25 @@ static void menubar_drop_compute (WMenu *menubar)
 
 static void menubar_paint_idx (WMenu *menubar, int idx, int color)
 {
+  /* RAF GC: only the selected item is displayed */
     const Menu *menu = menubar->menu [menubar->selected];
-    const int y = 2 + idx;
-	int x = menubar-> menu[menubar->selected]->start_x;
+    if (color != MENU_SELECTED_COLOR)
+      {
+	return;
+      }
+/* /\*   printf("\n%s",menu->entries [idx].text); *\/ */
+/* /\*   return; *\/ */
 
-	if (x + menubar->max_entry_len + 3 > menubar->widget.cols)
-		x = menubar->widget.cols - menubar->max_entry_len - 3;
+
+    /* raf gc:each item is displayed at (0,0) */
+    /*    const int y = 2 + idx;*/
+     const int y = 0; 
+     const int x = 0; 
+
+/* 	int x = menubar-> menu[menubar->selected]->start_x; */
+
+/* 	if (x + menubar->max_entry_len + 3 > menubar->widget.cols) */
+/* 		x = menubar->widget.cols - menubar->max_entry_len - 3; */
 
     widget_move (&menubar->widget, y, x);
     attrset (color);
@@ -106,45 +126,70 @@ static void menubar_paint_idx (WMenu *menubar, int idx, int color)
         widget_move (&menubar->widget, y, x + 1);
     	hline (slow_terminal ? ' ' : ACS_HLINE, menubar->max_entry_len);
     } else {
-	unsigned char *text;
+      unsigned char *s=g_strdown(g_strdup(menu->entries [idx].text)); /* RAF GC */
+      unsigned char *text;
+	
+	/* RAF GC : clear previous entry */
+	int i=0;
+	widget_move (&menubar->widget, 0, 0);
+	for (i=0;i<menubar->widget.cols;i++)
+	  {
+	    addch(' ');
+	  }
+	refresh();
+	widget_move (&menubar->widget, y, x);
 
 	addch((unsigned char)menu->entries [idx].first_letter);
-	for (text = menu->entries [idx].text; *text; text++)
+/* 	for (text = menu->entries [idx].text; *text; text++) */
+	for (text = s; *text; text++)
 	{
 		if (*text != '&')
 		    addch(*text);
-		else {
-		    attrset (color == MENU_SELECTED_COLOR ?
-			MENU_HOTSEL_COLOR : MENU_HOT_COLOR);
-		    addch(*(++text));
-		    attrset(color);
-		}
+		/*RAF GC: clearly distinguish the shortcut */
+/* 		else { */
+/* 		    attrset (color == MENU_SELECTED_COLOR ? */
+/* 			MENU_HOTSEL_COLOR : MENU_HOT_COLOR); */
+/* 		    addch(*(++text)); */
+/* 		    attrset(color); */
+/* 		} */
 	}
+	g_free(s);
     }
     widget_move (&menubar->widget, y, x + 1);
 }
 
 static inline void menubar_draw_drop (WMenu *menubar)
 {
-    const int count = (menubar->menu [menubar->selected])->count;
-    int   i;
+  /*    const int count = (menubar->menu [menubar->selected])->count;*/
     int   sel = menubar->subsel;
     int   column = menubar-> menu[menubar->selected]->start_x - 1;
+
+
+    /*paint_panel*/
+    /* RAF GC: menu pleine page */
+    if (current_panel)
+      {
+	attrset (NORMAL_COLOR);
+	widget_erase (&current_panel->widget);
+      }
+
 
 	if (column + menubar->max_entry_len + 4 > menubar->widget.cols)
 		column = menubar->widget.cols - menubar->max_entry_len - 4;
 
-    attrset (SELECTED_COLOR);
-    draw_box (menubar->widget.parent,
-	      menubar->widget.y+1, menubar->widget.x + column,
-	      count+2, menubar->max_entry_len + 4);
+	/* RAF GC */
+/*     attrset (SELECTED_COLOR); */
+/*     draw_box (menubar->widget.parent, */
+/* 	      menubar->widget.y+1, menubar->widget.x + column, */
+/* 	      count+2, menubar->max_entry_len + 4); */
 
     column++;
-    for (i = 0; i < count; i++){
-	if (i == sel)
-	    continue;
-	menubar_paint_idx (menubar, i, MENU_ENTRY_COLOR);
-    }
+    /* RAF GC */
+/*     for (i = 0; i < count; i++){ */
+/* 	if (i == sel) */
+/* 	    continue; */
+/* 	menubar_paint_idx (menubar, i, MENU_ENTRY_COLOR); */
+/*     } */
     menubar_paint_idx (menubar, sel, MENU_SELECTED_COLOR);
 }
 
@@ -230,7 +275,7 @@ static void menubar_execute (WMenu *menubar, int entry)
 {
     const Menu *menu = menubar->menu [menubar->selected];
     const callfn call_back = menu->entries [entry].call_back;
-    
+
     is_right = menubar->selected != 0;
 
     /* This used to be the other way round, i.e. first callback and 
@@ -238,6 +283,7 @@ static void menubar_execute (WMenu *menubar, int entry)
        change_panel () work which is used in quick_view_cmd () -- Norbert
     */
     menubar_finish (menubar);
+
     (*call_back) ();
     do_refresh ();
 }
@@ -321,9 +367,15 @@ static int menubar_handle_key (WMenu *menubar, int key)
 	    return 1;
 	}
 
+	/* RAF GC: check callback  */
 	if (key == KEY_ENTER || key == '\n'){
-	    menubar_execute (menubar, menubar->subsel);
-	    return 1;
+	  if (menubar->subsel){
+	      menubar_execute (menubar, menubar->subsel);
+	      return 1;
+	    }
+	  else{
+	    key = KEY_DOWN; /* RAF GC: simuulate the down key */
+	    }
 	}
 	
 	

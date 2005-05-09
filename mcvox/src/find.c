@@ -68,6 +68,8 @@ static WInput *in_start;	/* Start path */
 static WInput *in_name;		/* Pattern to search */
 static WInput *in_with;		/* Text inside filename */
 static WCheck *case_sense;	/* "case sensitive" checkbox */
+/* RAF GC */
+static WLabel *label_name;	/* Pattern to search */
 
 static int running = 0;		/* nice flag */
 static char *find_pattern;	/* Pattern to search */
@@ -96,14 +98,22 @@ static struct {
 	int len;	/* length including space and brackets */
 	int x;
 } fbuts [] = {
-	{ N_("&Suspend"),   11, 29 },
-	{ N_("Con&tinue"),  12, 29 },
-	{ N_("&Chdir"),     11, 3  },
-	{ N_("&Again"),     9,  17 },
-	{ N_("&Quit"),      8,  43 },
-	{ N_("Pane&lize"),  12, 3  },
-	{ N_("&View - F3"), 13, 20 },
-	{ N_("&Edit - F4"), 13, 38 }
+	{ N_("&Suspend"),   11, 0 },
+	{ N_("Con&tinue"),  12, 0 },
+	{ N_("&Chdir"),     11, 0 },
+	{ N_("&Again"),     9,  0 },
+	{ N_("&Quit"),      8,  0 },
+	{ N_("Pane&lize"),  12, 0 },
+	{ N_("&View - F3"), 13, 0 },
+	{ N_("&Edit - F4"), 13, 0 }
+/* 	{ N_("&Suspend"),   11, 29 }, */
+/* 	{ N_("Con&tinue"),  12, 29 }, */
+/* 	{ N_("&Chdir"),     11, 3  }, */
+/* 	{ N_("&Again"),     9,  17 }, */
+/* 	{ N_("&Quit"),      8,  43 }, */
+/* 	{ N_("Pane&lize"),  12, 3  }, */
+/* 	{ N_("&View - F3"), 13, 20 }, */
+/* 	{ N_("&Edit - F4"), 13, 38 } */
 };
 
 static inline char * add_to_list (const char *text, void *data) {
@@ -232,33 +242,57 @@ find_parameters (char **start_dir, char **pattern, char **content)
 		    find_parm_callback, "[Find File]", _("Find File"),
 		    DLG_CENTER | DLG_REVERSE);
 
-    add_widget (find_dlg,
-		button_new (11, b2, B_CANCEL, NORMAL_BUTTON, buts[2], 0));
-    add_widget (find_dlg,
-		button_new (11, b1, B_TREE, NORMAL_BUTTON, buts[1], 0));
-    add_widget (find_dlg,
-		button_new (11, b0, B_ENTER, DEFPUSH_BUTTON, buts[0], 0));
+    /* RAF GC */
+    #define X_POS 0
+    #define Y_POS 2
+    b0=b1=b2=X_POS;
 
-    case_sense = check_new (9, 3, case_sensitive, case_label);
+    add_widget (find_dlg,
+		button_new (Y_POS, b2, B_CANCEL, NORMAL_BUTTON, buts[2], 0));
+    add_widget (find_dlg,
+		button_new (Y_POS, b1, B_TREE, NORMAL_BUTTON, buts[1], 0));
+    add_widget (find_dlg,
+		button_new (Y_POS, b0, B_ENTER, DEFPUSH_BUTTON, buts[0], 0));
+/*     add_widget (find_dlg, */
+/* 		button_new (11, b2, B_CANCEL, NORMAL_BUTTON, buts[2], 0)); */
+/*     add_widget (find_dlg, */
+/* 		button_new (11, b1, B_TREE, NORMAL_BUTTON, buts[1], 0)); */
+/*     add_widget (find_dlg, */
+/* 		button_new (11, b0, B_ENTER, DEFPUSH_BUTTON, buts[0], 0)); */
+
+    /* RAF GC */
+    case_sense = check_new (Y_POS, X_POS, case_sensitive, case_label);
+/*     case_sense = check_new (9, 3, case_sensitive, case_label); */
     add_widget (find_dlg, case_sense);
 
     in_with =
-	input_new (7, istart, INPUT_COLOR, ilen, in_contents, "content");
+	input_new (Y_POS, X_POS, INPUT_COLOR, ilen, in_contents, "content");
+/*     in_with = */
+/* 	input_new (7, istart, INPUT_COLOR, ilen, in_contents, "content"); */
     add_widget (find_dlg, in_with);
+    add_widget (find_dlg, label_new (Y_POS, X_POS, labs[2]));
 
     in_name =
-	input_new (5, istart, INPUT_COLOR, ilen, in_start_name, "name");
+	input_new (Y_POS, X_POS, INPUT_COLOR, ilen, in_start_name, "name");
+/*     in_name = */
+/* 	input_new (5, istart, INPUT_COLOR, ilen, in_start_name, "name"); */
     add_widget (find_dlg, in_name);
+    label_name = label_new (Y_POS, X_POS, labs[1]);
+    add_widget (find_dlg, label_name);
 
     in_start =
-	input_new (3, istart, INPUT_COLOR, ilen, in_start_dir, "start");
+	input_new (Y_POS, X_POS, INPUT_COLOR, ilen, in_start_dir, "start");
+/*     in_start = */
+/* 	input_new (3, istart, INPUT_COLOR, ilen, in_start_dir, "start"); */
     add_widget (find_dlg, in_start);
+    add_widget (find_dlg, label_new (Y_POS, X_POS, labs[0]));
 
-    add_widget (find_dlg, label_new (7, 3, labs[2]));
-    add_widget (find_dlg, label_new (5, 3, labs[1]));
-    add_widget (find_dlg, label_new (3, 3, labs[0]));
+/*     add_widget (find_dlg, label_new (7, 3, labs[2])); */
+/*     add_widget (find_dlg, label_new (5, 3, labs[1])); */
+/*     add_widget (find_dlg, label_new (3, 3, labs[0])); */
 
-    dlg_select_widget (find_dlg, in_name);
+    dlg_select_widget (find_dlg, label_name);
+/*     dlg_select_widget (find_dlg, in_name); */
 
     run_dlg (find_dlg);
 
@@ -787,36 +821,56 @@ setup_gui (void)
 	fbuts[7].x = fbuts[6].x + fbuts[6].len + l2;
     }
 
+    /* RAF GC */
+    #define X_POS 0
+    #define Y_POS 2
     find_dlg =
 	create_dlg (0, 0, FIND2_Y, FIND2_X, dialog_colors, find_callback,
 		    "[Find File]", _("Find File"), DLG_CENTER | DLG_REVERSE);
 
     add_widget (find_dlg,
-		button_new (FIND2_Y - 3, fbuts[7].x, B_VIEW, NORMAL_BUTTON,
+		button_new (Y_POS, X_POS, B_VIEW, NORMAL_BUTTON,
 			    fbuts[7].text, find_do_edit_file));
+/*     add_widget (find_dlg, */
+/* 		button_new (FIND2_Y - 3, fbuts[7].x, B_VIEW, NORMAL_BUTTON, */
+/* 			    fbuts[7].text, find_do_edit_file)); */
     add_widget (find_dlg,
-		button_new (FIND2_Y - 3, fbuts[6].x, B_VIEW, NORMAL_BUTTON,
+		button_new (Y_POS, X_POS, B_VIEW, NORMAL_BUTTON,
 			    fbuts[6].text, find_do_view_file));
+/* 		button_new (FIND2_Y - 3, fbuts[6].x, B_VIEW, NORMAL_BUTTON, */
+/* 			    fbuts[6].text, find_do_view_file)); */
     add_widget (find_dlg,
-		button_new (FIND2_Y - 3, fbuts[5].x, B_PANELIZE,
+		button_new (Y_POS, X_POS, B_PANELIZE,
 			    NORMAL_BUTTON, fbuts[5].text, 0));
+/* 		button_new (FIND2_Y - 3, fbuts[5].x, B_PANELIZE, */
+/* 			    NORMAL_BUTTON, fbuts[5].text, 0)); */
 
     add_widget (find_dlg,
-		button_new (FIND2_Y - 4, fbuts[4].x, B_CANCEL,
+		button_new (Y_POS, X_POS, B_CANCEL,
 			    NORMAL_BUTTON, fbuts[4].text, 0));
+/* 		button_new (FIND2_Y - 4, fbuts[4].x, B_CANCEL, */
+/* 			    NORMAL_BUTTON, fbuts[4].text, 0)); */
     stop_button =
-	button_new (FIND2_Y - 4, fbuts[0].x, B_STOP, NORMAL_BUTTON,
+	button_new (Y_POS, X_POS, B_STOP, NORMAL_BUTTON,
 		    fbuts[0].text, start_stop);
+/* 	button_new (FIND2_Y - 4, fbuts[0].x, B_STOP, NORMAL_BUTTON, */
+/* 		    fbuts[0].text, start_stop); */
     add_widget (find_dlg, stop_button);
     add_widget (find_dlg,
-		button_new (FIND2_Y - 4, fbuts[3].x, B_AGAIN,
+		button_new (Y_POS, X_POS, B_AGAIN,
 			    NORMAL_BUTTON, fbuts[3].text, 0));
+/* 		button_new (FIND2_Y - 4, fbuts[3].x, B_AGAIN, */
+/* 			    NORMAL_BUTTON, fbuts[3].text, 0)); */
     add_widget (find_dlg,
-		button_new (FIND2_Y - 4, fbuts[2].x, B_ENTER,
+		button_new (Y_POS, X_POS, B_ENTER,
 			    DEFPUSH_BUTTON, fbuts[2].text, 0));
+/* 		button_new (FIND2_Y - 4, fbuts[2].x, B_ENTER, */
+/* 			    DEFPUSH_BUTTON, fbuts[2].text, 0)); */
 
-    status_label = label_new (FIND2_Y - 6, 4, _("Searching"));
+    status_label = label_new (Y_POS-1, X_POS, _("Searching"));
     add_widget (find_dlg, status_label);
+/*     status_label = label_new (FIND2_Y - 6, 4, _("Searching")); */
+/*     add_widget (find_dlg, status_label); */
 
     find_list =
 	listbox_new (2, 2, FIND2_X - 4, FIND2_Y - 9, 0);

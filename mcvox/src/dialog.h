@@ -186,10 +186,17 @@ cb_ret_t default_proc (widget_msg_t msg, int parm);
 /* Default paint routine for dialogs */
 void common_dialog_repaint (struct Dlg_head *h);
 
-#define widget_move(w, _y, _x) move(((Widget *)(w))->y + _y, \
-				    ((Widget *)(w))->x + _x)
-#define dlg_move(h, _y, _x) move(((Dlg_head *)(h))->y + _y, \
-				 ((Dlg_head *)(h))->x + _x)
+
+/* 
+RAF GC
+#define widget_move(w, _y, _x) move(((Widget *)(w))->y + _y, \ */
+/* 				    ((Widget *)(w))->x + _x) */
+void widget_move(Widget *w, int _y, int _x);
+
+/* RAF GC */
+/* #define dlg_move(h, _y, _x) move(((Dlg_head *)(h))->y + _y, \ */
+/* 				 ((Dlg_head *)(h))->x + _x) */
+void dlg_move(Dlg_head *h, int _y, int _x);
 
 extern Dlg_head *current_dlg;
 

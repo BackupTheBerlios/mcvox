@@ -141,10 +141,16 @@ init_configure (void)
 
 	i = sizeof (pause_options) / sizeof (char *);
 	while (i--) {
-	    pause_options[i] = _(pause_options[i]);
-	    l1 = strlen (pause_options[i]) + 7;
-	    if (l1 > first_width)
-		first_width = l1;
+	  /* RAF GC: warning: must be freed when the dialog si removed */
+	  pause_options[i] = g_strdown( g_strconcat(title2,
+						    ", ",
+						    _(pause_options[i]), 
+						    NULL));
+
+	  pause_options[i] = _(pause_options[i]);
+	  l1 = strlen (pause_options[i]) + 7;
+	  if (l1 > first_width)
+	    first_width = l1;
 	}
 
 	l1 = strlen (title2) + 1;
@@ -168,51 +174,84 @@ init_configure (void)
 		    first_width + second_width + 2 * X_MARGIN + X_PANE_GAP,
 		    dialog_colors, NULL, "[Configuration]",
 		    _("Configure options"), DLG_CENTER | DLG_REVERSE);
+#undef PX
+#undef RX
+#undef OX
+
+#undef PY
+#undef RY
+#undef OY
+
+#define PX 0
+#define RX 0
+#define OX 0
+#define PY 3
+#define RY 3
+#define OY 3
+
+/*     add_widget (conf_dlg, */
+/* 		groupbox_new (PX, PY, first_width, PANEL_OPTIONS + 2, title1)); */
+
+/*     add_widget (conf_dlg, */
+/* 		groupbox_new (RX, RY, first_width, PAUSE_OPTIONS + 2, title2)); */
+
+/*     add_widget (conf_dlg, */
+/* 		groupbox_new (OX, OY, second_width, OTHER_OPTIONS + 2, title3)); */
 
     add_widget (conf_dlg,
-		groupbox_new (PX, PY, first_width, PANEL_OPTIONS + 2, title1));
-
-    add_widget (conf_dlg,
-		groupbox_new (RX, RY, first_width, PAUSE_OPTIONS + 2, title2));
-
-    add_widget (conf_dlg,
-		groupbox_new (OX, OY, second_width, OTHER_OPTIONS + 2, title3));
-
-    add_widget (conf_dlg,
-		button_new (BY, b3, B_CANCEL, NORMAL_BUTTON,
+		button_new (PY+1, PX, B_CANCEL, NORMAL_BUTTON,
 			    cancel_button, 0));
+/* 		button_new (BY, b3, B_CANCEL, NORMAL_BUTTON, */
 
     add_widget (conf_dlg,
-		button_new (BY, b2, B_EXIT, NORMAL_BUTTON,
+		button_new (PY+1, PX, B_EXIT, NORMAL_BUTTON,
+/* 		button_new (BY, b2, B_EXIT, NORMAL_BUTTON, */
 			    save_button, 0));
 
     add_widget (conf_dlg,
-		button_new (BY, b1, B_ENTER, DEFPUSH_BUTTON,
+		button_new (PY+1, PX , B_ENTER, DEFPUSH_BUTTON,
+/* 		button_new (BY, b1, B_ENTER, DEFPUSH_BUTTON, */
 			    ok_button, 0));
-
-#define XTRACT(i) *check_options[i].variable, check_options[i].text
 
     /* Add checkboxes for "other options" */
     for (i = 0; i < OTHER_OPTIONS; i++) {
-	check_options[i].widget =
-	    check_new (OY + (OTHER_OPTIONS - i), OX + 2, XTRACT (i));
-	add_widget (conf_dlg, check_options[i].widget);
+      char* text;
+      text=g_strconcat(title3,", ",check_options[i].text, NULL); /* RAF GC */
+      
+      check_options[i].widget =
+	check_new (OY + 1, 0, *check_options[i].variable, text);
+      /* 	    check_new (OY + (OTHER_OPTIONS - i), OX + 2, XTRACT (i)); */
+      g_free(text);
+      add_widget (conf_dlg, check_options[i].widget);
     }
 
     pause_radio =
-	radio_new (RY + 1, RX + 2, 3, pause_options, 1);
+	radio_new (RY + 1, 0, 3, pause_options, 1);
+/* 	radio_new (RY + 1, RX + 2, 3, pause_options, 1); */
     pause_radio->sel = pause_after_run;
     add_widget (conf_dlg, pause_radio);
 
     /* Add checkboxes for "panel options" */
     for (i = 0; i < PANEL_OPTIONS; i++) {
-	check_options[i + OTHER_OPTIONS].widget =
-	    check_new (PY + (PANEL_OPTIONS - i), PX + 2,
-		       XTRACT (i + OTHER_OPTIONS));
-	add_widget (conf_dlg, check_options[i + OTHER_OPTIONS].widget);
+      char* text;
+      text=g_strconcat(title1,", ",check_options[i + OTHER_OPTIONS].text, NULL); /* RAF GC */
+      check_options[i + OTHER_OPTIONS].widget =
+	check_new (PY + 1, 0,
+		   *check_options[i + OTHER_OPTIONS].variable, text);
+      /* 	    check_new (PY + (PANEL_OPTIONS - i), PX + 2, */
+      g_free(text);
+      add_widget (conf_dlg, check_options[i + OTHER_OPTIONS].widget);
     }
 }
 
+/* RAF GC */
+static void delete_configure()
+{
+  int i = sizeof (pause_options) / sizeof (char *);
+  while (i--) {
+    g_free(pause_options[i]);
+  }
+}
 
 void configure_box (void)
 {
@@ -240,5 +279,8 @@ void configure_box (void)
 	sync_profiles ();
     }
 
+    delete_configure(); /* RAF GC */
+
     destroy_dlg (conf_dlg);
 }
+

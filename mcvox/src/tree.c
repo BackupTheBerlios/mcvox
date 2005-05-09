@@ -167,6 +167,7 @@ static void tree_show_mini_info (WTree *tree, int tree_lines, int tree_cols)
     hline (' ', tree_cols);
     widget_move (&tree->widget, line, 1);
 
+
     if (tree->searching){
 	/* Show search string */
 	attrset (TREE_NORMALC);
@@ -188,7 +189,9 @@ static void show_tree (WTree *tree)
     tree_entry *current;
     int i, j, topsublevel;
     int x, y;
+
     int tree_lines, tree_cols;
+
 
     /* Initialize */
     x = y = 0;
@@ -245,10 +248,14 @@ static void show_tree (WTree *tree)
     /* Loop for every line */
     for (i = 0; i < tree_lines; i++){
 	/* Move to the beginning of the line */
+      /* RAF GC
 	widget_move (&tree->widget, y+i, x);
-
 	hline (' ', tree_cols);
 	widget_move (&tree->widget, y+i, x);
+      */
+	widget_move (&tree->widget, y, x);
+	hline (' ', tree_cols);
+	widget_move (&tree->widget, y, x);
 
 	if (!current)
 	    continue;

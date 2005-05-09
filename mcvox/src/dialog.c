@@ -31,6 +31,11 @@
 #include "execute.h"	/* suspend_cmd() */
 #include "main.h"	/* slow_terminal */
 
+/* raf gc */
+#include "panel.h"
+#include "color.h"
+
+
 #define waddc(w,y1,x1,c) move (w->y+y1, w->x+x1); addch (c)
 
 /* Primitive way to check if the the current dialog is our dialog */
@@ -89,6 +94,19 @@ void draw_double_box (Dlg_head *h, int y, int x, int ys, int xs)
     SLsmg_draw_double_box (h->y+y, h->x+x, ys, xs);
 #endif /* HAVE_SLANG */
 }
+
+void widget_move(Widget *w, int _y, int _x)
+{
+  move(((Widget *)(w))->y + _y, \
+       ((Widget *)(w))->x + _x);
+}
+
+void dlg_move(Dlg_head *h, int _y, int _x) 
+{
+  move(((Dlg_head *)(h))->y + _y, \
+       ((Dlg_head *)(h))->x + _x);
+}
+
 
 void widget_erase (Widget *w)
 {
@@ -154,7 +172,9 @@ common_dialog_repaint (struct Dlg_head *h)
 {
     int space;
 
-    space = (h->flags & DLG_COMPACT) ? 0 : 1;
+/*raf gc
+     space = (h->flags & DLG_COMPACT) ? 0 : 1; */
+    space=0;
 
     attrset (NORMALC);
     dlg_erase (h);
@@ -162,7 +182,9 @@ common_dialog_repaint (struct Dlg_head *h)
 
     if (h->title) {
 	attrset (HOT_NORMALC);
-	dlg_move (h, space, (h->cols - strlen (h->title)) / 2);
+	/* 
+raf gc	dlg_move (h, space, (h->cols - strlen (h->title)) / 2); */
+	dlg_move (h, space, 0);
 	addstr (h->title);
     }
 }
@@ -188,13 +210,21 @@ create_dlg (int y1, int x1, int lines, int cols, const int *color_set,
 {
     Dlg_head *new_d;
 
-    if (flags & DLG_CENTER) {
-	y1 = (LINES - lines) / 2;
-	x1 = (COLS - cols) / 2;
-    }
+    /* raf gc */
+    y1=0;
+    x1=0;
+    if (current_panel)
+      {
+	widget_erase (&current_panel->widget);
+      }
 
-    if ((flags & DLG_TRYUP) && (y1 > 3))
-	y1 -= 2;
+/*     if (flags & DLG_CENTER) { */
+/* 	y1 = (LINES - lines) / 2; */
+/* 	x1 = (COLS - cols) / 2; */
+/*     } */
+
+/*     if ((flags & DLG_TRYUP) && (y1 > 3)) */
+/* 	y1 -= 2; */
 
     new_d = g_new0 (Dlg_head, 1);
     new_d->color = color_set;
@@ -617,6 +647,20 @@ dlg_try_hotkey (Dlg_head *h, int d_key)
     return handled;
 }
 
+/* erase data line (3) */
+/* raf gc */
+static void dlg_erase_data_line( Dlg_head *h) 
+{
+  int i=0;
+  return;
+  widget_move(h, 3, 0);
+  attrset (NORMAL_COLOR);
+  for (i=0;i<h->cols-2;i++)
+    {
+      addch (' ');
+    }
+}
+
 static void
 dlg_key_event (Dlg_head *h, int d_key)
 {
@@ -644,8 +688,10 @@ dlg_key_event (Dlg_head *h, int d_key)
 	handled = dlg_try_hotkey (h, d_key);
 
     if (handled)
+      {
+	dlg_erase_data_line(h); /* raf gc */
 	(*h->callback) (h, DLG_HOTKEY_HANDLED, 0);
-
+      }
     /* not used - then try widget_callback */
     if (!handled)
 	handled = h->current->callback (h->current, WIDGET_KEY, d_key);

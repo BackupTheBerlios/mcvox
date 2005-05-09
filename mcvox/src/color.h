@@ -16,8 +16,16 @@ extern int attr_pairs [];
 /* Beware! When using Slang with color, not all the indexes are free.
    See myslang.h (A_*) */
 #define NORMAL_COLOR          IF_COLOR (1, 0)
+
+
+/*
+#define SELECTED_COLOR        IF_COLOR (2, 0)
+#define MARKED_COLOR          IF_COLOR (3, 0)
 #define SELECTED_COLOR        IF_COLOR (2, A_REVERSE)
+*/
+#define SELECTED_COLOR        IF_COLOR (2, 0)
 #define MARKED_COLOR          IF_COLOR (3, A_BOLD)
+
 
 #ifdef HAVE_SLANG
 #define MARKED_SELECTED_COLOR IF_COLOR (4, (SLtt_Use_Ansi_Colors ? A_BOLD_REVERSE : A_REVERSE | A_BOLD))
@@ -26,7 +34,12 @@ extern int attr_pairs [];
 #endif
 
 #define ERROR_COLOR           IF_COLOR (5, A_BOLD)
+/* RAF GC
+#define MENU_ENTRY_COLOR      IF_COLOR (6, 0)
 #define MENU_ENTRY_COLOR      IF_COLOR (6, A_REVERSE)
+*/
+#define MENU_ENTRY_COLOR      IF_COLOR (6, A_REVERSE)
+
 #define REVERSE_COLOR         IF_COLOR (7, A_REVERSE)
 
 extern int dialog_colors[4];
@@ -39,7 +52,22 @@ extern int alarm_colors[4];
 #define COLOR_HOT_FOCUS    IF_COLOR (11, 0)
 			   
 #define VIEW_UNDERLINED_COLOR IF_COLOR (12, A_UNDERLINE)
+
+/* RAF GC
 #define MENU_SELECTED_COLOR   IF_COLOR (13, A_BOLD)
+
+#define MENU_SELECTED_COLOR        IF_COLOR (2, A_REVERSE)
+
+For!idem, fond: inverse
+#define MENU_SELECTED_COLOR   IF_COLOR (13, A_REVERSE)
+#define MENU_SELECTED_COLOR   IF_COLOR (13, 0)
+#define MENU_SELECTED_COLOR   IF_COLOR (13, A_BOLD)
+#define MENU_SELECTED_COLOR   IF_COLOR (13, 0)
+
+*/
+#define MENU_SELECTED_COLOR   IF_COLOR (13, 0)
+
+
 #define MENU_HOT_COLOR        IF_COLOR (14, 0)
 #define MENU_HOTSEL_COLOR     IF_COLOR (15, 0)
 

@@ -38,12 +38,24 @@
 #include "background.h"		/* parent_call */
 
 
+/* RAF GC */
+#include "panel.h"
+
+
 Listbox *
 create_listbox_window (int cols, int lines, char *title, char *help)
 {
     int xpos, ypos, len;
     Listbox *listbox = g_new (Listbox, 1);
     char *cancel_string = _("&Cancel");
+
+    /* raf gc */
+    if (current_panel)
+      {
+	widget_erase (&current_panel->widget);
+      }
+    lines=1;
+
 
     /* Adjust sizes */
     lines = (lines > LINES - 6) ? LINES - 6 : lines;
@@ -64,11 +76,17 @@ create_listbox_window (int cols, int lines, char *title, char *help)
 	create_dlg (ypos, xpos, lines + 6, cols + 4, dialog_colors, NULL,
 		    help, title, DLG_CENTER | DLG_REVERSE);
 
+    /* RAF GC 
     listbox->list = listbox_new (2, 2, cols, lines, 0);
+    */
+    listbox->list = listbox_new (0, 0, cols, lines, 0);
 
     add_widget (listbox->dlg,
-		button_new (lines + 3, (cols / 2 + 2) - len / 2, B_CANCEL,
+		button_new (lines + 1, 0, B_CANCEL,
 			    NORMAL_BUTTON, cancel_string, 0));
+/*     add_widget (listbox->dlg, */
+/* 		button_new (lines + 3, (cols / 2 + 2) - len / 2, B_CANCEL, */
+/* 			    NORMAL_BUTTON, cancel_string, 0)); */
     add_widget (listbox->dlg, listbox->list);
 
     return listbox;
@@ -151,8 +169,13 @@ query_dialog (const char *header, const char *text, int flags, int count, ...)
 		xpos--;
 
 	    button =
-		button_new (lines - 3, cols, B_USER + i, NORMAL_BUTTON,
+		button_new (lines - 3, 0, B_USER + i, NORMAL_BUTTON,
 			    cur_name, 0);
+
+/* 		button_new (lines - 3, cols, B_USER + i, NORMAL_BUTTON, */
+/* 			    cur_name, 0); */
+
+
 	    add_widget (query_dlg, button);
 	    cols += xpos;
 	    if (i == sel_pos)
@@ -338,18 +361,28 @@ quick_dialog_skip (QuickDialog *qd, int nskip)
 	xpos = (qd->xlen * qw->relative_x) / qw->x_divisions;
 	ypos = (qd->ylen * qw->relative_y) / qw->y_divisions;
 
+	/* RAF GC */
+#define X_POS 0
+#define Y_POS 3
+
 	switch (qw->widget_type) {
 	case quick_checkbox:
-	    widget = check_new (ypos, xpos, *qw->result, I18N (qw->text));
-	    break;
+	  ypos=Y_POS;
+	  xpos=X_POS;
+	  widget = check_new (ypos, xpos, *qw->result, I18N (qw->text));
+	  break;
 
 	case quick_radio:
-	    r = radio_new (ypos, xpos, qw->hotkey_pos, qw->str_result, 1);
-	    r->pos = r->sel = qw->value;
-	    widget = r;
-	    break;
+	  ypos=Y_POS;
+	  xpos=X_POS;
+	  r = radio_new (ypos, xpos, qw->hotkey_pos, qw->str_result, 1);
+	  r->pos = r->sel = qw->value;
+	  widget = r;
+	  break;
 
 	case quick_button:
+	  ypos=Y_POS;
+	  xpos=X_POS;
 	    widget =
 		button_new (ypos, xpos, qw->value,
 			    (qw->value ==
@@ -359,6 +392,8 @@ quick_dialog_skip (QuickDialog *qd, int nskip)
 
 	    /* We use the hotkey pos as the field length */
 	case quick_input:
+	  ypos=Y_POS;
+	  xpos=X_POS;
 	    input =
 		input_new (ypos, xpos, INPUT_COLOR, qw->hotkey_pos,
 			   qw->text, qw->histname);
@@ -370,6 +405,8 @@ quick_dialog_skip (QuickDialog *qd, int nskip)
 	    break;
 
 	case quick_label:
+	  ypos=Y_POS;
+	  xpos=X_POS;
 	    widget = label_new (ypos, xpos, I18N (qw->text));
 	    break;
 
@@ -436,11 +473,11 @@ fg_input_dialog_help (char *header, char *text, char *help,
 {
     QuickDialog Quick_input;
     QuickWidget quick_widgets[] = {
-	{quick_button, 6, 10, 1, 0, N_("&Cancel"), 0, B_CANCEL, 0, 0,
+	{quick_button, 0, 10, 0, 0, N_("&Cancel"), 0, B_CANCEL, 0, 0,
 	 NULL},
-	{quick_button, 3, 10, 1, 0, N_("&OK"), 0, B_ENTER, 0, 0, NULL},
-	{quick_input, 4, 80, 0, 0, "", 58, 0, 0, 0, NULL},
-	{quick_label, 4, 80, 2, 0, "", 0, 0, 0, 0, NULL},
+	{quick_button, 0, 10, 0, 0, N_("&OK"), 0, B_ENTER, 0, 0, NULL},
+	{quick_input, 0, 80, 0, 0, "", 58, 0, 0, 0, NULL},
+	{quick_label, 0, 80, 1, 0, "", 0, 0, 0, 0, NULL},
 	{0}
     };
 
@@ -475,9 +512,12 @@ fg_input_dialog_help (char *header, char *text, char *help,
      * An attempt to place buttons symmetrically, based on actual i18n
      * length of the string. It looks nicer with i18n (IMO) - alex
      */
-    quick_widgets[0].relative_x = len / 2 + 4;
-    quick_widgets[1].relative_x =
-	len / 2 - (strlen (_(quick_widgets[1].text)) + 9);
+
+    quick_widgets[0].relative_x = 0;
+    quick_widgets[1].relative_x = 0;
+/*     quick_widgets[0].relative_x = len / 2 + 4; */
+/*     quick_widgets[1].relative_x = */
+/* 	len / 2 - (strlen (_(quick_widgets[1].text)) + 9); */
     quick_widgets[0].x_divisions = quick_widgets[1].x_divisions = len;
 #endif				/* ENABLE_NLS */
 
@@ -494,7 +534,8 @@ fg_input_dialog_help (char *header, char *text, char *help,
     Quick_input.ylen = lines + 6;
 
     for (i = 0; i < 3; i++)
-	quick_widgets[i].relative_y += 2 + lines;
+	quick_widgets[i].relative_y += lines+1;
+/*  RAF GC	quick_widgets[i].relative_y += 2 + lines; */
 
     quick_widgets[INPUT_INDEX].str_result = &my_str;
 

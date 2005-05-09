@@ -261,10 +261,15 @@ int attr_pairs [MAX_PAIRS];
 static void
 load_dialog_colors (void)
 {
-    dialog_colors [0] = COLOR_NORMAL;
-    dialog_colors [1] = COLOR_FOCUS;
-    dialog_colors [2] = COLOR_HOT_NORMAL;
-    dialog_colors [3] = COLOR_HOT_FOCUS;
+/* raf gc
+     dialog_colors [0] = COLOR_NORMAL; */
+    dialog_colors [0] = NORMAL_COLOR;
+    dialog_colors [1] = NORMAL_COLOR;
+    dialog_colors [2] = NORMAL_COLOR;
+    dialog_colors [3] = NORMAL_COLOR;
+/*     dialog_colors [1] = COLOR_FOCUS; */
+/*     dialog_colors [2] = COLOR_HOT_NORMAL; */
+/*     dialog_colors [3] = COLOR_HOT_FOCUS; */
 
     alarm_colors [0] = ERROR_COLOR;
     alarm_colors [1] = REVERSE_COLOR;

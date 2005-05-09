@@ -51,18 +51,26 @@
 
 #define BUTTONS 	2
 
+/* RAF GC */
+#define X_POS 0
+#define Y_POS 3
+
 static struct {
     int ret_cmd, flags, y, x;
     char *text;
 } learn_but[BUTTONS] = {
-    { B_CANCEL, NORMAL_BUTTON, 0, 39, N_("&Cancel") },
-    { B_ENTER, DEFPUSH_BUTTON, 0, 25, N_("&Save") }
+    { B_CANCEL, NORMAL_BUTTON, Y_POS, X_POS, N_("&Cancel") },
+    { B_ENTER, DEFPUSH_BUTTON, Y_POS, X_POS, N_("&Save") }
 };
+
+/*     { B_CANCEL, NORMAL_BUTTON, 0, 39, N_("&Cancel") }, */
+/*     { B_ENTER, DEFPUSH_BUTTON, 0, 25, N_("&Save") } */
 
 static Dlg_head *learn_dlg;
 typedef struct {
-    Widget *button;
-    Widget *label;
+    WButton *button;
+/*     Widget *button; */
+/*     Widget *label; */
     int ok;
     char *sequence;
 } learnkey;
@@ -130,7 +138,8 @@ static int learn_move (int right)
     
     totalcols = (learn_total - 1) / ROWS + 1;
     for (i = 0; i < learn_total; i++)
-        if (learnkeys [i].button == learn_dlg->current) {
+        if (&(learnkeys [i].button->widget) == learn_dlg->current) {
+/*         if (learnkeys [i].button == learn_dlg->current) { */
             if (right) {
                 if (i < learn_total - ROWS)
                     i += ROWS;
@@ -159,9 +168,10 @@ learn_check_key (int c)
 	if (key_name_conv_tab[i].code != c || learnkeys[i].ok)
 	    continue;
 
+	learnkeys[i].button->flags = PUSH_NARROW_BUTTON; /* RAF GC */
 	dlg_select_widget (learn_dlg, learnkeys[i].button);
 	/* TRANSLATORS: This label appears near learned keys.  Keep it short.  */
-	label_set_text ((WLabel *) learnkeys[i].label, _("OK"));
+/* 	label_set_text ((WLabel *) learnkeys[i].label, _("OK")); */
 	learnkeys[i].ok = 1;
 	learnok++;
 	if (learnok >= learn_total) {
@@ -251,7 +261,8 @@ init_learn (void)
 
     for (i = 0; i < BUTTONS; i++)
 	add_widget (learn_dlg,
-		    button_new (BY + learn_but[i].y, learn_but[i].x,
+		    button_new (Y_POS, X_POS,
+/* 		    button_new (BY + learn_dlgrn_but[i].y, learn_but[i].x, */
 				learn_but[i].ret_cmd, learn_but[i].flags,
 				_(learn_but[i].text), 0));
 
@@ -269,11 +280,20 @@ init_learn (void)
 	learnkeys[i].ok = 0;
 	learnkeys[i].sequence = NULL;
 	g_snprintf (buffer, sizeof (buffer), "%-16s", _(key->longname));
-	add_widget (learn_dlg, learnkeys[i].button = (Widget *)
-		    button_new (y, x, B_USER + i, NARROW_BUTTON, buffer,
+	add_widget (learn_dlg, learnkeys[i].button = 
+		    button_new (Y_POS, X_POS, B_USER + i, NARROW_BUTTON, buffer,
 				learn_button));
-	add_widget (learn_dlg, learnkeys[i].label = (Widget *)
-		    label_new (y, x + 19, ""));
+
+/* 	add_widget (learn_dlg, learnkeys[i].button = (Widget *) */
+/*  		    button_new (y, x, B_USER + i, NARROW_BUTTON, buffer,  */
+/* 				learn_button)); */
+
+
+
+
+/* 	add_widget (learn_dlg, learnkeys[i].label = (Widget *) */
+/* 		    label_new (Y_POS, X_POS, "")); */
+/* 		    label_new (y, x + 19, "")); */
 	if (i % 13)
 	    y--;
 	else {
