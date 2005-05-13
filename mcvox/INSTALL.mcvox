@@ -1,0 +1,4 @@
+./configure --with-screen=ncurses
+make
+then:
+src/mc

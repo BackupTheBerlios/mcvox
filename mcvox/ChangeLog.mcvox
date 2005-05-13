@@ -1,0 +1,16 @@
+mcvox Changelog
+
+* 0.1 
+** Initial release based on Midnight Commander 4.6.1-pre1.
+** 13 May 2005, Gilles Casse <gcasse@oralux.org>
+
+This release aims to be better rendered by a screen reader.
+mcvox 0.1 manages three main areas: the menubar, the main panel, and
+the message line.
+
+Most elements such as the menu items, input elements, labels are
+displayed one line at a time; the cursor is upon this line. 
+
+Any input element is announced using a prefix: 'Button', 'Input',
+'Checkbox', 'Radio'.
+
