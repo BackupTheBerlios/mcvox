@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mc 4.6.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-24 12:16-0500\n"
+"POT-Creation-Date: 2005-05-13 11:39+0200\n"
 "PO-Revision-Date: 2002-08-25 16:15GMT+2\n"
 "Last-Translator: Vital Khilko <dojlid@mova.org>\n"
 "Language-Team: belarusian <i18n@mova.org>\n"
@@ -13,8 +13,8 @@ msgstr ""
 
 #: edit/edit.c:146 edit/edit.c:277 edit/edit.c:285 edit/edit.c:333
 #: edit/edit.c:348 edit/edit.c:359 edit/edit.c:375 edit/edit.c:2665
-#: edit/editcmd.c:282 edit/editcmd.c:290 edit/editcmd.c:1719 src/wtools.c:120
-#: src/wtools.c:275
+#: edit/editcmd.c:282 edit/editcmd.c:290 edit/editcmd.c:1719 src/wtools.c:138
+#: src/wtools.c:298
 msgid "Error"
 msgstr "Памылка"
 
@@ -52,10 +52,10 @@ msgstr "&Зачыніць"
 
 #: edit/edit.h:264 edit/editcmd.c:382 edit/editcmd.c:1228 edit/editcmd.c:1310
 #: edit/editcmd.c:2569 edit/editmenu.c:37 edit/editoptions.c:71
-#: src/boxes.c:139 src/boxes.c:276 src/boxes.c:372 src/boxes.c:464
-#: src/boxes.c:590 src/boxes.c:713 src/boxes.c:835 src/boxes.c:945
-#: src/boxes.c:1013 src/filegui.c:763 src/find.c:184 src/layout.c:348
-#: src/option.c:113 src/subshell.c:323 src/view.c:2107 src/wtools.c:441
+#: src/boxes.c:139 src/boxes.c:291 src/boxes.c:397 src/boxes.c:489
+#: src/boxes.c:615 src/boxes.c:738 src/boxes.c:860 src/boxes.c:970
+#: src/boxes.c:1046 src/filegui.c:763 src/find.c:194 src/layout.c:348
+#: src/option.c:113 src/subshell.c:323 src/view.c:2107 src/wtools.c:478
 msgid "&OK"
 msgstr "&Так"
 
@@ -85,13 +85,13 @@ msgstr "Рэзэрвовыя копіі -->"
 
 #: edit/editcmd.c:380 edit/editcmd.c:1169 edit/editcmd.c:1226
 #: edit/editcmd.c:1308 edit/editcmd.c:2567 edit/editoptions.c:68
-#: src/achown.c:68 src/boxes.c:140 src/boxes.c:277 src/boxes.c:370
-#: src/boxes.c:462 src/boxes.c:588 src/boxes.c:711 src/boxes.c:833
-#: src/boxes.c:1013 src/chmod.c:96 src/chown.c:72 src/cmd.c:856
-#: src/filegui.c:745 src/find.c:184 src/hotlist.c:121 src/hotlist.c:523
-#: src/hotlist.c:830 src/hotlist.c:926 src/layout.c:349 src/learn.c:58
+#: src/achown.c:68 src/boxes.c:140 src/boxes.c:292 src/boxes.c:395
+#: src/boxes.c:487 src/boxes.c:613 src/boxes.c:736 src/boxes.c:858
+#: src/boxes.c:1046 src/chmod.c:96 src/chown.c:72 src/cmd.c:856
+#: src/filegui.c:745 src/find.c:194 src/hotlist.c:128 src/hotlist.c:530
+#: src/hotlist.c:843 src/hotlist.c:939 src/layout.c:349 src/learn.c:62
 #: src/option.c:114 src/panelize.c:66 src/view.c:441 src/view.c:2104
-#: src/wtools.c:46 src/wtools.c:439
+#: src/wtools.c:50 src/wtools.c:476
 msgid "&Cancel"
 msgstr "&Адмена"
 
@@ -109,7 +109,7 @@ msgstr " Захаваць як "
 
 #: edit/editcmd.c:482 edit/editcmd.c:804 edit/editcmd.c:841
 #: edit/editcmd.c:1000 edit/editcmd.c:1113 src/file.c:599 src/help.c:318
-#: src/main.c:424 src/screen.c:1415 src/selcodepage.c:105 src/subshell.c:319
+#: src/main.c:424 src/screen.c:1457 src/selcodepage.c:105 src/subshell.c:319
 #: src/subshell.c:653 src/utilunix.c:401 src/utilunix.c:405 src/utilunix.c:427
 #: vfs/mcfs.c:138
 msgid "Warning"
@@ -245,7 +245,7 @@ msgstr "&Сталы выраз"
 msgid "&Whole words only"
 msgstr "Толькі поўныя &словы"
 
-#: edit/editcmd.c:1242 edit/editcmd.c:1320 src/find.c:176
+#: edit/editcmd.c:1242 edit/editcmd.c:1320 src/find.c:186
 msgid "case &Sensitive"
 msgstr "Улік рэ&гістру"
 
@@ -296,7 +296,7 @@ msgstr "Радок пошуку не адшуканы "
 msgid " %d finds made, %d bookmarks added "
 msgstr " %d адшукана, %d закладак дадана "
 
-#: edit/editcmd.c:2088 edit/editwidget.c:296 src/help.c:826 src/main.c:1208
+#: edit/editcmd.c:2088 edit/editwidget.c:296 src/help.c:826 src/main.c:1218
 #: src/view.c:456 src/view.c:2215 src/view.c:2246
 msgid "Quit"
 msgstr "Выхад"
@@ -310,14 +310,14 @@ msgid "Cancel quit"
 msgstr "Перарваць выхад"
 
 #: edit/editcmd.c:2089 src/cmd.c:195 src/file.c:1837 src/file.c:2209
-#: src/filegui.c:526 src/hotlist.c:1049 src/main.c:471 src/screen.c:1952
-#: src/subshell.c:654 src/tree.c:708 src/view.c:458 vfs/mcfs.c:143
+#: src/filegui.c:526 src/hotlist.c:1062 src/main.c:471 src/screen.c:1996
+#: src/subshell.c:654 src/tree.c:715 src/view.c:458 vfs/mcfs.c:143
 msgid "&Yes"
 msgstr "&Так"
 
 #: edit/editcmd.c:2089 src/cmd.c:195 src/file.c:1837 src/file.c:2209
-#: src/filegui.c:525 src/hotlist.c:1049 src/main.c:471 src/screen.c:1953
-#: src/subshell.c:654 src/tree.c:708 src/view.c:458 vfs/mcfs.c:143
+#: src/filegui.c:525 src/hotlist.c:1062 src/main.c:471 src/screen.c:1997
+#: src/subshell.c:654 src/tree.c:715 src/view.c:458 vfs/mcfs.c:143
 msgid "&No"
 msgstr "&Не"
 
@@ -666,7 +666,7 @@ msgstr "&Асноўнае..."
 msgid "&Save mode..."
 msgstr "Рэжым &захаваньня..."
 
-#: edit/editmenu.c:397 src/main.c:909
+#: edit/editmenu.c:397 src/main.c:914
 msgid "learn &Keys..."
 msgstr "В&ызначэньне клявішаў..."
 
@@ -759,8 +759,8 @@ msgstr "Эмуляцыя раскладкі клавішаў"
 msgid " Editor options "
 msgstr " Наладка рэдактару "
 
-#: edit/editwidget.c:287 src/help.c:793 src/help.c:814 src/main.c:1205
-#: src/screen.c:2184 src/tree.c:970 src/view.c:2213
+#: edit/editwidget.c:287 src/help.c:793 src/help.c:814 src/main.c:1215
+#: src/screen.c:2232 src/tree.c:977 src/view.c:2213
 msgid "Help"
 msgstr "Дапамога"
 
@@ -772,7 +772,7 @@ msgstr "Блёк"
 msgid "Replac"
 msgstr "Замена"
 
-#: edit/editwidget.c:291 src/file.c:803 src/screen.c:2188 src/tree.c:975
+#: edit/editwidget.c:291 src/file.c:803 src/screen.c:2236 src/tree.c:982
 msgid "Copy"
 msgstr "Копія"
 
@@ -780,11 +780,11 @@ msgstr "Копія"
 msgid "Move"
 msgstr "Перамясьціць"
 
-#: edit/editwidget.c:294 src/screen.c:2191
+#: edit/editwidget.c:294 src/screen.c:2239
 msgid "Delete"
 msgstr "Выдаліць"
 
-#: edit/editwidget.c:295 src/main.c:1207
+#: edit/editwidget.c:295 src/main.c:1217
 msgid "PullDn"
 msgstr "МэнюMC"
 
@@ -919,160 +919,160 @@ msgstr "Фармат сьпісу файлаў"
 msgid "user &Mini status"
 msgstr "Радок &міні-стану ў фармаце карыстальніку"
 
-#: src/boxes.c:278
+#: src/boxes.c:293
 msgid "&Reverse"
 msgstr "&Адваротны"
 
-#: src/boxes.c:279
+#: src/boxes.c:294
 msgid "case sensi&tive"
 msgstr "Улік рэ&гістру"
 
-#: src/boxes.c:280
+#: src/boxes.c:295
 msgid "Sort order"
 msgstr "Парадак сартаваньня"
 
-#: src/boxes.c:375
+#: src/boxes.c:400
 msgid " confirm &Exit "
 msgstr " падцьверджаньне &выхаду"
 
-#: src/boxes.c:377
+#: src/boxes.c:402
 msgid " confirm e&Xecute "
 msgstr " падцьверджаньне &выкананьня"
 
-#: src/boxes.c:379
+#: src/boxes.c:404
 msgid " confirm o&Verwrite "
 msgstr " падцьверджаньне &Перазапісу"
 
-#: src/boxes.c:381
+#: src/boxes.c:406
 msgid " confirm &Delete "
 msgstr " падцьверджаньне &Выдаленьня"
 
-#: src/boxes.c:387 src/cmd.c:194
+#: src/boxes.c:412 src/cmd.c:194
 msgid " Confirmation "
 msgstr " Запыт падцьверджаньня "
 
-#: src/boxes.c:459
+#: src/boxes.c:484
 msgid "Full 8 bits output"
 msgstr "Поўны 8-бітны вывад"
 
-#: src/boxes.c:459
+#: src/boxes.c:484
 msgid "ISO 8859-1"
 msgstr "ISO 8859-1"
 
-#: src/boxes.c:459
+#: src/boxes.c:484
 msgid "7 bits"
 msgstr "7 бітаў"
 
-#: src/boxes.c:466 src/boxes.c:594
+#: src/boxes.c:491 src/boxes.c:619
 msgid "F&ull 8 bits input"
 msgstr "По&ўны 8-бітны увод"
 
-#: src/boxes.c:474 src/boxes.c:575
+#: src/boxes.c:499 src/boxes.c:600
 msgid " Display bits "
 msgstr " Адлюстраваньне сымбаляў "
 
-#: src/boxes.c:556 src/boxes.c:581 src/selcodepage.c:70
+#: src/boxes.c:581 src/boxes.c:606 src/selcodepage.c:70
 msgid "Other 8 bit"
 msgstr "Іншыя 8 bit"
 
-#: src/boxes.c:578
+#: src/boxes.c:603
 msgid "Input / display codepage:"
 msgstr "Увесьці / адлюстраваць кодавую старонку:"
 
-#: src/boxes.c:597
+#: src/boxes.c:622
 msgid "&Select"
 msgstr "&Выбраць"
 
-#: src/boxes.c:716
+#: src/boxes.c:741
 #, fuzzy
 msgid "Use &passive mode"
 msgstr "Рэжым &захаваньня..."
 
-#: src/boxes.c:718
+#: src/boxes.c:743
 msgid "&Use ~/.netrc"
 msgstr "&Выкарыстоўваць ~/.netrc"
 
-#: src/boxes.c:722
+#: src/boxes.c:747
 msgid "&Always use ftp proxy"
 msgstr "&Заўжды выкарыстоўваць FTP проксі"
 
-#: src/boxes.c:724
+#: src/boxes.c:749
 msgid "sec"
 msgstr "sec"
 
-#: src/boxes.c:728
+#: src/boxes.c:753
 msgid "ftpfs directory cache timeout:"
 msgstr "Тайм-аўт кэшу каталёгу FTP:"
 
-#: src/boxes.c:732
+#: src/boxes.c:757
 msgid "ftp anonymous password:"
 msgstr "Пароль ананімнага FTP:"
 
-#: src/boxes.c:739
+#: src/boxes.c:764
 msgid "Timeout for freeing VFSs:"
 msgstr "Тайм-аўт вызваленьня ВФС:"
 
-#: src/boxes.c:745
+#: src/boxes.c:770
 msgid " Virtual File System Setting "
 msgstr " Наладка Віртуальнае Файлавае Сыстэмы "
 
-#: src/boxes.c:799
+#: src/boxes.c:824
 msgid "Quick cd"
 msgstr " Зьмена працоўнага каталёгу "
 
-#: src/boxes.c:802
+#: src/boxes.c:827
 msgid "cd"
 msgstr "Перайсьці ў"
 
-#: src/boxes.c:837
+#: src/boxes.c:862
 msgid "Symbolic link filename:"
 msgstr "Імя сымбалічнае спасылкі:"
 
-#: src/boxes.c:841
+#: src/boxes.c:866
 msgid "Existing filename (filename symlink will point to):"
 msgstr "Імя йснуючага файлу (для спасылкі):"
 
-#: src/boxes.c:848
+#: src/boxes.c:873
 msgid "Symbolic link"
 msgstr " Сымбалічная спасылка "
 
-#: src/boxes.c:881
+#: src/boxes.c:906
 msgid "Running "
 msgstr "Выконваецца "
 
-#: src/boxes.c:882 src/find.c:721
+#: src/boxes.c:907 src/find.c:755
 msgid "Stopped"
 msgstr "Спынены"
 
-#: src/boxes.c:942
+#: src/boxes.c:967
 msgid "&Stop"
 msgstr "&Спыніць"
 
-#: src/boxes.c:943
+#: src/boxes.c:968
 msgid "&Resume"
 msgstr "&Аднавіць"
 
-#: src/boxes.c:944
+#: src/boxes.c:969
 msgid "&Kill"
 msgstr "&Забіць"
 
-#: src/boxes.c:981
+#: src/boxes.c:1011
 msgid "Background Jobs"
 msgstr " Заданьні ў тле "
 
-#: src/boxes.c:1012
+#: src/boxes.c:1045
 msgid "Domain:"
 msgstr "Дамэн:"
 
-#: src/boxes.c:1012
+#: src/boxes.c:1045
 msgid "Username:"
 msgstr "Імя карыстальніку:"
 
-#: src/boxes.c:1012
+#: src/boxes.c:1045
 msgid "Password:"
 msgstr "Пароль:"
 
-#: src/boxes.c:1063
+#: src/boxes.c:1096
 #, c-format
 msgid "Password for \\\\%s\\%s"
 msgstr "Пароль для \\\\%s\\%s"
@@ -1231,7 +1231,7 @@ msgstr "<Невядомы>"
 msgid "Files tagged, want to cd?"
 msgstr "Файлы пазначаныя, зьмяніць каталёг?"
 
-#: src/cmd.c:200 src/cmd.c:670 src/cmd.c:727 src/main.c:681 src/screen.c:1933
+#: src/cmd.c:200 src/cmd.c:670 src/cmd.c:727 src/main.c:681 src/screen.c:1977
 msgid "Cannot change directory"
 msgstr "Немагчыма зьмяніць каталёг"
 
@@ -1271,7 +1271,7 @@ msgstr " Задайце выраз для адбору ймёнаў файлаў"
 msgid " Select "
 msgstr " Выбраць "
 
-#: src/cmd.c:510 src/cmd.c:555 src/find.c:147
+#: src/cmd.c:510 src/cmd.c:555 src/find.c:157
 msgid "  Malformed regular expression  "
 msgstr "  Сталы выраз сфармаваны памылкова"
 
@@ -1414,11 +1414,11 @@ msgstr " Немагчыма перайсьці ў %s "
 msgid " Enter machine name (F1 for details): "
 msgstr " Увядзіце ймя машыны (дэталі па F1): "
 
-#: src/cmd.c:1169 src/widget.c:1051
+#: src/cmd.c:1169 src/widget.c:1219
 msgid " Link to a remote machine "
 msgstr " Злучэньне з аддаленай машынай "
 
-#: src/cmd.c:1176 src/widget.c:1052
+#: src/cmd.c:1176 src/widget.c:1220
 msgid " FTP to machine "
 msgstr " FTP-злучэньне з адлеглай машынай "
 
@@ -1426,7 +1426,7 @@ msgstr " FTP-злучэньне з адлеглай машынай "
 msgid " Shell link to machine "
 msgstr "Лучыва абалонкі да машыны"
 
-#: src/cmd.c:1189 src/widget.c:1053
+#: src/cmd.c:1189 src/widget.c:1221
 msgid " SMB link to machine "
 msgstr " SMB сувязь з машынай "
 
@@ -1450,7 +1450,7 @@ msgstr " Парамэтры захаваныя ў ~/"
 msgid " Setup "
 msgstr " Наладка "
 
-#: src/command.c:177 src/screen.c:2174 src/tree.c:823
+#: src/command.c:177 src/screen.c:2222 src/tree.c:830
 #, c-format
 msgid ""
 " Cannot chdir to \"%s\" \n"
@@ -1529,10 +1529,12 @@ msgid "Cannot read directory contents"
 msgstr "Немагчыма зьмяніць каталёг"
 
 #: src/execute.c:133 src/utilunix.c:380
+#, c-format
 msgid "Press any key to continue..."
 msgstr "Для працягу націсьніце любую клявішу..."
 
 #: src/execute.c:235
+#, c-format
 msgid "Type `exit' to return to the Midnight Commander"
 msgstr "Увядзіце `exit' для вяртаньня ў Midnight Commander"
 
@@ -1596,15 +1598,15 @@ msgstr ""
 msgid "mc.ext will be used for this moment."
 msgstr "mc.ext будзе скарыстаны ў бягучы мамэнт."
 
-#: src/file.c:122 src/tree.c:593
+#: src/file.c:122 src/tree.c:600
 msgid " Copy "
 msgstr " Капіяваньне "
 
-#: src/file.c:123 src/tree.c:634
+#: src/file.c:123 src/tree.c:641
 msgid " Move "
 msgstr " Перамяшчэньне "
 
-#: src/file.c:124 src/tree.c:708
+#: src/file.c:124 src/tree.c:715
 msgid " Delete "
 msgstr " Выдаленьне "
 
@@ -1814,7 +1816,7 @@ msgstr ""
 " Немагчыма скапіяваць цыклічную сымбалічную спасылку \n"
 " `%s' "
 
-#: src/file.c:945 src/file.c:1985 src/tree.c:648
+#: src/file.c:945 src/file.c:1985 src/tree.c:655
 #, c-format
 msgid ""
 " Destination \"%s\" must be a directory \n"
@@ -2137,73 +2139,73 @@ msgstr ""
 "Памылковы узор `%s' \n"
 " %s "
 
-#: src/find.c:99
+#: src/find.c:101
 msgid "&Suspend"
 msgstr "Пры&пыніць"
 
-#: src/find.c:100
+#: src/find.c:102
 msgid "Con&tinue"
 msgstr "&Працягваць"
 
-#: src/find.c:101
+#: src/find.c:103
 msgid "&Chdir"
 msgstr "Пера&ход"
 
-#: src/find.c:102
+#: src/find.c:104
 msgid "&Again"
 msgstr "Паў&тор"
 
-#: src/find.c:103 src/subshell.c:323
+#: src/find.c:105 src/subshell.c:323
 msgid "&Quit"
 msgstr "&Выхад"
 
-#: src/find.c:104 src/panelize.c:69
+#: src/find.c:106 src/panelize.c:69
 msgid "Pane&lize"
 msgstr "Па&нэлізацыя"
 
-#: src/find.c:105
+#: src/find.c:107
 msgid "&View - F3"
 msgstr "Пра&гляд - F3"
 
-#: src/find.c:106
+#: src/find.c:108
 msgid "&Edit - F4"
 msgstr "&Праўка - F4"
 
-#: src/find.c:183
+#: src/find.c:193
 msgid "Start at:"
 msgstr "  Стартаваць ад:"
 
-#: src/find.c:183
+#: src/find.c:193
 msgid "Filename:"
 msgstr "  Шаблён імя"
 
-#: src/find.c:183
+#: src/find.c:193
 msgid "Content: "
 msgstr "Утрымлівае тэкст"
 
-#: src/find.c:184 src/main.c:795 src/main.c:819
+#: src/find.c:194
 msgid "&Tree"
 msgstr "Д&рэва"
 
-#: src/find.c:232 src/find.c:792
+#: src/find.c:242 src/find.c:829
 msgid "Find File"
 msgstr " Пошук файлу "
 
-#: src/find.c:464
+#: src/find.c:498
 #, c-format
 msgid "Grepping in %s"
 msgstr "Шукаем у %s"
 
-#: src/find.c:538
+#: src/find.c:572
 msgid "Finished"
 msgstr "Скончана"
 
-#: src/find.c:565 src/view.c:1594
+#: src/find.c:599 src/view.c:1594
 #, c-format
 msgid "Searching %s"
 msgstr "Шукаем %s"
 
-#: src/find.c:721 src/find.c:818
+#: src/find.c:755 src/find.c:870
 msgid "Searching"
 msgstr "Скануем"
 
@@ -2228,110 +2230,110 @@ msgstr "Зьмест"
 msgid "Prev"
 msgstr "Назад"
 
-#: src/hotlist.c:115
+#: src/hotlist.c:122
 msgid "&Move"
 msgstr "Пера&мясьціць"
 
-#: src/hotlist.c:116 src/panelize.c:68
+#: src/hotlist.c:123 src/panelize.c:68
 msgid "&Remove"
 msgstr "&Выдаліць"
 
-#: src/hotlist.c:117 src/hotlist.c:834 src/hotlist.c:930
+#: src/hotlist.c:124 src/hotlist.c:847 src/hotlist.c:943
 msgid "&Append"
 msgstr "У &Канец"
 
-#: src/hotlist.c:118 src/hotlist.c:832 src/hotlist.c:928
+#: src/hotlist.c:125 src/hotlist.c:845 src/hotlist.c:941
 msgid "&Insert"
 msgstr "У &Пачатак"
 
-#: src/hotlist.c:119
+#: src/hotlist.c:126
 msgid "New &Entry"
 msgstr "Новы &Запіс"
 
-#: src/hotlist.c:120
+#: src/hotlist.c:127
 msgid "New &Group"
 msgstr "Новая &Група"
 
-#: src/hotlist.c:122
+#: src/hotlist.c:129
 msgid "&Up"
 msgstr "&Угору"
 
-#: src/hotlist.c:123
+#: src/hotlist.c:130
 msgid "&Add current"
 msgstr "Дадаць &Бягучы"
 
-#: src/hotlist.c:125
+#: src/hotlist.c:132
 #, fuzzy
 msgid "&Refresh"
 msgstr "&Адваротны"
 
-#: src/hotlist.c:126
+#: src/hotlist.c:133
 msgid "Fr&ee VFSs now"
 msgstr "В&ызваліць ВФС зараз"
 
-#: src/hotlist.c:128
+#: src/hotlist.c:135
 msgid "Change &To"
 msgstr "Зьмяніць &У"
 
-#: src/hotlist.c:177
+#: src/hotlist.c:184
 msgid "Subgroup - press ENTER to see list"
 msgstr "Падгрупа - націсьніце ENTER каб прагледзіць"
 
-#: src/hotlist.c:609
+#: src/hotlist.c:616
 msgid "Active VFS directories"
 msgstr "Актыўныя каталёгі ВФС"
 
-#: src/hotlist.c:612
+#: src/hotlist.c:619
 msgid "Directory hotlist"
 msgstr " Сьпіс каталёгаў "
 
-#: src/hotlist.c:640
+#: src/hotlist.c:651
 msgid " Directory path "
 msgstr " Шлях да каталёгу "
 
-#: src/hotlist.c:643 src/hotlist.c:692
+#: src/hotlist.c:654 src/hotlist.c:705
 msgid " Directory label "
 msgstr " Метка каталёгу "
 
-#: src/hotlist.c:668
+#: src/hotlist.c:679
 #, c-format
 msgid "Moving %s"
 msgstr "Пераносім %s"
 
-#: src/hotlist.c:907
+#: src/hotlist.c:920
 msgid "New hotlist entry"
 msgstr " Даданьне запісу ў сьпіс "
 
-#: src/hotlist.c:907
+#: src/hotlist.c:920
 msgid "Directory label"
 msgstr " Метка каталёгу"
 
-#: src/hotlist.c:907
+#: src/hotlist.c:920
 msgid "Directory path"
 msgstr " Шлях да каталёгу"
 
-#: src/hotlist.c:987
+#: src/hotlist.c:1000
 msgid " New hotlist group "
 msgstr " Даданьне групы ў сьпіс "
 
-#: src/hotlist.c:987
+#: src/hotlist.c:1000
 msgid "Name of new group"
 msgstr " Імя новай групы"
 
-#: src/hotlist.c:1002
+#: src/hotlist.c:1015
 #, c-format
 msgid "Label for \"%s\":"
 msgstr " Метка для \"%s\": "
 
-#: src/hotlist.c:1006
+#: src/hotlist.c:1019
 msgid " Add to hotlist "
 msgstr " Дадаць у сьпіс "
 
-#: src/hotlist.c:1043
+#: src/hotlist.c:1056
 msgid " Remove: "
 msgstr " Выдаліць: "
 
-#: src/hotlist.c:1047
+#: src/hotlist.c:1060
 msgid ""
 "\n"
 " Group not empty.\n"
@@ -2341,19 +2343,19 @@ msgstr ""
 " Група ня пустая.\n"
 " Выдаліць яе?"
 
-#: src/hotlist.c:1391
+#: src/hotlist.c:1404
 msgid " Top level group "
 msgstr "Група верхняга узроўню"
 
-#: src/hotlist.c:1414
+#: src/hotlist.c:1427
 msgid "MC was unable to write ~/"
 msgstr "MC ня можа пісаць у файл ~/,"
 
-#: src/hotlist.c:1415
+#: src/hotlist.c:1428
 msgid " file, your old hotlist entries were not deleted"
 msgstr "Ваш стары сьпіс каталёгаў ня выдалены"
 
-#: src/hotlist.c:1417
+#: src/hotlist.c:1430
 msgid " Hotlist Load "
 msgstr " Загрузка сьпісу "
 
@@ -2503,7 +2505,7 @@ msgstr "Правы д&оступу"
 msgid "&File types"
 msgstr "Тыпы &файлаў"
 
-#: src/layout.c:350 src/learn.c:59 src/learn.c:174 src/option.c:115
+#: src/layout.c:350 src/learn.c:63 src/learn.c:184 src/option.c:115
 msgid "&Save"
 msgstr "&Захаваць"
 
@@ -2527,15 +2529,15 @@ msgstr "радкі вываду"
 msgid "Layout"
 msgstr "Вонкавы выгляд"
 
-#: src/learn.c:73
+#: src/learn.c:81
 msgid "Learn keys"
 msgstr "Вывучэньне клявішаў"
 
-#: src/learn.c:79
+#: src/learn.c:87
 msgid " Teach me a key "
 msgstr " Навучыце мяне клявішы "
 
-#: src/learn.c:80
+#: src/learn.c:88
 #, c-format
 msgid ""
 "Please press the %s\n"
@@ -2556,21 +2558,16 @@ msgstr ""
 "Калі вы жадаеце перарваць навучаньне, націсьніце\n"
 "клявішу Esc і крыху пачакайце."
 
-#: src/learn.c:114
+#: src/learn.c:122
 msgid " Cannot accept this key "
 msgstr " Немагчыма прыняць гэтую клявішу "
 
-#: src/learn.c:115
+#: src/learn.c:123
 #, c-format
 msgid " You have entered \"%s\""
 msgstr " Вы ўвялі \"%s\""
 
-#. TRANSLATORS: This label appears near learned keys.  Keep it short.
-#: src/learn.c:164
-msgid "OK"
-msgstr "Так"
-
-#: src/learn.c:172
+#: src/learn.c:182
 msgid ""
 "It seems that all your keys already\n"
 "work fine. That's great."
@@ -2578,11 +2575,11 @@ msgstr ""
 "Здаецца, што ўсе Вашыя клявішы зараз\n"
 "працуюць нармальна. Выдатна."
 
-#: src/learn.c:174
+#: src/learn.c:184
 msgid "&Discard"
 msgstr "&Адмяніцьь"
 
-#: src/learn.c:179
+#: src/learn.c:189
 msgid ""
 "Great! You have a complete terminal database!\n"
 "All your keys work well."
@@ -2590,15 +2587,15 @@ msgstr ""
 "Выдатна! У вас ёсьць поўная база апісаньняў тэрміналаў!\n"
 "Усе вашыя клявішы працуюць добра."
 
-#: src/learn.c:287
+#: src/learn.c:307
 msgid "Press all the keys mentioned here. After you have done it, check"
 msgstr "Націсьніце ўсе пералічаныя клявішы. Пасьля націсканьня адшукайце,"
 
-#: src/learn.c:291
+#: src/learn.c:311
 msgid "which keys are not marked with OK.  Press space on the missing"
 msgstr "якія клявішы ня маюць адзнакі Так. Для навучаньня клявішы абярыце"
 
-#: src/learn.c:295
+#: src/learn.c:315
 msgid "key, or click with the mouse to define it. Move around with Tab."
 msgstr "яе пры дапамозе Tab ці мышшу й націсьніце прагал."
 
@@ -2614,7 +2611,7 @@ msgstr ""
 " выдалілі працоўны каталёг ці далі сабе дадатковыя \n"
 " прывілеі доступу пры дапамозе каманды \"su\"? "
 
-#: src/main.c:469 src/screen.c:1951
+#: src/main.c:469 src/screen.c:1995
 msgid " The Midnight Commander "
 msgstr " Midnight Commander "
 
@@ -2622,251 +2619,211 @@ msgstr " Midnight Commander "
 msgid " Do you really want to quit the Midnight Commander? "
 msgstr " Вы сапраўды жадаеце выйсьці з Midnight Commander? "
 
-#: src/main.c:792 src/main.c:816
-msgid "&Listing mode..."
-msgstr "Фар&мат сьпісу..."
-
-#: src/main.c:793 src/main.c:817
-msgid "&Quick view     C-x q"
-msgstr "&Хуткі прагляд       C-x q"
-
-#: src/main.c:794 src/main.c:818
-msgid "&Info           C-x i"
-msgstr "&Інфармацыя          C-x i"
-
-#: src/main.c:797 src/main.c:821
-msgid "&Sort order..."
-msgstr "Парадак &сартаваньня"
-
-#: src/main.c:799 src/main.c:823
-msgid "&Filter..."
-msgstr "&Фільтар"
-
-#: src/main.c:803 src/main.c:827
-msgid "&Network link..."
-msgstr "Се&ткавае злучэньне..."
-
-#: src/main.c:805 src/main.c:829
-msgid "FT&P link..."
-msgstr "&FTP-злучэньне"
-
-#: src/main.c:806 src/main.c:830
-msgid "S&hell link..."
-msgstr "&Лучыва абалонкі"
-
-#: src/main.c:808 src/main.c:832
-msgid "SM&B link..."
-msgstr "SM&B сувязь..."
-
-#: src/main.c:812 src/main.c:836
-msgid "&Rescan         C-r"
-msgstr "&Перасканаваць       C-r"
-
-#: src/main.c:840
-msgid "&User menu          F2"
-msgstr "&Мэню карыстальніку  F2"
-
-#: src/main.c:841
-msgid "&View               F3"
-msgstr "Прагляд фа&йлу       F3"
-
-#: src/main.c:842
-msgid "Vie&w file...         "
-msgstr "&Прагляд файлу..."
-
-#: src/main.c:843
-msgid "&Filtered view     M-!"
-msgstr "Праг&ляд каманды     M-!"
-
-#: src/main.c:844
-msgid "&Edit               F4"
-msgstr "&Рэдагаваньне        F4"
-
-#: src/main.c:845
-msgid "&Copy               F5"
-msgstr "&Капіяваньне         F5"
-
-#: src/main.c:846
-msgid "c&Hmod           C-x c"
-msgstr "Правы &доступу       C-x c"
-
-#: src/main.c:847
-msgid "&Link            C-x l"
-msgstr "&Жорская спасылка    C-x l"
-
-#: src/main.c:848
-msgid "&SymLink         C-x s"
-msgstr "&Сымбаліч.спасылка   C-x s"
-
-#: src/main.c:849
-msgid "edit s&Ymlink  C-x C-s"
-msgstr "Праўка спасы&лкі     C-x C-s"
-
-#: src/main.c:850
-msgid "ch&Own           C-x o"
-msgstr "&Уладальнік/група    C-x o"
-
-#: src/main.c:851
-msgid "&Advanced chown       "
-msgstr "Пр&авы (пашыраныя)    "
-
-#: src/main.c:852
-msgid "&Rename/Move        F6"
-msgstr "Зьмена &імя          F6"
-
-#: src/main.c:853
-msgid "&Mkdir              F7"
-msgstr "Стварэ&ньне каталёгу F7"
-
-#: src/main.c:854
-msgid "&Delete             F8"
-msgstr "&Выдаленьне          F8"
-
-#: src/main.c:855
-msgid "&Quick cd          M-c"
-msgstr "З&ьмена каталёгу     M-c"
-
-#: src/main.c:857
-msgid "select &Group      M-+"
-msgstr "Вылучыць &групу      M-+"
-
-#: src/main.c:858
-msgid "u&Nselect group    M-\\"
-msgstr "&Зьняць адзнаку      M-\\"
-
-#: src/main.c:859
-msgid "reverse selec&Tion M-*"
-msgstr "Інвэр&таваць адзнаку *"
-
-#: src/main.c:861
-msgid "e&Xit              F10"
-msgstr "Вы&хад               F10"
-
-#: src/main.c:869
-msgid "&Directory tree"
-msgstr "&Дрэва каталёгаў"
-
-#: src/main.c:870
-msgid "&Find file            M-?"
-msgstr "Пошук &файлу          M-?"
-
-#: src/main.c:871
-msgid "s&Wap panels          C-u"
-msgstr "&Пераставіць панэлі   C-u"
-
-#: src/main.c:872
-msgid "switch &Panels on/off C-o"
-msgstr "&Адключыць панэлі     C-o"
-
-#: src/main.c:873
-msgid "&Compare directories  C-x d"
-msgstr "Пара&ўнаць каталёгі   C-x d"
-
-#: src/main.c:874
-msgid "e&Xternal panelize    C-x !"
-msgstr "&Крытэр панэлізацыі   C-x !"
-
-#: src/main.c:875
-msgid "show directory s&Izes"
-msgstr "Па&меры каталёгаў"
-
-#: src/main.c:877
-msgid "command &History"
-msgstr "&Гісторыя камандаў"
-
-#: src/main.c:878
-msgid "di&Rectory hotlist    C-\\"
-msgstr "Сьпіс ката&лёгаў      C-\\"
-
-#: src/main.c:880
-msgid "&Active VFS list      C-x a"
-msgstr "&Сьпіс актыўных ВФС   C-x a"
-
-#: src/main.c:883
-msgid "&Background jobs      C-x j"
-msgstr "Заданьні ў &тле       C-x j"
-
-#: src/main.c:887
-msgid "&Undelete files (ext2fs only)"
-msgstr "Ад&наўленьне файлаў"
-
-#: src/main.c:890
-msgid "&Listing format edit"
-msgstr "&Рэдагаваньне фармату"
-
-#: src/main.c:895
-msgid "Edit &extension file"
-msgstr "Файл па&шырэньняў"
-
-#: src/main.c:896
-msgid "Edit &menu file"
-msgstr "Файл мэн&ю"
-
-#: src/main.c:898
-msgid "Edit edi&tor menu file"
-msgstr "П&раўка  файлу мэню"
-
-#: src/main.c:899
-msgid "Edit &syntax file"
-msgstr "Рэдагаваньне файлу &пашырэньняў"
-
-#: src/main.c:905
-msgid "&Configuration..."
-msgstr "&Канфігурацыя"
-
-#: src/main.c:906
-msgid "&Layout..."
-msgstr "&Вонкавы выгляд"
-
-#: src/main.c:907
-msgid "c&Onfirmation..."
-msgstr "&Падцьвержаньне"
-
-#: src/main.c:908
-msgid "&Display bits..."
-msgstr "&Біты сымбаляў..."
-
-#: src/main.c:911
-msgid "&Virtual FS..."
-msgstr "Віртуальныя &ФС..."
-
-#: src/main.c:914
-msgid "&Save setup"
-msgstr "&Захаваць наладку"
-
-#: src/main.c:925
-msgid " &Above "
-msgstr " Верхн&яя "
-
-#: src/main.c:925
+#: src/main.c:797 src/main.c:932
 msgid " &Left "
 msgstr " &Левая панэль "
 
-#: src/main.c:929
-msgid " &File "
-msgstr " &Файл "
+#: src/main.c:798 src/main.c:823
+msgid "&Sort order..."
+msgstr "Парадак &сартаваньня"
 
-#: src/main.c:932
-msgid " &Command "
-msgstr " &Каманда "
+#: src/main.c:800 src/main.c:825
+msgid "&Filter..."
+msgstr "&Фільтар"
 
-#: src/main.c:935
-msgid " &Options "
-msgstr " &Наладка "
+#: src/main.c:804 src/main.c:829
+msgid "&Network link..."
+msgstr "Се&ткавае злучэньне..."
 
-#: src/main.c:938
-msgid " &Below "
-msgstr " Ні&жняя "
+#: src/main.c:806 src/main.c:831
+msgid "FT&P link..."
+msgstr "&FTP-злучэньне"
 
-#: src/main.c:938
+#: src/main.c:807 src/main.c:832
+msgid "S&hell link..."
+msgstr "&Лучыва абалонкі"
+
+#: src/main.c:809 src/main.c:834
+msgid "SM&B link..."
+msgstr "SM&B сувязь..."
+
+#: src/main.c:813 src/main.c:838
+msgid "&Rescan         C-r"
+msgstr "&Перасканаваць       C-r"
+
+#: src/main.c:817
 msgid " &Right "
 msgstr " &Правая панэль "
 
-#: src/main.c:981
+#: src/main.c:842 src/main.c:937
+msgid " &File "
+msgstr " &Файл "
+
+#: src/main.c:843
+msgid "&User menu          F2"
+msgstr "&Мэню карыстальніку  F2"
+
+#: src/main.c:844
+msgid "&View               F3"
+msgstr "Прагляд фа&йлу       F3"
+
+#: src/main.c:845
+msgid "Vie&w file...         "
+msgstr "&Прагляд файлу..."
+
+#: src/main.c:846
+msgid "&Filtered view     M-!"
+msgstr "Праг&ляд каманды     M-!"
+
+#: src/main.c:847
+msgid "&Edit               F4"
+msgstr "&Рэдагаваньне        F4"
+
+#: src/main.c:848
+msgid "&Copy               F5"
+msgstr "&Капіяваньне         F5"
+
+#: src/main.c:849
+msgid "c&Hmod           C-x c"
+msgstr "Правы &доступу       C-x c"
+
+#: src/main.c:850
+msgid "&Link            C-x l"
+msgstr "&Жорская спасылка    C-x l"
+
+#: src/main.c:851
+msgid "&SymLink         C-x s"
+msgstr "&Сымбаліч.спасылка   C-x s"
+
+#: src/main.c:852
+msgid "edit s&Ymlink  C-x C-s"
+msgstr "Праўка спасы&лкі     C-x C-s"
+
+#: src/main.c:853
+msgid "ch&Own           C-x o"
+msgstr "&Уладальнік/група    C-x o"
+
+#: src/main.c:854
+msgid "&Advanced chown       "
+msgstr "Пр&авы (пашыраныя)    "
+
+#: src/main.c:855
+msgid "&Rename/Move        F6"
+msgstr "Зьмена &імя          F6"
+
+#: src/main.c:856
+msgid "&Mkdir              F7"
+msgstr "Стварэ&ньне каталёгу F7"
+
+#: src/main.c:857
+msgid "&Delete             F8"
+msgstr "&Выдаленьне          F8"
+
+#: src/main.c:858
+msgid "&Quick cd          M-c"
+msgstr "З&ьмена каталёгу     M-c"
+
+#: src/main.c:860
+msgid "select &Group      M-+"
+msgstr "Вылучыць &групу      M-+"
+
+#: src/main.c:861
+msgid "u&Nselect group    M-\\"
+msgstr "&Зьняць адзнаку      M-\\"
+
+#: src/main.c:862
+msgid "reverse selec&Tion M-*"
+msgstr "Інвэр&таваць адзнаку *"
+
+#: src/main.c:864
+msgid "e&Xit              F10"
+msgstr "Вы&хад               F10"
+
+#: src/main.c:872 src/main.c:940
+msgid " &Command "
+msgstr " &Каманда "
+
+#: src/main.c:874
+msgid "&Find file            M-?"
+msgstr "Пошук &файлу          M-?"
+
+#: src/main.c:878
+msgid "e&Xternal panelize    C-x !"
+msgstr "&Крытэр панэлізацыі   C-x !"
+
+#: src/main.c:881
+msgid "command &History"
+msgstr "&Гісторыя камандаў"
+
+#: src/main.c:882
+msgid "di&Rectory hotlist    C-\\"
+msgstr "Сьпіс ката&лёгаў      C-\\"
+
+#: src/main.c:884
+msgid "&Active VFS list      C-x a"
+msgstr "&Сьпіс актыўных ВФС   C-x a"
+
+#: src/main.c:887
+msgid "&Background jobs      C-x j"
+msgstr "Заданьні ў &тле       C-x j"
+
+#: src/main.c:891
+msgid "&Undelete files (ext2fs only)"
+msgstr "Ад&наўленьне файлаў"
+
+#: src/main.c:894
+msgid "&Listing format edit"
+msgstr "&Рэдагаваньне фармату"
+
+#: src/main.c:899
+msgid "Edit &extension file"
+msgstr "Файл па&шырэньняў"
+
+#: src/main.c:900
+msgid "Edit &menu file"
+msgstr "Файл мэн&ю"
+
+#: src/main.c:902
+msgid "Edit edi&tor menu file"
+msgstr "П&раўка  файлу мэню"
+
+#: src/main.c:903
+msgid "Edit &syntax file"
+msgstr "Рэдагаваньне файлу &пашырэньняў"
+
+#: src/main.c:909 src/main.c:943
+msgid " &Options "
+msgstr " &Наладка "
+
+#: src/main.c:910
+msgid "&Configuration..."
+msgstr "&Канфігурацыя"
+
+#: src/main.c:912
+msgid "c&Onfirmation..."
+msgstr "&Падцьвержаньне"
+
+#: src/main.c:913
+msgid "&Display bits..."
+msgstr "&Біты сымбаляў..."
+
+#: src/main.c:916
+msgid "&Virtual FS..."
+msgstr "Віртуальныя &ФС..."
+
+#: src/main.c:919
+msgid "&Save setup"
+msgstr "&Захаваць наладку"
+
+#: src/main.c:932
+msgid " &Above "
+msgstr " Верхн&яя "
+
+#: src/main.c:991
 msgid " Information "
 msgstr " Інфармацыя "
 
-#: src/main.c:983
+#: src/main.c:993
 msgid ""
 " Using the fast reload option may not reflect the exact \n"
 " directory contents. In this case you'll need to do a   \n"
@@ -2878,43 +2835,44 @@ msgstr ""
 " перазагрузіць каталёг. Для дадатковае йнфармацыі глядзіце               \n"
 " кіраўніцтва (man)."
 
-#: src/main.c:1206 src/screen.c:2185
+#: src/main.c:1216 src/screen.c:2233
 msgid "Menu"
 msgstr "Мэню"
 
-#: src/main.c:1340
+#: src/main.c:1350
 msgid "The TERM environment variable is unset!\n"
 msgstr "Пераменная асяродку TERM ня вызначана!\n"
 
-#: src/main.c:1642 src/textconf.c:116
+#: src/main.c:1652 src/textconf.c:116
 #, c-format
 msgid "GNU Midnight Commander %s\n"
 msgstr "GNU Midnight Commander %s\n"
 
-#: src/main.c:1848
+#: src/main.c:1861
 msgid "[flags] [this_dir] [other_panel_dir]\n"
 msgstr "[сьцягі] [гэты_каталёг] [каталёг_другой_панэлі]\n"
 
-#: src/main.c:1852
+#: src/main.c:1865
 msgid "+number"
 msgstr ""
 
-#: src/main.c:1853
+#: src/main.c:1866
 msgid "Set initial line number for the internal editor"
 msgstr ""
 
-#: src/main.c:1855
+#: src/main.c:1868
+#, fuzzy
 msgid ""
 "\n"
-"Please send any bug reports (including the output of `mc -V')\n"
-"to mc-devel@gnome.org\n"
+"Please send any bug reports\n"
+"to contact@oralux.org\n"
 msgstr ""
 "\n"
 "Калі ласка, дасылайце любыя паведамленьні аб памылках (уключаючы вывад 'mc -"
 "V')\n"
 "на адрэсу mc-devel@gnome.org\n"
 
-#: src/main.c:1870
+#: src/main.c:1884
 msgid ""
 "--colors KEYWORD={FORE},{BACK}\n"
 "\n"
@@ -2936,93 +2894,93 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/main.c:1945
+#: src/main.c:1959
 msgid "Displays this help message"
 msgstr "Адлюстраваць гэтае даведачнае паведамленьне"
 
-#: src/main.c:1947
+#: src/main.c:1961
 msgid "Displays the current version"
 msgstr "Адлюстраваць бягучую вэрсыі"
 
-#: src/main.c:1951
+#: src/main.c:1965
 msgid "Forces xterm features"
 msgstr "Навязвае ўласьцівасьці xterm"
 
-#: src/main.c:1953
+#: src/main.c:1967
 msgid "Disable mouse support in text version"
 msgstr "Адключыць падтрымку мышы ў тэкставай вэрсыі"
 
-#: src/main.c:1956
+#: src/main.c:1970
 msgid "Tries to use termcap instead of terminfo"
 msgstr "Паспрабаваць выкарыстоўваць termcap замест terminfo"
 
-#: src/main.c:1959
+#: src/main.c:1973
 msgid "Resets soft keys on HP terminals"
 msgstr "Скідае праграмныя клявішы на терміналах HP"
 
-#: src/main.c:1961
+#: src/main.c:1975
 msgid "To run on slow terminals"
 msgstr "Запуск на павольных тэрміналах"
 
-#: src/main.c:1963
+#: src/main.c:1977
 msgid "Use stickchars to draw"
 msgstr "Псэўдаграфіка для маляваньня"
 
-#: src/main.c:1967
+#: src/main.c:1981
 msgid "Requests to run in black and white"
 msgstr "Запыт на запуск у монахромным рэжыме"
 
-#: src/main.c:1969
+#: src/main.c:1983
 msgid "Request to run in color mode"
 msgstr "Запыт на запуск у каляровым рэжыме"
 
-#: src/main.c:1971
+#: src/main.c:1985
 msgid "Specifies a color configuration"
 msgstr "Вызначае наладкі колераў"
 
-#: src/main.c:1973
+#: src/main.c:1987
 msgid "Displays a help screen on how to change the color scheme"
 msgstr "Адлюстроўвае экран дапамог - як зьмяніць схему колераў"
 
-#: src/main.c:1978
+#: src/main.c:1992
 msgid "Log ftp dialog to specified file"
 msgstr "Весьці пратакол дыялёгу з FTP у файл"
 
-#: src/main.c:1981
+#: src/main.c:1995
 msgid "Set debug level"
 msgstr ""
 
-#: src/main.c:1987
+#: src/main.c:2001
 #, fuzzy
 msgid "Print data directory"
 msgstr "каталёг"
 
-#: src/main.c:1989
+#: src/main.c:2003
 #, fuzzy
 msgid "Print last working directory to specified file"
 msgstr "Друк працоўнага каталёгу пры выхадзе з праграмы"
 
-#: src/main.c:1994
+#: src/main.c:2008
 msgid "Enables subshell support (default)"
 msgstr "Уключыць падтрымку ўбудаванае каманднае абалонкі (тыпова)"
 
-#: src/main.c:1996
+#: src/main.c:2010
 msgid "Disables subshell support"
 msgstr "Адключыць падтрымку ўбудаванае каманднае абалонкі"
 
-#: src/main.c:2001
+#: src/main.c:2015
 msgid "Launches the file viewer on a file"
 msgstr "Запускае праграму прагляду для файлу"
 
-#: src/main.c:2004
+#: src/main.c:2018
 msgid "Edits one file"
 msgstr "Рэдагуе адзін файл"
 
-#: src/main.c:2218
+#: src/main.c:2232
 msgid " Notice "
 msgstr " Папярэджаньне "
 
-#: src/main.c:2219
+#: src/main.c:2233
 msgid ""
 " The Midnight Commander configuration files \n"
 " are now stored in the ~/.mc directory, the \n"
@@ -3124,7 +3082,7 @@ msgstr " Наладка панэляў "
 msgid " Pause after run... "
 msgstr " Паўза пасьля выкананьня... "
 
-#: src/option.c:170
+#: src/option.c:176
 msgid "Configure options"
 msgstr "Парамэтры канфігурацыі"
 
@@ -3132,47 +3090,47 @@ msgstr "Парамэтры канфігурацыі"
 msgid "&Add new"
 msgstr "&Дадаць"
 
-#: src/panelize.c:154 src/panelize.c:420
+#: src/panelize.c:159 src/panelize.c:432
 msgid "External panelize"
 msgstr "Вонкавая панэлізацыя"
 
-#: src/panelize.c:169
+#: src/panelize.c:180
 msgid "Command"
 msgstr "Каманда"
 
-#: src/panelize.c:185 src/panelize.c:242 src/panelize.c:313 src/panelize.c:334
+#: src/panelize.c:197 src/panelize.c:254 src/panelize.c:325 src/panelize.c:346
 msgid "Other command"
 msgstr "Новая каманда"
 
-#: src/panelize.c:226
+#: src/panelize.c:238
 msgid " Add to external panelize "
 msgstr " Дадаць у сьпіс камандаў "
 
-#: src/panelize.c:227
+#: src/panelize.c:239
 msgid " Enter command label: "
 msgstr " Увядзіце назву каманды: "
 
-#: src/panelize.c:267
+#: src/panelize.c:279
 msgid " Cannot run external panelize in a non-local directory "
 msgstr " Немагчыма выканаць гэтую каманду, знаходзячыся ў лякальным каталёгу "
 
-#: src/panelize.c:316
+#: src/panelize.c:328
 msgid "Find rejects after patching"
 msgstr "Знайсьці карэктуры, адкінутыя камандай patch"
 
-#: src/panelize.c:317
+#: src/panelize.c:329
 msgid "Find *.orig after patching"
 msgstr "Адшукаць арыгіналы (*.orig) пасьля каманды patch"
 
-#: src/panelize.c:318
+#: src/panelize.c:330
 msgid "Find SUID and SGID programs"
 msgstr "Адшукаць праграмы з усталяванымі SUID/SGID бітамі"
 
-#: src/panelize.c:369
+#: src/panelize.c:381
 msgid "Cannot invoke command."
 msgstr "Немагчыма выканаць каманду."
 
-#: src/panelize.c:420
+#: src/panelize.c:432
 msgid "Pipe close failed"
 msgstr "Збой закрыцьця каналу"
 
@@ -3202,6 +3160,7 @@ msgid "ARG"
 msgstr ""
 
 #: src/popthelp.c:179
+#, c-format
 msgid "Usage:"
 msgstr "Выкарыстайце:"
 
@@ -3265,45 +3224,45 @@ msgstr "Уладальнік"
 msgid "Group"
 msgstr "Група"
 
-#: src/screen.c:655
+#: src/screen.c:679
 #, c-format
 msgid "%s bytes in %d file"
 msgstr "%s байтаў у %d файле"
 
-#: src/screen.c:655
+#: src/screen.c:679
 #, c-format
 msgid "%s bytes in %d files"
 msgstr "%s байтаў у %d файлах"
 
-#: src/screen.c:681
+#: src/screen.c:705
 msgid "<readlink failed>"
 msgstr "<памылка чытаньня спасылкі>"
 
-#: src/screen.c:1289
+#: src/screen.c:1331
 msgid "Unknown tag on display format: "
 msgstr "Невядомы тэг у фармаце адлюстраваньня: "
 
-#: src/screen.c:1415
+#: src/screen.c:1457
 msgid "User supplied format looks invalid, reverting to default."
 msgstr "Фармат карыстальніку выглядае памылковым, вяртаюся да стандартнага."
 
-#: src/screen.c:1952
+#: src/screen.c:1996
 msgid " Do you really want to execute? "
 msgstr " Вы сапраўды жадаеце выканаць гэта? "
 
-#: src/screen.c:2186
+#: src/screen.c:2234
 msgid "View"
 msgstr "Прагляд"
 
-#: src/screen.c:2187 src/view.c:2231
+#: src/screen.c:2235 src/view.c:2231
 msgid "Edit"
 msgstr "Праўка"
 
-#: src/screen.c:2189 src/tree.c:977
+#: src/screen.c:2237 src/tree.c:984
 msgid "RenMov"
 msgstr "Перанс"
 
-#: src/screen.c:2190 src/tree.c:981
+#: src/screen.c:2238 src/tree.c:988
 msgid "Mkdir"
 msgstr "НвКтляг"
 
@@ -3413,6 +3372,7 @@ msgid "With multiple codepages support\n"
 msgstr "З падтрымкай шматлікіх кодавых старонак\n"
 
 #: src/textconf.c:121
+#, c-format
 msgid "Virtual File System:"
 msgstr "Віртуальная Файлавая Сыстэма:"
 
@@ -3425,17 +3385,17 @@ msgstr ""
 "Немагчыма адчыніць файл %s на запіс:\n"
 "%s\n"
 
-#: src/tree.c:591
+#: src/tree.c:598
 #, c-format
 msgid "Copy \"%s\" directory to:"
 msgstr " Капіяваць каталёг \"%s\" у:"
 
-#: src/tree.c:632
+#: src/tree.c:639
 #, c-format
 msgid "Move \"%s\" directory to:"
 msgstr " Перамесьціць каталёг \"%s\" у:"
 
-#: src/tree.c:642
+#: src/tree.c:649
 #, c-format
 msgid ""
 " Cannot stat the destination \n"
@@ -3444,28 +3404,28 @@ msgstr ""
 " Немагчыма атрымаць стан мейсца прызначэньня \n"
 " %s "
 
-#: src/tree.c:705
+#: src/tree.c:712
 #, c-format
 msgid "  Delete %s?  "
 msgstr "  Выдаліць %s?  "
 
-#: src/tree.c:735
+#: src/tree.c:742
 msgid "Static"
 msgstr "Статыч"
 
-#: src/tree.c:735
+#: src/tree.c:742
 msgid "Dynamc"
 msgstr "Дынамч"
 
-#: src/tree.c:971
+#: src/tree.c:978
 msgid "Rescan"
 msgstr "Пераск."
 
-#: src/tree.c:973
+#: src/tree.c:980
 msgid "Forget"
 msgstr "Забыцца"
 
-#: src/tree.c:986
+#: src/tree.c:993
 msgid "Rmdir"
 msgstr "ВдКтляг"
 
@@ -3527,7 +3487,7 @@ msgstr ""
 msgid " No suitable entries found in %s "
 msgstr " Ня адшукана запісаў, што адпавядаюць, у %s"
 
-#: src/user.c:798
+#: src/user.c:799
 msgid " User menu "
 msgstr " Мэню карыстальніку "
 
@@ -3569,6 +3529,7 @@ msgid "Temporary files will be created in %s\n"
 msgstr ""
 
 #: src/utilunix.c:376
+#, c-format
 msgid "Temporary files will not be created\n"
 msgstr ""
 
@@ -3728,7 +3689,7 @@ msgstr "НеФармт"
 msgid "Format"
 msgstr "Фармат"
 
-#: src/widget.c:911
+#: src/widget.c:1079
 msgid " History "
 msgstr "Гісторыя камандаў"
 
@@ -3924,7 +3885,7 @@ msgstr "Slash на keypad'е"
 msgid "NumLock on keypad"
 msgstr "NumLock на keypad'е"
 
-#: src/wtools.c:256
+#: src/wtools.c:279
 msgid "Background process:"
 msgstr "Працэс у тле:"
 
@@ -4448,6 +4409,39 @@ msgstr "на час ітэрацыяў паверх блёкаў"
 #: vfs/vfs.c:880
 msgid "Changes to file lost"
 msgstr "Зьмены для файлу страчаны"
+
+#~ msgid "OK"
+#~ msgstr "Так"
+
+#~ msgid "&Listing mode..."
+#~ msgstr "Фар&мат сьпісу..."
+
+#~ msgid "&Quick view     C-x q"
+#~ msgstr "&Хуткі прагляд       C-x q"
+
+#~ msgid "&Info           C-x i"
+#~ msgstr "&Інфармацыя          C-x i"
+
+#~ msgid "&Directory tree"
+#~ msgstr "&Дрэва каталёгаў"
+
+#~ msgid "s&Wap panels          C-u"
+#~ msgstr "&Пераставіць панэлі   C-u"
+
+#~ msgid "switch &Panels on/off C-o"
+#~ msgstr "&Адключыць панэлі     C-o"
+
+#~ msgid "&Compare directories  C-x d"
+#~ msgstr "Пара&ўнаць каталёгі   C-x d"
+
+#~ msgid "show directory s&Izes"
+#~ msgstr "Па&меры каталёгаў"
+
+#~ msgid "&Layout..."
+#~ msgstr "&Вонкавы выгляд"
+
+#~ msgid " &Below "
+#~ msgstr " Ні&жняя "
 
 #~ msgid "User menu available only in mcedit invoked from mc"
 #~ msgstr "Мэню карыстальніку даступнае толькі ў mcedit, які запушчаны з mc"

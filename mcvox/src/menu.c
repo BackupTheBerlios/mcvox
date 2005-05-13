@@ -35,7 +35,7 @@
 #include "panel.h"
 
 
-int menubar_visible = 1;	/* This is the new default */
+int menubar_visible = 0;	/* This is the new default */
 
 /*
 #define attrset(a) attrset(SELECTED_COLOR)

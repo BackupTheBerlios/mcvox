@@ -84,7 +84,7 @@ typedef struct format_e {
 } format_e;
 
 /* If true, show the mini-info on the panel */
-int show_mini_info = 1;
+int show_mini_info = 0;
 
 /* If true, then use stat() on the cwd to determine directory changes */
 int fast_reload = 0;
@@ -1477,14 +1477,14 @@ panel_format (WPanel *panel)
 	return "full perm space nlink space owner space group space size space mtime space name";
 
     case list_brief:
-	return "half 2 type name";
+ 	return "full type name";
 
     case list_user:
 	return panel->user_format;
 
     default:
     case list_full:
-	return "half type name | size | mtime";
+	return "full type name | size | mtime";
     }
 }
 

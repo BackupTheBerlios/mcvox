@@ -132,7 +132,7 @@ static void get_list_info (char **file, char **dir) {
 /* FIXME: r should be local variable */
 static regex_t *r; /* Pointer to compiled content_pattern */
  
-static int case_sensitive = 1;
+static int case_sensitive = 0;
 
 /*
  * Callback for the parameter dialog.

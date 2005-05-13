@@ -68,7 +68,7 @@
 #include "setup.h"		/* For save_setup() */
 
 /* Controls the display of the rotating dash on the verbose mode */
-int nice_rotating_dash = 1;
+int nice_rotating_dash = 0;
 
 /* If set, then we have to call the layout_change routine from main */
 static int layout_do_change = 0;
@@ -89,16 +89,16 @@ int first_panel_size = 0;
 int output_lines = 0;
 
 /* Set if the command prompt is to be displayed */
-int command_prompt = 1;
+int command_prompt = 0;
 
 /* Set if the nice and useful keybar is visible */
-int keybar_visible = 1;
+int keybar_visible = 0;
 
 /* Set if the nice message (hint) bar is visible */
 int message_visible = 1;
 
 /* Set to show current working dir in xterm window title */
-int xterm_title = 1;
+int xterm_title = 0;
 
 /* The starting line for the output of the subprogram */
 int output_start_y = 0;
@@ -123,12 +123,12 @@ static int old_output_lines;
 static int _horizontal_split;
 static int _equal_split;
 static int _first_panel_size;
-static int _menubar_visible;
+static int _menubar_visible=0;
 static int _output_lines;
-static int _command_prompt;
-static int _keybar_visible;
+static int _command_prompt=0;
+static int _keybar_visible=0;
 static int _message_visible;
-static int _xterm_title;
+static int _xterm_title=0;
 static int _permission_mode;
 static int _filetype_mode;
 
@@ -159,12 +159,12 @@ static struct {
     int    *variable;
     WCheck *widget;
 } check_options [] = {
-    { N_("&Xterm window title"), &xterm_title,   0 },
+/*     { N_("&Xterm window title"), &xterm_title,   0 }, */
     { N_("h&Intbar visible"),  &message_visible, 0 },
-    { N_("&Keybar visible"),   &keybar_visible,  0 },
-    { N_("command &Prompt"),   &command_prompt,  0 },
-    { N_("show &Mini status"), &show_mini_info,  0 },
-    { N_("menu&Bar visible"),  &menubar_visible, 0 },
+/*     { N_("&Keybar visible"),   &keybar_visible,  0 }, */
+/*     { N_("command &Prompt"),   &command_prompt,  0 }, */
+/*     { N_("show &Mini status"), &show_mini_info,  0 }, */
+/*     { N_("menu&Bar visible"),  &menubar_visible, 0 }, */
     { N_("&Equal split"),      &equal_split,     0 },
     { N_("pe&Rmissions"),      &permission_mode, 0 },
     { N_("&File types"),       &filetype_mode,   0 },
@@ -296,11 +296,11 @@ layout_callback (struct Dlg_head *h, dlg_msg_t msg, int parm)
 	_filetype_mode = check_options [8].widget->state & C_BOOL;
 	_permission_mode = check_options [7].widget->state & C_BOOL;
 	_equal_split = check_options [6].widget->state & C_BOOL;
-	_menubar_visible = check_options [5].widget->state & C_BOOL;
-	_command_prompt = check_options [4].widget->state & C_BOOL;
-	_keybar_visible = check_options [2].widget->state & C_BOOL;
+/* 	_menubar_visible = check_options [5].widget->state & C_BOOL; */
+/* 	_command_prompt = check_options [4].widget->state & C_BOOL; */
+/* 	_keybar_visible = check_options [2].widget->state & C_BOOL; */
 	_message_visible = check_options [1].widget->state & C_BOOL;
-	_xterm_title = check_options [0].widget->state & C_BOOL;
+/* 	_xterm_title = check_options [0].widget->state & C_BOOL; */
 	if (console_flag){
 	    int minimum;
 	    if (_output_lines < 0)
@@ -464,7 +464,7 @@ init_layout (void)
     _command_prompt = command_prompt;
     _keybar_visible = keybar_visible;
     _message_visible = message_visible;
-    _xterm_title = xterm_title;
+/*     _xterm_title = xterm_title; */
     bright_widget =
 	button_new (6, 15, B_2RIGHT, NARROW_BUTTON, "&>", b2right_cback);
     add_widget (layout_dlg, bright_widget);

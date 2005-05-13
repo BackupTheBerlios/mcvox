@@ -56,7 +56,7 @@ static struct {
    {N_("safe de&Lete"),       &safe_delete,       TOGGLE_VARIABLE,       0 },
    {N_("cd follows lin&Ks"),  &cd_symlinks,       TOGGLE_VARIABLE,       0 },
    {N_("L&ynx-like motion"),  &navigate_with_arrows,TOGGLE_VARIABLE,     0 },
-   {N_("rotatin&G dash"),     &nice_rotating_dash,TOGGLE_VARIABLE,       0 },
+/*    {N_("rotatin&G dash"),     &nice_rotating_dash,TOGGLE_VARIABLE,       0 }, */
    {N_("co&Mplete: show all"),&show_all_if_ambiguous,TOGGLE_VARIABLE,    0 },
    {N_("&Use internal view"), &use_internal_view, TOGGLE_VARIABLE,       0 },
    {N_("use internal ed&It"), &use_internal_edit, TOGGLE_VARIABLE,       0 },

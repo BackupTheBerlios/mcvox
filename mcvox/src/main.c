@@ -1042,6 +1042,7 @@ create_panels (void)
     int other_mode;
     char original_dir[1024];
 
+
     original_dir[0] = 0;
 
     if (boot_current_is_left) {
@@ -2171,6 +2172,11 @@ main (int argc, char *argv[])
     /* NOTE: This has to be called before slang_init or whatever routine
        calls any define_sequence */
     init_key ();
+
+    /* default switches: -abs */
+    force_ugly_line_drawing=1;
+    disable_colors=1;
+    slow_terminal=1;
 
     handle_args (argc, argv);
 

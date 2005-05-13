@@ -124,12 +124,12 @@ static const struct {
     { "equal_split", &equal_split },
     { "first_panel_size", &first_panel_size },
     { "message_visible", &message_visible },
-    { "keybar_visible", &keybar_visible },
-    { "xterm_title", &xterm_title },
+/*     { "keybar_visible", &keybar_visible }, */
+/*     { "xterm_title", &xterm_title }, */
     { "output_lines", &output_lines },
-    { "command_prompt", &command_prompt },
-    { "menubar_visible", &menubar_visible },
-    { "show_mini_info", &show_mini_info },
+/*     { "command_prompt", &command_prompt }, */
+/*     { "menubar_visible", &menubar_visible }, */
+/*     { "show_mini_info", &show_mini_info }, */
     { "permission_mode", &permission_mode },
     { "filetype_mode", &filetype_mode },
     { 0, 0 }
@@ -365,7 +365,8 @@ panel_load_setup (WPanel *panel, char *section)
     char buffer [BUF_TINY];
 
     panel->reverse = load_int (section, "reverse", 0);
-    panel->case_sensitive = load_int (section, "case_sensitive", OS_SORT_CASE_SENSITIVE_DEFAULT);
+    /*    panel->case_sensitive = load_int (section, "case_sensitive", OS_SORT_CASE_SENSITIVE_DEFAULT);*/
+    panel->case_sensitive = load_int (section, "case_sensitive", 0);
 
     /* Load sort order */
     load_string (section, "sort_order", "name", buffer, sizeof (buffer));
@@ -377,8 +378,9 @@ panel_load_setup (WPanel *panel, char *section)
 	}
 
     /* Load the listing mode */
-    load_string (section, "list_mode", "full", buffer, sizeof (buffer));
-    panel->list_type = list_full;
+    load_string (section, "list_mode", "brief", buffer, sizeof (buffer));
+/*     panel->list_type = list_full; */
+    panel->list_type = list_brief;
     for (i = 0; list_types [i].key; i++)
 	if ( g_strcasecmp (list_types [i].key, buffer) == 0){
 	    panel->list_type = list_types [i].list_type;
@@ -498,8 +500,10 @@ load_setup (void)
 
     load_panelize ();
 
-    startup_left_mode = load_mode ("New Left Panel");
-    startup_right_mode = load_mode ("New Right Panel");
+/*     startup_left_mode = load_mode ("New Left Panel"); */
+/*     startup_right_mode = load_mode ("New Right Panel"); */
+    startup_left_mode = view_listing; 
+    startup_right_mode = view_info;
 
     /* At least one of the panels is a listing panel */
     if (startup_left_mode != view_listing && startup_right_mode!=view_listing)
@@ -518,7 +522,6 @@ load_setup (void)
     }
 
     boot_current_is_left = 1;
-/* 	GetPrivateProfileInt ("Dirs", "current_is_left", 1, profile); */
 
 #ifdef USE_NETCODE
     ftpfs_proxy_host = do_load_string ("Misc", "ftp_proxy_host", "gate");
