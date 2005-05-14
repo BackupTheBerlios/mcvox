@@ -2073,7 +2073,8 @@ handle_args (int argc, char *argv[])
 	    }
 	    edit_one_file = g_strdup (tmp);
 	}
-    } else if (!STRNCOMP (base, "mcv", 3) || !STRCOMP (base, "view")) {
+    } else if (((strlen(base)==3) && !STRNCOMP (base, "mcv", 3)) 
+	       || !STRCOMP (base, "view")) {
 	if (tmp)
 	    view_one_file = g_strdup (tmp);
 	else {

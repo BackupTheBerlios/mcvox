@@ -37,7 +37,7 @@ NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
 host_triplet = @host@
-bin_PROGRAMS = mc$(EXEEXT) mcmfmt$(EXEEXT)
+bin_PROGRAMS = mcvox$(EXEEXT) mcmfmt$(EXEEXT)
 @CONS_SAVER_TRUE@pkglib_PROGRAMS = cons.saver$(EXEEXT)
 noinst_PROGRAMS = man2hlp$(EXEEXT)
 subdir = src
@@ -448,8 +448,8 @@ cons.saver$(EXEEXT): $(cons_saver_OBJECTS) $(cons_saver_DEPENDENCIES)
 man2hlp$(EXEEXT): $(man2hlp_OBJECTS) $(man2hlp_DEPENDENCIES) 
 	@rm -f man2hlp$(EXEEXT)
 	$(LINK) $(man2hlp_LDFLAGS) $(man2hlp_OBJECTS) $(man2hlp_LDADD) $(LIBS)
-mc$(EXEEXT): $(mc_OBJECTS) $(mc_DEPENDENCIES) 
-	@rm -f mc$(EXEEXT)
+mcvox$(EXEEXT): $(mc_OBJECTS) $(mc_DEPENDENCIES) 
+	@rm -f mcvox$(EXEEXT)
 	$(LINK) $(mc_LDFLAGS) $(mc_OBJECTS) $(mc_LDADD) $(LIBS)
 mcmfmt$(EXEEXT): $(mcmfmt_OBJECTS) $(mcmfmt_DEPENDENCIES) 
 	@rm -f mcmfmt$(EXEEXT)
@@ -717,10 +717,10 @@ install-exec-hook:
 # Make relative symlinks, but do the right thing if LN_S is `ln' or `cp'.
 #
 install_mcview:
-	cd $(DESTDIR)$(bindir)/$(binprefix) && rm -f mcview && $(LN_S) mc mcview
+	cd $(DESTDIR)$(bindir)/$(binprefix) && rm -f mcview && $(LN_S) mcvox mcview
 
 install_mcedit:
-	cd $(DESTDIR)$(bindir)/$(binprefix) && rm -f mcedit && $(LN_S) mc mcedit
+	cd $(DESTDIR)$(bindir)/$(binprefix) && rm -f mcedit && $(LN_S) mcvox mcedit
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

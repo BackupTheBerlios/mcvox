@@ -2,7 +2,7 @@ AM_CFLAGS = $(GLIB_CFLAGS)
 
 localedir = $(datadir)/locale
 
-bin_PROGRAMS = mc mcmfmt
+bin_PROGRAMS = mcvox mcmfmt
 
 if CONS_SAVER
 pkglib_PROGRAMS = cons.saver
@@ -79,7 +79,7 @@ endif
 # Make relative symlinks, but do the right thing if LN_S is `ln' or `cp'.
 #
 install_mcview:
-	cd $(DESTDIR)$(bindir)/$(binprefix) && rm -f mcview && $(LN_S) mc mcview
+	cd $(DESTDIR)$(bindir)/$(binprefix) && rm -f mcview && $(LN_S) mcvox mcview
 
 install_mcedit:
-	cd $(DESTDIR)$(bindir)/$(binprefix) && rm -f mcedit && $(LN_S) mc mcedit
+	cd $(DESTDIR)$(bindir)/$(binprefix) && rm -f mcedit && $(LN_S) mcvox mcedit

@@ -8,8 +8,8 @@
 #define _without_x		 1 # avoid dependency on X11 libraries
 
 # Note that this is NOT a relocatable package
-%define ver     4.6.1-pre1
-%define rpmver   4.6.1pre1
+%define ver     0.1
+%define rpmver   0.1
 %define  RELEASE 1
 %define  rel     %{?CUSTOM_RELEASE} %{!?CUSTOM_RELEASE:%RELEASE}
 
