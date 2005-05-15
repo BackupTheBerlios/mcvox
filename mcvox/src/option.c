@@ -76,7 +76,7 @@ static struct {
 };
 
 /* Make sure this corresponds to the check_options structure */
-#define OTHER_OPTIONS 12
+#define OTHER_OPTIONS 11
 #define PANEL_OPTIONS 6
 
 static WRadio *pause_radio;
