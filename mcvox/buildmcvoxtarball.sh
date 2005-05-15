@@ -1,2 +1,4 @@
 #!/bin/sh
-tar --exclude-from mcvox/exclude.mcvox -zcvf mcvox-0.1.tgz mcvox
+REL=0.2
+tar --exclude-from mcvox-${REL}/exclude.mcvox -zcvf mcvox-${REL}.tgz mcvox-${REL}
+md5sum mcvox-${REL}.tgz > mcvox-${REL}.md5 

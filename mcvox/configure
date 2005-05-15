@@ -1644,7 +1644,7 @@ fi
 
 # Define the identity of the package.
  PACKAGE=mcvox
- VERSION=0.1
+ VERSION=0.2
 
 
 cat >>confdefs.h <<_ACEOF
