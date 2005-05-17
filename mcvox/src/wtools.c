@@ -405,23 +405,36 @@ quick_dialog_skip (QuickDialog *qd, int nskip)
 	    break;
 
 	case quick_label:
-	  ypos=Y_POS;
-	  xpos=X_POS;
-	    widget = label_new (ypos, xpos, I18N (qw->text));
-	    break;
+	  if (strlen(qw->text)!=0)
+	    {
+	      ypos=Y_POS;
+	      xpos=X_POS;
+	      widget = label_new (ypos, xpos, I18N (qw->text));
+	    }
+	  else
+	    {
+	      widget = NULL;
+	    }
+	  break;
 
 	default:
 	    widget = 0;
 	    fprintf (stderr, "QuickWidget: unknown widget type\n");
 	    break;
 	}
-	widgets[curr_widget++] = widget;
-	add_widget (dd, widget);
+	if (widget!=NULL)
+	  {
+	    widgets[curr_widget++] = widget;
+	    add_widget (dd, widget);
+	  }
     }
 
     while (nskip--)
+      {
+	static int a=0;
+	a=nskip;/*RAF GC */
 	dd->current = dd->current->next;
-
+      }
     run_dlg (dd);
 
     /* Get the data if we found something interesting */

@@ -234,34 +234,43 @@ string_file_size_brief (file_entry *fe, int len)
 static const char *
 string_file_type (file_entry *fe, int len)
 {
-    static char buffer[2];
+#define SELECTED_PREFIX "SEL "
+#define TAGGED_PREFIX "TAG "
+
+    static char buffer[sizeof(SELECTED_PREFIX)+sizeof(TAGGED_PREFIX)+2];
+    int i=0;
+
+    if (fe->f.marked)
+      {
+	i=sprintf(buffer,"%s",TAGGED_PREFIX);
+      }
 
     if (S_ISDIR (fe->st.st_mode))
-	buffer[0] = PATH_SEP;
+	buffer[i] = PATH_SEP;
     else if (S_ISLNK (fe->st.st_mode)) {
 	if (fe->f.link_to_dir)
-	    buffer[0] = '~';
+	    buffer[i] = '~';
 	else if (fe->f.stale_link)
-	    buffer[0] = '!';
+	    buffer[i] = '!';
 	else
-	    buffer[0] = '@';
+	    buffer[i] = '@';
     } else if (S_ISCHR (fe->st.st_mode))
-	buffer[0] = '-';
+	buffer[i] = '-';
     else if (S_ISSOCK (fe->st.st_mode))
-	buffer[0] = '=';
+	buffer[i] = '=';
     else if (S_ISDOOR (fe->st.st_mode))
-	buffer[0] = '>';
+	buffer[i] = '>';
     else if (S_ISBLK (fe->st.st_mode))
-	buffer[0] = '+';
+	buffer[i] = '+';
     else if (S_ISFIFO (fe->st.st_mode))
-	buffer[0] = '|';
+	buffer[i] = '|';
     else if (!S_ISREG (fe->st.st_mode))
-	buffer[0] = '?';	/* non-regular of unknown kind */
+	buffer[i] = '?';	/* non-regular of unknown kind */
     else if (is_exe (fe->st.st_mode))
-	buffer[0] = '*';
+	buffer[i] = '*';
     else
-	buffer[0] = ' ';
-    buffer[1] = '\0';
+	buffer[i] = ' ';
+    buffer[i+1] = '\0';
     return buffer;
 }
 
@@ -548,7 +557,8 @@ format_file (char *dest, int limit, WPanel *panel, int file_index, int width, in
 
 	    old_pos = cdest;
 
-	    len = format->field_len;
+	    /*	    len = format->field_len;*/
+	    len = strlen(txt);
 	    if (len + length > width)
 		len = width - length;
 	    if (len + (cdest - dest) > limit)
@@ -1627,61 +1637,61 @@ move_up (WPanel *panel)
 }
 
 /* Changes the selection by lines (may be negative) */
-static void
-move_selection (WPanel *panel, int lines)
-{
-    int new_pos;
-    int adjust = 0;
+/* static void */
+/* move_selection (WPanel *panel, int lines) */
+/* { */
+/*     int new_pos; */
+/*     int adjust = 0; */
 
-    new_pos = panel->selected + lines;
-    if (new_pos >= panel->count)
-	new_pos = panel->count-1;
+/*     new_pos = panel->selected + lines; */
+/*     if (new_pos >= panel->count) */
+/* 	new_pos = panel->count-1; */
 
-    if (new_pos < 0)
-	new_pos = 0;
+/*     if (new_pos < 0) */
+/* 	new_pos = 0; */
 
-    unselect_item (panel);
-    panel->selected = new_pos;
+/*     unselect_item (panel); */
+/*     panel->selected = new_pos; */
 
-    if (panel->selected - panel->top_file >= ITEMS (panel)){
-	panel->top_file += lines;
-	adjust = 1;
-    }
+/*     if (panel->selected - panel->top_file >= ITEMS (panel)){ */
+/* 	panel->top_file += lines; */
+/* 	adjust = 1; */
+/*     } */
 
-    if (panel->selected - panel->top_file < 0){
-	panel->top_file += lines;
-	adjust = 1;
-    }
+/*     if (panel->selected - panel->top_file < 0){ */
+/* 	panel->top_file += lines; */
+/* 	adjust = 1; */
+/*     } */
 
-    if (adjust){
-	if (panel->top_file > panel->selected)
-	    panel->top_file = panel->selected;
-	if (panel->top_file < 0)
-	    panel->top_file = 0;
-	paint_dir (panel);
-    }
-    select_item (panel);
-}
+/*     if (adjust){ */
+/* 	if (panel->top_file > panel->selected) */
+/* 	    panel->top_file = panel->selected; */
+/* 	if (panel->top_file < 0) */
+/* 	    panel->top_file = 0; */
+/* 	paint_dir (panel); */
+/*     } */
+/*     select_item (panel); */
+/* } */
+ 
+/* static cb_ret_t */
+/* move_left (WPanel *panel, int c_code) */
+/* { */
+/*     if (panel->split) { */
+/* 	move_selection (panel, -llines (panel)); */
+/* 	return MSG_HANDLED; */
+/*     } else */
+/* 	return maybe_cd (c_code, 0); */
+/* } */
 
-static cb_ret_t
-move_left (WPanel *panel, int c_code)
-{
-    if (panel->split) {
-	move_selection (panel, -llines (panel));
-	return MSG_HANDLED;
-    } else
-	return maybe_cd (c_code, 0);
-}
-
-static int
-move_right (WPanel *panel, int c_code)
-{
-    if (panel->split) {
-	move_selection (panel, llines (panel));
-	return MSG_HANDLED;
-    } else
-	return maybe_cd (c_code, 1);
-}
+/* static int */
+/* move_right (WPanel *panel, int c_code) */
+/* { */
+/*     if (panel->split) { */
+/* 	move_selection (panel, llines (panel)); */
+/* 	return MSG_HANDLED; */
+/*     } else */
+/* 	return maybe_cd (c_code, 1); */
+/* } */
 
 static void
 prev_page (WPanel *panel)

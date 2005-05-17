@@ -719,55 +719,127 @@ file_progress_real_query_replace (FileOpContext *ctx,
 #define FMDY 13
 #define	FMD_XLEN 64
 extern int fmd_xlen;
-static QuickWidget fmd_widgets[] = {
 
-#define	FMCB0  FMDC
-#define	FMCB12 0
-#define	FMCB11 1
-    /* follow symlinks and preserve Attributes must be the first */
-    {quick_checkbox, 3, 64, 8, FMDY, N_("preserve &Attributes"), 9, 0,
-     0 /* &op_preserve */ , 0, "preserve"},
-    {quick_checkbox, 3, 64, 7, FMDY, N_("follow &Links"), 7, 0,
-     0 /* &file_mask_op_follow_links */ , 0, "follow"},
-    {quick_label, 3, 64, 5, FMDY, N_("to:"), 0, 0, 0, 0, "to"},
-    {quick_checkbox, 37, 64, 4, FMDY, N_("&Using shell patterns"), 0, 0,
-     0 /* &source_easy_patterns */ , 0, "using-shell"},
-    {quick_input, 3, 64, 3, FMDY, "", 58,
-     0, 0, 0, "input-def"},
-#define FMDI1 4
-#define FMDI2 5
-#define FMDC 3
-    {quick_input, 3, 64, 6, FMDY, "", 58, 0,
-     0, 0, "input2"},
-#define FMDI0 6
-    {quick_label, 3, 64, 2, FMDY, "", 0, 0, 0, 0, "ql"},
-#define	FMBRGT 7
+
+enum {
+  FMBRGT,
+#ifdef WITH_BACKGROUND
+  FMBMID,
+#endif
+  FMBLFT,
+  FMCB22,
+  FMCB12,
+  FMCB21,
+  FMCB11,
+  FMDI2,
+  FML1,
+  FMDC, /* FMCB0 */
+  FMDI1,
+  FMDI0,
+};
+static QuickWidget fmd_widgets[] = {
+    /* FMBRGT */
     {quick_button, 42, 64, 9, FMDY, N_("&Cancel"), 0, B_CANCEL, 0, 0,
      "cancel"},
-#undef SKIP
+
 #ifdef WITH_BACKGROUND
-# define SKIP 5
-# define FMCB21 11
-# define FMCB22 10
-# define FMBLFT 9
-# define FMBMID 8
+    /* FMBMID */
     {quick_button, 25, 64, 9, FMDY, N_("&Background"), 0, B_USER, 0, 0,
      "back"},
-#else				/* WITH_BACKGROUND */
-# define SKIP 4
-# define FMCB21 10
-# define FMCB22 9
-# define FMBLFT 8
-# undef  FMBMID
 #endif
+
+    /* FMBLFT */
     {quick_button, 14, 64, 9, FMDY, N_("&OK"), 0, B_ENTER, 0, 0, "ok"},
+
+    /* FMCB22 */
     {quick_checkbox, 42, 64, 8, FMDY, N_("&Stable Symlinks"), 0, 0,
      0 /* &file_mask_stable_symlinks */ , 0, "stab-sym"},
+
+    /* FMCB12: follow symlinks and preserve Attributes had to be the first */
+    {quick_checkbox, 3, 64, 8, FMDY, N_("preserve &Attributes"), 9, 0,
+     0 /* &op_preserve */ , 0, "preserve"},
+
+    /* FMCB21 */
     {quick_checkbox, 31, 64, 7, FMDY, N_("&Dive into subdir if exists"), 0,
      0,
      0 /* &dive_into_subdirs */ , 0, "dive"},
+
+    /* FMCB11 */
+    {quick_checkbox, 3, 64, 7, FMDY, N_("follow &Links"), 7, 0,
+     0 /* &file_mask_op_follow_links */ , 0, "follow"},
+
+    /* FMDI2 */
+    {quick_input, 3, 64, 6, FMDY, "", 58, 0,
+     0, 0, "input2"},
+
+    /* FML1 */
+    {quick_label, 3, 64, 5, FMDY, N_("to:"), 0, 0, 0, 0, "to"},
+
+    /* FMCB0 */
+    {quick_checkbox, 37, 64, 4, FMDY, N_("&Using shell patterns"), 0, 0,
+     0 /* &source_easy_patterns */ , 0, "using-shell"},
+
+    /* FMDI1 */
+    {quick_input, 3, 64, 3, FMDY, "", 58,
+     0, 0, 0, "input-def"},
+
+    /* FMDI0 */
+    {quick_label, 3, 64, 2, FMDY, "", 0, 0, 0, 0, "ql"},
+
     {0}
 };
+
+/* static QuickWidget fmd_widgets[] = { */
+
+/* #define	FMCB0  FMDC */
+/* #define	FMCB12 0 */
+/* #define	FMCB11 1 */
+/*     /\* follow symlinks and preserve Attributes must be the first *\/ */
+/*     {quick_checkbox, 3, 64, 8, FMDY, N_("preserve &Attributes"), 9, 0, */
+/*      0 /\* &op_preserve *\/ , 0, "preserve"}, */
+/*     {quick_checkbox, 3, 64, 7, FMDY, N_("follow &Links"), 7, 0, */
+/*      0 /\* &file_mask_op_follow_links *\/ , 0, "follow"}, */
+/*     {quick_label, 3, 64, 5, FMDY, N_("to:"), 0, 0, 0, 0, "to"}, */
+/*     {quick_checkbox, 37, 64, 4, FMDY, N_("&Using shell patterns"), 0, 0, */
+/*      0 /\* &source_easy_patterns *\/ , 0, "using-shell"}, */
+/*     {quick_input, 3, 64, 3, FMDY, "", 58, */
+/*      0, 0, 0, "input-def"}, */
+/* #define FMDI1 4 */
+/* #define FMDI2 5 */
+/* #define FMDC 3 */
+/*     {quick_input, 3, 64, 6, FMDY, "", 58, 0, */
+/*      0, 0, "input2"}, */
+/* #define FMDI0 6 */
+/*     {quick_label, 3, 64, 2, FMDY, "", 0, 0, 0, 0, "ql"}, */
+/* #define	FMBRGT 7 */
+/*     {quick_button, 42, 64, 9, FMDY, N_("&Cancel"), 0, B_CANCEL, 0, 0, */
+/*      "cancel"}, */
+/* #undef SKIP */
+/* #ifdef WITH_BACKGROUND */
+/* # define SKIP 5 */
+/* # define FMCB21 11 */
+/* # define FMCB22 10 */
+/* # define FMBLFT 9 */
+/* # define FMBMID 8 */
+/*     {quick_button, 25, 64, 9, FMDY, N_("&Background"), 0, B_USER, 0, 0, */
+/*      "back"}, */
+/* #else				/\* WITH_BACKGROUND *\/ */
+/* # define SKIP 4 */
+/* # define FMCB21 10 */
+/* # define FMCB22 9 */
+/* # define FMBLFT 8 */
+/* # undef  FMBMID */
+/* #endif */
+/*     {quick_button, 14, 64, 9, FMDY, N_("&OK"), 0, B_ENTER, 0, 0, "ok"}, */
+/*     {quick_checkbox, 42, 64, 8, FMDY, N_("&Stable Symlinks"), 0, 0, */
+/*      0 /\* &file_mask_stable_symlinks *\/ , 0, "stab-sym"}, */
+/*     {quick_checkbox, 31, 64, 7, FMDY, N_("&Dive into subdir if exists"), 0, */
+/*      0, */
+/*      0 /\* &dive_into_subdirs *\/ , 0, "dive"}, */
+/*     {0} */
+/* }; */
+
+
 
 static int
 is_wildcarded (char *p)
@@ -799,51 +871,6 @@ fmd_init_i18n (int force)
     while (i--)
 	if (fmd_widgets[i].text[0] != '\0')
 	    fmd_widgets[i].text = _(fmd_widgets[i].text);
-
-    len = strlen (fmd_widgets[FMCB11].text)
-	+ strlen (fmd_widgets[FMCB21].text) + 15;
-    fmd_xlen = max (fmd_xlen, len);
-
-    len = strlen (fmd_widgets[FMCB12].text)
-	+ strlen (fmd_widgets[FMCB22].text) + 15;
-    fmd_xlen = max (fmd_xlen, len);
-
-    len = strlen (fmd_widgets[FMBRGT].text)
-	+ strlen (fmd_widgets[FMBLFT].text) + 11;
-
-#ifdef FMBMID
-    len += strlen (fmd_widgets[FMBMID].text) + 6;
-#endif
-
-    fmd_xlen = max (fmd_xlen, len + 4);
-
-    len = (fmd_xlen - (len + 6)) / 2;
-    i = fmd_widgets[FMBLFT].relative_x = len + 3;
-    i += strlen (fmd_widgets[FMBLFT].text) + 8;
-
-#ifdef FMBMID
-    fmd_widgets[FMBMID].relative_x = i;
-    i += strlen (fmd_widgets[FMBMID].text) + 6;
-#endif
-
-    fmd_widgets[FMBRGT].relative_x = i;
-
-#define	chkbox_xpos(i) \
-	fmd_widgets [i].relative_x = fmd_xlen - strlen (fmd_widgets [i].text) - 6
-
-    chkbox_xpos (FMCB0);
-    chkbox_xpos (FMCB21);
-    chkbox_xpos (FMCB22);
-
-    if (fmd_xlen != FMD_XLEN) {
-	i = sizeof (fmd_widgets) / sizeof (fmd_widgets[0]) - 1;
-	while (i--)
-	    fmd_widgets[i].x_divisions = fmd_xlen;
-
-	fmd_widgets[FMDI1].hotkey_pos =
-	    fmd_widgets[FMDI2].hotkey_pos = fmd_xlen - 6;
-    }
-#undef chkbox_xpos
 
     initialized = TRUE;
 #endif				/* !ENABLE_NLS */
@@ -894,7 +921,7 @@ file_mask_dialog (FileOpContext *ctx, FileOperation operation, char *text,
     *do_background = 0;
   ask_file_mask:
 
-    if ((val = quick_dialog_skip (&Quick_input, SKIP)) == B_CANCEL)
+    if ((val = quick_dialog_skip (&Quick_input, 0)) == B_CANCEL)
 	return 0;
 
     if (ctx->follow_links)

@@ -129,7 +129,7 @@ int cd_symlinks = 1;
 int fast_refresh = 0;
 
 /* If true, marking a files moves the cursor down */
-int mark_moves_down = 1;
+int mark_moves_down = 0;
 
 /* If true, at startup the user-menu is invoked */
 int auto_menu = 0;
