@@ -155,9 +155,17 @@ query_dialog (const char *header, const char *text, int flags, int count, ...)
     ypos = LINES / 3 - (lines - 3) / 2;
 
     /* prepare dialog */
+
+    if (strncmp(header,text,strlen(header))==0)
+    {
+      header="";
+    }
+
     query_dlg =
 	create_dlg (ypos, xpos, lines, cols, query_colors, NULL,
 		    "[QueryBox]", header, DLG_NONE);
+
+    add_widget (query_dlg, label_new (3, 0, text));
 
     if (count > 0) {
 	cols = (cols - win_len - 2) / 2 + 2;
@@ -169,7 +177,7 @@ query_dialog (const char *header, const char *text, int flags, int count, ...)
 		xpos--;
 
 	    button =
-		button_new (lines - 3, 0, B_USER + i, NORMAL_BUTTON,
+		button_new (3, 0, B_USER + i, NORMAL_BUTTON,
 			    cur_name, 0);
 
 /* 		button_new (lines - 3, cols, B_USER + i, NORMAL_BUTTON, */
@@ -183,10 +191,10 @@ query_dialog (const char *header, const char *text, int flags, int count, ...)
 	}
 	va_end (ap);
 
-	add_widget (query_dlg, label_new (2, 3, text));
+/* 	add_widget (query_dlg, label_new (2, 3, text)); */
 
-	if (defbutton)
-	    dlg_select_widget (query_dlg, defbutton);
+/* 	if (defbutton) */
+/* 	    dlg_select_widget (query_dlg, defbutton); */
 
 	/* run dialog and make result */
 	run_dlg (query_dlg);
@@ -200,7 +208,8 @@ query_dialog (const char *header, const char *text, int flags, int count, ...)
 	/* free used memory */
 	destroy_dlg (query_dlg);
     } else {
-	add_widget (query_dlg, label_new (2, 3, text));
+	add_widget (query_dlg, label_new (3, 0, text));
+/* 	add_widget (query_dlg, label_new (2, 3, text)); */
 	add_widget (query_dlg,
 		    button_new (0, 0, 0, HIDDEN_BUTTON, "-", 0));
 	last_query_dlg = query_dlg;

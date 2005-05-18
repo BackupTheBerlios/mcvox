@@ -191,7 +191,8 @@ do_view_cmd (int normal)
 	|| link_isdir (selection (current_panel))) {
 	if (confirm_view_dir && (current_panel->marked || current_panel->dirs_marked)) {
 	    if (query_dialog
-		(_(" Confirmation "), _("Files tagged, want to cd?"), 0, 2,
+		(" ", /*_(" Confirmation "), */
+		 _("Files tagged, want to cd?"), 0, 2,
 		 _("&Yes"), _("&No")) != 0) {
 		return;
 	    }
@@ -593,7 +594,7 @@ void ext_cmd (void)
 
     dir = 0;
     if (geteuid () == 0){
-	dir = query_dialog (_("Extension file edit"),
+      dir = query_dialog (" ", /* _("Extension file edit"), */
 			    _(" Which extension file you want to edit? "), 0, 2,
 			    _("&User"), _("&System Wide"));
     }
@@ -621,7 +622,7 @@ menu_edit_cmd (int where)
     int dir = 0;
     
     dir = query_dialog (
-	_(" Menu edit "),
+			" ", /*_(" Menu edit "),*/
 	_(" Which menu file do you want to edit? "), 
 	0, geteuid() ? 2 : 3,
 	_("&Local"), _("&Home"), _("&System Wide")
@@ -696,7 +697,7 @@ edit_syntax_cmd (void)
 
     if (geteuid () == 0) {
 	dir =
-	    query_dialog (_("Syntax file edit"),
+	  query_dialog (" ", /* _("Syntax file edit"),*/
 			  _(" Which syntax file you want to edit? "), 0, 2,
 			  _("&User"), _("&System Wide"));
     }

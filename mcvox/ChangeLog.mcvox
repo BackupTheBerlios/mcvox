@@ -1,5 +1,17 @@
 mcvox Changelog
 
+* 0.4
+** Minor enhancements
+** Copy files: the input field order has been changed to be better understandable: destination and source input boxes and then the checkboxes.
+** TAG prefix: indicates that a file has been marked.
+** widget callback: DRAW: no operation, FOCUS: render, UNFOCUS: blank line, CURSOR; start of the line (or input text). Less info might help the screen reader.
+
+* 0.3
+** Major bug fix
+** 16 May 2005, Gilles Casse <gcasse@oralux.org>
+
+Seg fault when attempt to modify the configuration
+
 * 0.2
 ** Minor enhancement
 ** 15 May 2005, Gilles Casse <gcasse@oralux.org>

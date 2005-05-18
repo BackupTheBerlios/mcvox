@@ -103,71 +103,56 @@ button_callback (WButton *b, widget_msg_t msg, int parm)
 	return MSG_HANDLED;
 
     case WIDGET_CURSOR:
-/* 	switch (b->flags) { */
-/* 	case DEFPUSH_BUTTON: */
-/* 	    off = 3; */
-/* 	    break; */
-/* 	case NORMAL_BUTTON: */
-/* 	    off = 2; */
-/* 	    break; */
-/* 	case NARROW_BUTTON: */
-/* 	    off = 1; */
-/* 	    break; */
-/* 	case HIDDEN_BUTTON: */
-/* 	default: */
-/* 	    off = 0; */
-/* 	    break; */
-/* 	} */
-	widget_move (&b->widget, 0, BUTTON_ANNOUNCE_WIDTH);
-/* 	widget_move (&b->widget, 0, b->hotpos + off); */
-	return MSG_HANDLED;
+      widget_move (&b->widget, 0, 0);
+      return MSG_HANDLED;
 
     case WIDGET_UNFOCUS:
-    case WIDGET_FOCUS:
-    case WIDGET_DRAW:
+      {
+	int i=0;
+
 	if (msg == WIDGET_UNFOCUS)
 	    b->selected = 0;
-	else if (msg == WIDGET_FOCUS)
-	    b->selected = 1;
 
-	switch (b->flags) {
-	case DEFPUSH_BUTTON:
-	  /* RAF GC : no braket 
-	    g_snprintf (buf, sizeof (buf), "[< %s >]", b->text);
-	  */
-	    g_snprintf (buf, sizeof (buf), "*%s%s", BUTTON_ANNOUNCE, b->text);
-/* 	    off = 3; */
-	    break;
-	case NORMAL_BUTTON:
-	  /* RAF GC : no braket 
-	    g_snprintf (buf, sizeof (buf), "[ %s ]", b->text);
-	  */
-	    g_snprintf (buf, sizeof (buf), " %s%s", BUTTON_ANNOUNCE, b->text);
-/* 	    off = 2; */
-	    break;
-	case NARROW_BUTTON:
-	  /* RAF GC : no braket 
-	    g_snprintf (buf, sizeof (buf), "[%s]", b->text);
-	  */
-	  g_snprintf (buf, sizeof (buf), 
-		      "%s",
-		      b->text);
-/* 	    g_snprintf (buf, sizeof (buf), "%s", b->text); */
-/* 	    off = 1; */
-	  break;
-	case PUSH_NARROW_BUTTON:
-	  g_snprintf (buf, sizeof (buf), 
-		      "*%s",
-		      b->text);
-	  break;
-	case HIDDEN_BUTTON:
+	widget_move (&b->widget, 0, 0);
+	
+	for (i=0; i<b->widget.parent->cols; i++)
+	{
+	  addch (' ');
+	}
+	refresh();
+      }
+      return MSG_HANDLED;
+
+    case WIDGET_DRAW:
+      return MSG_HANDLED;
+
+    case WIDGET_FOCUS:
+      b->selected = 1;
+
+      switch (b->flags) {
+      case DEFPUSH_BUTTON:
+	g_snprintf (buf, sizeof (buf), "*%s%s", BUTTON_ANNOUNCE, b->text);
+	break;
+      case NORMAL_BUTTON:
+	g_snprintf (buf, sizeof (buf), " %s%s", BUTTON_ANNOUNCE, b->text);
+	break;
+      case NARROW_BUTTON:
+	g_snprintf (buf, sizeof (buf), 
+		    "%s",
+		    b->text);
+	break;
+      case PUSH_NARROW_BUTTON:
+	g_snprintf (buf, sizeof (buf), 
+		    "*%s",
+		    b->text);
+	break;
+      case HIDDEN_BUTTON:
 	default:
 	  buf[0] = '\0';
-	  /* 	    off = 0; */
 	  break;
-	}
+      }
 
-	/* RAF GC: no particular color for the focus 
+      /* RAF GC: no particular color for the focus 
 	attrset ((b->selected) ? FOCUSC : NORMALC);
 */
 	attrset (NORMALC);
@@ -184,12 +169,14 @@ button_callback (WButton *b, widget_msg_t msg, int parm)
 	    }
 	}
 
-	if (b->hotpos >= 0) {
-	    attrset ((b->selected) ? HOT_FOCUSC : HOT_NORMALC);
-	    widget_move (&b->widget, 0, 0);
-/* 	    widget_move (&b->widget, 0, b->hotpos + off); */
-	    addch ((unsigned char) b->text[b->hotpos]);
-	}
+/* 	refresh(); */
+
+/* 	if (b->hotpos >= 0) { */
+/* 	    attrset ((b->selected) ? HOT_FOCUSC : HOT_NORMALC); */
+/* 	    widget_move (&b->widget, 0, 0); */
+/* /\* 	    widget_move (&b->widget, 0, b->hotpos + off); *\/ */
+/* 	    addch ((unsigned char) b->text[b->hotpos]); */
+/* 	} */
 	return MSG_HANDLED;
 
     case WIDGET_DESTROY:
@@ -348,25 +335,46 @@ radio_callback (WRadio *r, int msg, int parm)
     case WIDGET_CURSOR:
 	(*h->callback) (h, DLG_ACTION, 0);
 	radio_callback (r, WIDGET_FOCUS, ' ');
-
-/* RAF(GC)
- 	widget_move (&r->widget, r->pos, 1); 
-*/
-	widget_move (&r->widget, 0, RADIO_ANNOUNCE_WIDTH);
+	widget_move (&r->widget, 0, 0);
 
 	return MSG_HANDLED;
 
     case WIDGET_UNFOCUS:
-    case WIDGET_FOCUS:
-    case WIDGET_DRAW:
       {
+	int i=0;
+	widget_move (&r->widget, 0, 0);
+	
+	for (i=0; i<r->widget.parent->cols; i++)
+	{
+	  addch (' ');
+	}
+	refresh();
+      }
+      return MSG_HANDLED;
+
+    case WIDGET_DRAW:
+      return MSG_HANDLED;
+
+    case WIDGET_FOCUS:
+      {
+	int i=0;
 	int index=r->pos;
 	register unsigned char *cp; 
 	attrset (NORMALC);
+
+	/* Erase the line, ortherwise the "Radio Announce" could not be said */
+	widget_move (&r->widget, 0, 0);
+	for (i=0; i<r->widget.parent->cols; i++)
+	{
+	  addch (' ');
+	}
+	refresh();
+
 	widget_move (&r->widget, 0, 0);
 	printw ("%c%s",
 		(r->sel == index) ? '*' : ' ',
 		RADIO_ANNOUNCE);
+
 	for (cp = r->texts[index]; *cp; cp++) {
 	  if (*cp == '&') {
 	    addch (*++cp);
@@ -374,31 +382,15 @@ radio_callback (WRadio *r, int msg, int parm)
 	    addch (*cp);
 	}
 	/* RAF GC */
-	for (; (char*)cp < r->texts[index] + r->widget.cols; cp++) {
+	for (i=0; i <  r->widget.cols - strlen(r->texts[index]); i++) {
 	  addch (' ');
 	}
+	/*	refresh();*/
       }
+      return MSG_HANDLED;
 
-/* RAF(GC)
-  for (i = 0; i < r->count; i++) { */
-/* 	    register unsigned char *cp; */
-/* 	    attrset ((i == r->pos */
-/* 		      && msg == WIDGET_FOCUS) ? FOCUSC : NORMALC); */
-/* 	    widget_move (&r->widget, i, 0); */
-
-/* 	    printw ("(%c) ", (r->sel == i) ? '*' : ' '); */
-/* 	    for (cp = r->texts[i]; *cp; cp++) { */
-/* 		if (*cp == '&') { */
-/* 		    attrset ((i == r->pos && msg == WIDGET_FOCUS) */
-/* 			     ? HOT_FOCUSC : HOT_NORMALC); */
-/* 		    addch (*++cp); */
-/* 		    attrset ((i == r->pos */
-/* 			      && msg == WIDGET_FOCUS) ? FOCUSC : NORMALC); */
-/* 		} else */
-/* 		    addch (*cp); */
-/* 	    } */
-/* 	} */
-	return MSG_HANDLED;
+/*     case WIDGET_DRAW: */
+/*       return MSG_HANDLED; */
 
     default:
 	return default_proc (msg, parm);
@@ -480,12 +472,23 @@ check_callback (WCheck *c, widget_msg_t msg, int parm)
 	return MSG_HANDLED;
 
     case WIDGET_CURSOR:
-	widget_move (&c->widget, 0, CHECKBOX_ANNOUNCE_WIDTH);
-/* 	widget_move (&c->widget, 0, 1); */
+	widget_move (&c->widget, 0, 0);
 	return MSG_HANDLED;
 
-    case WIDGET_FOCUS:
     case WIDGET_UNFOCUS:
+      {
+	int i=0;
+	widget_move (&c->widget, 0, 0);
+	
+	for (i=0; i<c->widget.parent->cols; i++)
+	{
+	  addch (' ');
+	}
+	refresh();
+      }
+      return MSG_HANDLED;
+	
+    case WIDGET_FOCUS:
     case WIDGET_DRAW:
 	attrset ((msg == WIDGET_FOCUS) ? FOCUSC : NORMALC);
 	widget_move (&c->widget, 0, 0);
@@ -577,7 +580,7 @@ check_new (int y, int x, int state, char *text)
 static int
 label_callback (WLabel *l, int msg, int parm)
 {
-    Dlg_head *h = l->widget.parent;
+/*     Dlg_head *h = l->widget.parent; */
 
     switch (msg) {
     case WIDGET_INIT:
@@ -593,8 +596,25 @@ label_callback (WLabel *l, int msg, int parm)
 	return MSG_HANDLED;
 /* 	return MSG_NOT_HANDLED; */
 
-    case WIDGET_FOCUS:
     case WIDGET_UNFOCUS:
+      {
+	int i;
+	
+	if (!l->text)
+	  return MSG_HANDLED;
+
+	/* RAF GC : clear the line */
+	widget_move (&l->widget, 0, 0);
+	for (i=0; i < l->widget.parent->cols; i++)
+	  {
+	    addch (' ');
+	  }
+	refresh();
+	
+	return MSG_HANDLED;
+      }
+
+    case WIDGET_FOCUS:
     case WIDGET_DRAW:
 	{
 	    char *p = l->text, *q, c = 0;
@@ -604,10 +624,10 @@ label_callback (WLabel *l, int msg, int parm)
 	    if (!l->text)
 		return MSG_HANDLED;
 
-	    if (l->transparent)
-		attrset (DEFAULT_COLOR);
-	    else
-		attrset (NORMALC);
+/* 	    if (l->transparent) */
+/* 		attrset (DEFAULT_COLOR); */
+/* 	    else */
+/* 		attrset (NORMALC); */
 
 	    /* RAF GC : clear the line */
 	    widget_move (&l->widget, 0, 0);
@@ -615,6 +635,7 @@ label_callback (WLabel *l, int msg, int parm)
 	      {
 		addch (' ');
 	      }
+	    refresh();
 
 	    for (;;) {
 		int xlen;
@@ -915,6 +936,7 @@ update_input (WInput *in, int clear_first)
 /*       } */
 
     widget_move (&in->widget, 0, 0);
+    
     printw("%s",INPUT_ANNOUNCE);
     
     for (i = 0, j = in->first_shown; i < in->field_len - has_history && in->buffer [j]; i++){

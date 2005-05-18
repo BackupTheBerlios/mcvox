@@ -712,7 +712,8 @@ tree_rmdir_cmd (WTree *tree)
 	    g_strdup_printf (_("  Delete %s?  "),
 			     tree->selected_ptr->name);
 	result =
-	    query_dialog (_(" Delete "), buf, 3, 2, _("&Yes"), _("&No"));
+	  query_dialog (" ", /* _(" Delete ")*/ 
+			buf, 3, 2, _("&Yes"), _("&No"));
 	g_free (buf);
 	if (result != 0)
 	    return;

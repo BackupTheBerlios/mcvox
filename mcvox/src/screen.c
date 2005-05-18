@@ -234,8 +234,8 @@ string_file_size_brief (file_entry *fe, int len)
 static const char *
 string_file_type (file_entry *fe, int len)
 {
-#define SELECTED_PREFIX "SEL "
-#define TAGGED_PREFIX "TAG "
+#define SELECTED_PREFIX "Sel "
+#define TAGGED_PREFIX "Tag "
 
     static char buffer[sizeof(SELECTED_PREFIX)+sizeof(TAGGED_PREFIX)+2];
     int i=0;
@@ -2002,7 +2002,7 @@ do_enter_on_file_entry (file_entry *fe)
 
     if (confirm_execute) {
 	if (query_dialog
-	    (_(" The Midnight Commander "),
+	    (" ", /* _(" The Midnight Commander "), */
 	     _(" Do you really want to execute? "), 0, 2, _("&Yes"),
 	     _("&No")) != 0)
 	    return 1;

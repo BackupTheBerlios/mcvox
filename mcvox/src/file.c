@@ -118,11 +118,18 @@ static struct link *erase_list;
  */
 static struct link *dest_dirs = 0;
 
+/* the operation is removed to avoid to repeat info */
 char *op_names[3] = {
-    N_(" Copy "),
-    N_(" Move "),
-    N_(" Delete ")
+    " ",
+    " ",
+    " "
 };
+
+/* char *op_names[3] = { */
+/*     N_(" Copy "), */
+/*     N_(" Move "), */
+/*     N_(" Delete ") */
+/* }; */
 
 /* }}} */
 

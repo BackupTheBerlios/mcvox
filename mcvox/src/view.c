@@ -436,7 +436,7 @@ save_edit_changes (WView *view)
 	}
 
 	if (fp == -1) {
-	    fp = query_dialog (_(" Save file "),
+	  fp = query_dialog (" ", /* _(" Save file ") */
 			       _(" Cannot save file. "),
 			       2, 2, _("&Retry"), _("&Cancel")) - 1;
 	}
@@ -453,7 +453,7 @@ view_ok_to_quit (WView *view)
     if (!view->change_list)
 	return 1;
 
-    r = query_dialog (_("Quit"),
+    r = query_dialog (" ", /* _("Quit"), */
 		      _(" File was modified, Save with exit? "), 2, 3,
 		      _("Cancel quit"), _("&Yes"), _("&No"));
 
