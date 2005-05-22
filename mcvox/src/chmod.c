@@ -59,6 +59,9 @@ static int single_set;
 #define B_SETMRK        (B_USER+2)
 #define B_CLRMRK        (B_USER+3)
 
+#define Y_POS 2
+#define X_POS 0
+
 static int mode_change, need_update;
 static int c_file, end_chmod;
 
@@ -103,47 +106,21 @@ static struct {
 
 static void chmod_toggle_select (Dlg_head *h, int Id)
 {
-    attrset (COLOR_NORMAL);
-    check_perm[Id].selected ^= 1;
+  attrset (COLOR_NORMAL);
+  check_perm[Id].selected ^= 1;
+  check_set_mark (check_perm[Id].check, check_perm[Id].selected);
+}
 
-    dlg_move (h, PY + PERMISSIONS - Id, PX + 1);
-    addch ((check_perm[Id].selected) ? '*' : ' ');
-    dlg_move (h, PY + PERMISSIONS - Id, PX + 3);
+static void chmod_toggle_mark (Dlg_head *h, int Id)
+{
+  attrset (COLOR_NORMAL);
+  check_perm[Id].selected ^= 1;
+  check_set_mark (check_perm[Id].check, check_perm[Id].selected);
 }
 
 static void chmod_refresh (Dlg_head *h)
 {
     common_dialog_repaint (h);
-
-    attrset (COLOR_NORMAL);
-    
-    draw_box (h, PY, PX, PERMISSIONS + 2, 33);
-    draw_box (h, FY, FX, 10, 25);
-
-    dlg_move (h, FY + 1, FX + 2);
-    addstr (_("Name"));
-    dlg_move (h, FY + 3, FX + 2);
-    addstr (_("Permissions (Octal)"));
-    dlg_move (h, FY + 5, FX + 2);
-    addstr (_("Owner name"));
-    dlg_move (h, FY + 7, FX + 2);
-    addstr (_("Group name"));
-    
-    dlg_move (h, TY, TX);
-    addstr (_("Use SPACE to change"));
-    dlg_move (h, TY + 1, TX);
-    addstr (_("an option, ARROW KEYS"));
-    dlg_move (h, TY + 2, TX);
-    addstr (_("to move between options"));
-    dlg_move (h, TY + 3, TX);
-    addstr (_("and T or INS to mark"));
-
-    attrset (COLOR_HOT_NORMAL);
-
-    dlg_move (h, PY, PX + 1);
-    addstr (_(" Permission "));
-    dlg_move (h, FY, FX + 1);
-    addstr (_(" File "));
 }
 
 static cb_ret_t
@@ -158,16 +135,16 @@ chmod_callback (Dlg_head *h, dlg_msg_t msg, int parm)
 	    c_stat ^= check_perm[id].mode;
 	    g_snprintf (buffer, sizeof (buffer), "%o", c_stat);
 	    label_set_text (statl, buffer);
-	    chmod_toggle_select (h, id);
+ 	    chmod_toggle_select (h, id);
 	    mode_change = 1;
 	}
 	return MSG_HANDLED;
 
     case DLG_KEY:
 	if ((parm == 'T' || parm == 't' || parm == KEY_IC) && id > 0) {
-	    chmod_toggle_select (h, id);
-	    if (parm == KEY_IC)
-		dlg_one_down (h);
+	    chmod_toggle_mark (h, id);
+/* 	    if (parm == KEY_IC) */
+/* 		dlg_one_down (h); */
 	    return MSG_HANDLED;
 	}
 	return MSG_NOT_HANDLED;
@@ -186,6 +163,7 @@ init_chmod (void)
 {
     int i;
     Dlg_head *ch_dlg;
+    char buffer [BUF_TINY];
 
     do_refresh ();
     end_chmod = c_file = need_update = 0;
@@ -201,8 +179,8 @@ init_chmod (void)
 	    break;
 	else
 	    add_widget (ch_dlg,
-			button_new (BY + chmod_but[i].y - single_set,
-				    BX + chmod_but[i].x,
+			button_new (Y_POS,
+				    X_POS,
 				    chmod_but[i].ret_cmd,
 				    chmod_but[i].flags,
 				    _(chmod_but[i].text), 0));
@@ -210,10 +188,14 @@ init_chmod (void)
 
     for (i = 0; i < PERMISSIONS; i++) {
 	check_perm[i].check =
-	    check_new (PY + (PERMISSIONS - i), PX + 2, 0,
+	    check_new (Y_POS, X_POS, 0,
 		       _(check_perm[i].text));
 	add_widget (ch_dlg, check_perm[i].check);
     }
+
+    g_snprintf (buffer, sizeof (buffer), "2. %s", 
+		_(" Permission "));
+    add_widget (ch_dlg, label_new (Y_POS, X_POS, buffer));
 
     return ch_dlg;
 }
@@ -263,7 +245,7 @@ static void apply_mask (struct stat *sf)
 
 void chmod_cmd (void)
 {
-    char buffer [BUF_TINY];
+    char buffer [BUF_SMALL];
     char *fname;
     int i;
     struct stat sf_stat;
@@ -291,16 +273,40 @@ void chmod_cmd (void)
 	}
 
 	/* Set the labels */
-	c_fname = name_trunc (fname, 21);
-	add_widget (ch_dlg, label_new (FY+2, FX+2, c_fname));
-	c_fown = name_trunc (get_owner (sf_stat.st_uid), 21);
-	add_widget (ch_dlg, label_new (FY+6, FX+2, c_fown));
+
 	c_fgrp = name_trunc (get_group (sf_stat.st_gid), 21);
-	add_widget (ch_dlg, label_new (FY+8, FX+2, c_fgrp));
-	g_snprintf (buffer, sizeof (buffer), "%o", c_stat);
-	statl = label_new (FY+4, FX+2, buffer);
+	g_snprintf (buffer, sizeof (buffer), "%s: %s", 
+		    _("Group name"), c_fgrp);
+	add_widget (ch_dlg, label_new (Y_POS, X_POS, buffer));
+
+	c_fown = name_trunc (get_owner (sf_stat.st_uid), 21);
+	g_snprintf (buffer, sizeof (buffer), "%s: %s", 
+		    _("Owner name"), c_fown);
+	add_widget (ch_dlg, label_new (Y_POS, X_POS, buffer));
+
+	g_snprintf (buffer, sizeof (buffer), "%s: %o", 
+		    _("Permissions (Octal)"), c_stat);
+	statl = label_new (Y_POS, X_POS, buffer);
 	add_widget (ch_dlg, statl);
-	
+
+	c_fname = name_trunc (fname, 21);
+	g_snprintf (buffer, sizeof (buffer), "%s: %s", 
+		    _("Name"), fname);
+	add_widget (ch_dlg, label_new (Y_POS, X_POS, buffer));
+
+
+	g_snprintf (buffer, sizeof (buffer), "1. %s", 
+		    _(" File "));
+	add_widget (ch_dlg, label_new (Y_POS, X_POS, buffer));
+
+	g_snprintf (buffer, sizeof (buffer), "%s %s %s %s", 
+		    _("Use SPACE to change"),
+		    _("an option, ARROW KEYS"),
+		    _("to move between options"),
+		    _("and T or INS to mark")
+		    );
+	add_widget (ch_dlg, label_new (Y_POS, X_POS, buffer));
+
 	run_dlg (ch_dlg);	/* retrieve an action */
 	
 	/* do action */

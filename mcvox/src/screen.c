@@ -234,9 +234,6 @@ string_file_size_brief (file_entry *fe, int len)
 static const char *
 string_file_type (file_entry *fe, int len)
 {
-#define SELECTED_PREFIX "Sel "
-#define TAGGED_PREFIX "Tag "
-
     static char buffer[sizeof(SELECTED_PREFIX)+sizeof(TAGGED_PREFIX)+2];
     int i=0;
 
@@ -786,17 +783,20 @@ show_dir (WPanel *panel)
     if (panel->active)
 	attrset (REVERSE_COLOR);
 
-    widget_move (&panel->widget, 0, 3);
+    char* announce=N_("Directory: ");
+
+    widget_move (&panel->widget, 0, strlen(announce)+1);
 
     trim (strip_home_and_password (panel->cwd), tmp,
 	  max (panel->widget.cols - 7, 0));
     addstr (tmp);
     widget_move (&panel->widget, 0, 1);
-    addstr ("<");
-    widget_move (&panel->widget, 0, panel->widget.cols - 2);
-    addstr (">");
-    widget_move (&panel->widget, 0, panel->widget.cols - 3);
-    addstr ("v");
+/*     addstr ("<"); */
+    printw( announce);
+/*     widget_move (&panel->widget, 0, panel->widget.cols - 2); */
+/*     addstr (">"); */
+/*     widget_move (&panel->widget, 0, panel->widget.cols - 3); */
+/*     addstr ("v"); */
 
     if (panel->active)
 	standend ();

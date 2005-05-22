@@ -96,8 +96,95 @@ static void menubar_drop_compute (WMenu *menubar)
     menubar->max_entry_len = menubar->menu [menubar->selected]->max_entry_len;
 }
 
+struct expandAbbreviation
+{
+  char* my_abbreviation;
+  char* my_wholename;
+};
+
+#define abbreviationMaxLength 9
+static struct expandAbbreviation The_abbreviations[]=
+{
+  {" c-", " control "}, /* " control " length is the abbreviationMaxLength (9) */
+  {" m-", " escape "}, /* to avoid perplexity with meta */
+/*   {" s-", " shift "}, */
+};
+#define sizeAbbreviation (sizeof(The_abbreviations)/sizeof(The_abbreviations[0]))
+
+/* 
+Any abreviation found in the source string is replaced by its full name (see array above).
+   The resulting string is returned (to be freed by the caller).
+   The call to this function could be optional.
+*/
+
+static void replace_abbreviation( gchar** source)
+{
+  /* replace 'c-' by 'control ', 'm-' by 'escape ', 'S-' by 'shift ' */
+  gchar* needle;
+  gint i=0;
+  gint maxlength=0;
+  gchar* oldstring=NULL;
+  gchar* newstring=NULL;
+  gint length=strlen(*source);
+  maxlength=length + sizeAbbreviation * abbreviationMaxLength;
+
+  if (strchr( *source, '-' ) == NULL)
+    {
+      return;
+    }
+
+  oldstring=g_new(char, maxlength+1);
+  memcpy(oldstring, *source, length+1);  
+  newstring=g_new(char, maxlength+1);
+
+  i=0;
+  while (i<sizeAbbreviation)
+    {
+      if ((needle=strstr( oldstring, The_abbreviations[i].my_abbreviation )) == NULL)
+	{
+	  i++;
+	}
+      else
+	{
+	  gchar *p=newstring;
+	  length=needle-oldstring;
+	  /* the snprintf return value is the max length instead of the copied length... */
+	  g_snprintf(newstring, 
+		     length+1, 
+		     "%s", oldstring);	 
+	  p+=length;
+
+	  length=strlen(The_abbreviations[i].my_wholename);
+	  g_snprintf(p, 
+		     length+1,
+		     "%s", 
+		     The_abbreviations[i].my_wholename);
+	  p+=length;
+
+	  needle+=strlen(The_abbreviations[i].my_abbreviation);
+	  length=strlen(needle);
+	  g_snprintf(p, 
+		     length+1, 
+		     "%s", needle);
+	  p+=length;
+	  
+	  *p=0;
+	  needle=newstring;
+	  newstring=oldstring;
+	  oldstring=needle;
+	}
+    }
+  g_free(newstring);
+  g_free(*source);
+  *source=oldstring;
+}
+
 static void menubar_paint_idx (WMenu *menubar, int idx, int color)
 {
+    /* raf gc:each item is displayed at (0,0) */
+     const int y = 0; 
+     const int x = 0; 
+
   /* RAF GC: only the selected item is displayed */
     const Menu *menu = menubar->menu [menubar->selected];
     if (color != MENU_SELECTED_COLOR)
@@ -110,8 +197,6 @@ static void menubar_paint_idx (WMenu *menubar, int idx, int color)
 
     /* raf gc:each item is displayed at (0,0) */
     /*    const int y = 2 + idx;*/
-     const int y = 0; 
-     const int x = 0; 
 
 /* 	int x = menubar-> menu[menubar->selected]->start_x; */
 
@@ -126,13 +211,15 @@ static void menubar_paint_idx (WMenu *menubar, int idx, int color)
         widget_move (&menubar->widget, y, x + 1);
     	hline (slow_terminal ? ' ' : ACS_HLINE, menubar->max_entry_len);
     } else {
-      unsigned char *s=g_strdown(g_strdup(menu->entries [idx].text)); /* RAF GC */
+      gchar *s=g_strdown(g_strdup(menu->entries [idx].text)); /* RAF GC */
       unsigned char *text;
+      /* RAF GC : clear previous entry */
+      int i=0;
 	
-	/* RAF GC : clear previous entry */
-	int i=0;
+      replace_abbreviation(&s);
+
 	widget_move (&menubar->widget, 0, 0);
-	for (i=0;i<menubar->widget.cols;i++)
+	for (i=0;i<menubar->widget.parent->cols;i++)
 	  {
 	    addch(' ');
 	  }

@@ -133,6 +133,7 @@ struct Widget {
 #define  W_WANT_CURSOR       4
 #define  W_WANT_IDLE         8
 #define  W_IS_INPUT         16
+#define  W_IS_MARKED        32
 
 /* draw box in window */
 void draw_box (Dlg_head *h, int y, int x, int ys, int xs);
@@ -240,6 +241,7 @@ void do_refresh (void);
 
 #define widget_want_cursor(w,i) widget_option(w, W_WANT_CURSOR, i)
 #define widget_want_hotkey(w,i) widget_option(w, W_WANT_HOTKEY, i)
+#define widget_is_marked(w,i) widget_option(w, W_IS_MARKED, i)
 
 /* Used in load_prompt() */
 void update_cursor (Dlg_head *h);

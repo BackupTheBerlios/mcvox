@@ -95,7 +95,7 @@ int command_prompt = 0;
 int keybar_visible = 0;
 
 /* Set if the nice message (hint) bar is visible */
-int message_visible = 1;
+int message_visible = 0;
 
 /* Set to show current working dir in xterm window title */
 int xterm_title = 0;

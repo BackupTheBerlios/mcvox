@@ -6,6 +6,9 @@
 #define C_BOOL		1
 #define C_CHANGE	2
 
+#define SELECTED_PREFIX "Sel "
+#define TAGGED_PREFIX "Tag "
+
 /* Please note that the first element in all the widgets is a     */
 /* widget variable of type Widget.  We abuse this fact everywhere */
 
@@ -166,6 +169,10 @@ cb_ret_t input_callback (WInput *in, widget_msg_t msg, int parm);
 
 /* Labels */
 void label_set_text (WLabel *label, char *text);
+
+/* Checkboxes */
+void check_set_text (WCheck *c, char *text);
+void check_set_mark (WCheck *c, int mark);
 
 /* Gauges */
 void gauge_set_value (WGauge *g, int max, int current);

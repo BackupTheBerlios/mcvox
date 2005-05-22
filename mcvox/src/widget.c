@@ -478,9 +478,17 @@ check_callback (WCheck *c, widget_msg_t msg, int parm)
     case WIDGET_UNFOCUS:
       {
 	int i=0;
+	int cols=1+CHECKBOX_ANNOUNCE_WIDTH; /* 1 = '*' or ' ' */
 	widget_move (&c->widget, 0, 0);
-	
-	for (i=0; i<c->widget.parent->cols; i++)
+
+	if (c->widget.options & W_IS_MARKED)
+	  {
+	    cols += sizeof(TAGGED_PREFIX)-1;
+	  }
+	cols += c->widget.cols;
+
+/* 	for (i=0; i<c->widget.parent->cols; i++) */
+	for (i=0; i<cols; i++)
 	{
 	  addch (' ');
 	}
@@ -490,21 +498,28 @@ check_callback (WCheck *c, widget_msg_t msg, int parm)
 	
     case WIDGET_FOCUS:
     case WIDGET_DRAW:
+      {
+	int cols=0;
 	attrset ((msg == WIDGET_FOCUS) ? FOCUSC : NORMALC);
 	widget_move (&c->widget, 0, 0);
+
+	if (c->widget.options & W_IS_MARKED)
+	  {
+	    printw (TAGGED_PREFIX);
+	    cols += sizeof(TAGGED_PREFIX)-1;
+	  }
 
 	printw ("%c%s%s", 
 		(c->state & C_BOOL) ? '*' : ' ', 
 		CHECKBOX_ANNOUNCE, 
 		c->text);
 
-	{ /* RAF GC */
-	  int i=0;
-	  for (i=0; i<c->widget.parent->cols - strlen(c->text) - 4; i++)
-	    {
-	      addch (' ');
-	    }
-	}
+	cols += 1 + CHECKBOX_ANNOUNCE_WIDTH + strlen(c->text);
+
+	for (; cols<c->widget.parent->cols; cols++)
+	  {
+	    addch (' ');
+	  }
 
 	/* raf gc */
 /* 	if (c->hotpos >= 0) { */
@@ -512,6 +527,7 @@ check_callback (WCheck *c, widget_msg_t msg, int parm)
 /* 	    widget_move (&c->widget, 0, +c->hotpos + 4); */
 /* 	    addch ((unsigned char) c->text[c->hotpos]); */
 /* 	} */
+      }
 	return MSG_HANDLED;
 
     case WIDGET_DESTROY:
@@ -575,6 +591,26 @@ check_new (int y, int x, int state, char *text)
 }
 
 
+void
+check_set_text (WCheck *c, char *text)
+{
+  int newcols=0;
+   g_free (c->text);
+   c->text = g_strdown(g_strdup (text));
+   newcols = strlen (text);
+   if (newcols > c->widget.cols)
+     c->widget.cols = newcols;
+   if (c->widget.parent)
+      check_callback (c, WIDGET_DRAW, 0);
+}
+
+void
+check_set_mark (WCheck *c, int mark)
+{
+  widget_is_marked (c->widget, mark);
+  check_callback (c, WIDGET_DRAW, 0);
+}
+
 /* Label widget */
 
 static int
@@ -605,10 +641,12 @@ label_callback (WLabel *l, int msg, int parm)
 
 	/* RAF GC : clear the line */
 	widget_move (&l->widget, 0, 0);
-	for (i=0; i < l->widget.parent->cols; i++)
+	for (i=0; i < l->widget.cols; i++)
 	  {
 	    addch (' ');
 	  }
+	
+
 	refresh();
 	
 	return MSG_HANDLED;
