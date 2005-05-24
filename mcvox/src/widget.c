@@ -639,13 +639,12 @@ label_callback (WLabel *l, int msg, int parm)
 	if (!l->text)
 	  return MSG_HANDLED;
 
-	/* RAF GC : clear the line */
-	widget_move (&l->widget, 0, 0);
-	for (i=0; i < l->widget.cols; i++)
+ 	/* RAF GC : clear the line */
+ 	widget_move (&l->widget, 0, 0);
+ 	for (i=0; i < l->widget.cols; i++)
 	  {
 	    addch (' ');
 	  }
-	
 
 	refresh();
 	
@@ -1988,12 +1987,13 @@ listbox_draw (WListbox *l, int focused)
 /* 	  widget_erase (&l->widget); */
 /* 	  wredrawln(stdscr, 2, 1); */
 	  redrawwin(stdscr);
-	  widget_move (&l->widget, 2, 0);
+/* 	  widget_move (&l->widget, 2, 0); */
+	  widget_move (&l->widget, 0, 0);
 	  printw (" %-*s ", l->width-2, name_trunc (text, l->width-2));
 	}
     }
     /*    l->cursor_y = sel_line;*/
-    l->cursor_y = 2;
+    l->cursor_y = 0; /* 2; */
     if (!l->scrollbar)
 	return;
     attrset (normalc);

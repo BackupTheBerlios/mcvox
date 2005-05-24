@@ -299,14 +299,17 @@ void chmod_cmd (void)
 		    _(" File "));
 	add_widget (ch_dlg, label_new (Y_POS, X_POS, buffer));
 
-	g_snprintf (buffer, sizeof (buffer), "%s %s %s %s", 
-		    _("Use SPACE to change"),
-		    _("an option, ARROW KEYS"),
+	g_snprintf (buffer, sizeof (buffer), "%s %s", 
 		    _("to move between options"),
 		    _("and T or INS to mark")
 		    );
 	add_widget (ch_dlg, label_new (Y_POS, X_POS, buffer));
 
+	g_snprintf (buffer, sizeof (buffer), "%s %s", 
+		    _("Use SPACE to change"),
+		    _("an option, ARROW KEYS")
+		    );
+	add_widget (ch_dlg, label_new (Y_POS, X_POS, buffer));
 	run_dlg (ch_dlg);	/* retrieve an action */
 	
 	/* do action */

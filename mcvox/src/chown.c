@@ -60,6 +60,9 @@
 #define B_SETUSR        (B_USER + 1)
 #define B_SETGRP        (B_USER + 2)
 
+#define Y_POS 2
+#define X_POS 0
+
 static int need_update, end_chown;
 static int current_file;
 static int single_set;
@@ -92,31 +95,6 @@ static void
 chown_refresh (Dlg_head *h)
 {
     common_dialog_repaint (h);
-
-    attrset (COLOR_NORMAL);
-
-    draw_box (h, UY, UX, 12, 21);
-    draw_box (h, GY, GX, 12, 21);
-    draw_box (h, TY, TX, 12, 19);
-
-    dlg_move (h, TY + 1, TX + 1);
-    addstr (_(" Name "));
-    dlg_move (h, TY + 3, TX + 1);
-    addstr (_(" Owner name "));
-    dlg_move (h, TY + 5, TX + 1);
-    addstr (_(" Group name "));
-    dlg_move (h, TY + 7, TX + 1);
-    addstr (_(" Size "));
-    dlg_move (h, TY + 9, TX + 1);
-    addstr (_(" Permission "));
-    
-    attrset (COLOR_HOT_NORMAL);
-    dlg_move (h, UY, UX + 1);
-    addstr (_(" User name "));
-    dlg_move (h, GY, GX + 1);
-    addstr (_(" Group name "));
-    dlg_move (h, TY, TX + 1);
-    addstr (_(" File "));
 }
 
 static char *
@@ -148,6 +126,7 @@ init_chown (void)
     struct passwd *l_pass;
     struct group *l_grp;
     Dlg_head *ch_dlg;
+    char  buffer [BUF_SMALL];
 
     do_refresh ();
     end_chown = need_update = current_file = 0;
@@ -159,20 +138,25 @@ init_chown (void)
 
     for (i = 0; i < BUTTONS - single_set; i++)
 	add_widget (ch_dlg,
-		    button_new (BY + chown_but[i].y, BX + chown_but[i].x,
+		    button_new (Y_POS,
+				X_POS,
 				chown_but[i].ret_cmd, chown_but[i].flags,
 				_(chown_but[i].text), 0));
 
     /* Add the widgets for the file information */
     for (i = 0; i < LABELS; i++) {
 	chown_label[i].l =
-	    label_new (chown_label[i].y, chown_label[i].x, "");
+	    label_new (Y_POS, X_POS, "");
 	add_widget (ch_dlg, chown_label[i].l);
     }
 
+    g_snprintf (buffer, sizeof (buffer), "3. %s", 
+		_(" File "));
+    add_widget (ch_dlg, label_new (Y_POS, X_POS, buffer));
+
     /* get new listboxes */
-    l_user = listbox_new (UY + 1, UX + 1, 19, 10, NULL);
-    l_group = listbox_new (GY + 1, GX + 1, 19, 10, NULL);
+    l_user = listbox_new (Y_POS, X_POS, 19, 10, NULL);
+    l_group = listbox_new (Y_POS, X_POS, 19, 10, NULL);
 
     /* add fields for unknown names (numbers) */
     listbox_add_item (l_user, 0, 0, _("<Unknown user>"), NULL);
@@ -194,7 +178,14 @@ init_chown (void)
 
     /* add listboxes to the dialogs */
     add_widget (ch_dlg, l_group);
+    g_snprintf (buffer, sizeof (buffer), "2. %s", 
+		_(" Group name "));
+    add_widget (ch_dlg, label_new (Y_POS, X_POS, buffer));
+
     add_widget (ch_dlg, l_user);
+    g_snprintf (buffer, sizeof (buffer), "1. %s", 
+		_(" User name "));
+    add_widget (ch_dlg, label_new (Y_POS, X_POS, buffer));
 
     return ch_dlg;
 }
@@ -234,6 +225,8 @@ apply_chowns (uid_t u, gid_t g)
 
 #define chown_label(n,txt) label_set_text (chown_label [n].l, txt)
 
+
+
 void
 chown_cmd (void)
 {
@@ -243,7 +236,8 @@ chown_cmd (void)
     Dlg_head *ch_dlg;
     uid_t new_user;
     gid_t new_group;
-    char  buffer [BUF_TINY];
+    char  buffer1 [BUF_TINY];
+    char  buffer [BUF_SMALL];
 
     do {			/* do while any files remaining */
 	ch_dlg = init_chown ();
@@ -263,17 +257,32 @@ chown_cmd (void)
 	fe = listbox_search_text (l_user, get_owner(sf_stat.st_uid));
 	if (fe)
 	    listbox_select_entry (l_user, fe);
-    
+
 	fe = listbox_search_text (l_group, get_group(sf_stat.st_gid));
 	if (fe)
 	    listbox_select_entry (l_group, fe);
 
-        chown_label (0, name_trunc (fname, 15));
-        chown_label (1, name_trunc (get_owner (sf_stat.st_uid), 15));
-	chown_label (2, name_trunc (get_group (sf_stat.st_gid), 15));
-	size_trunc_len (buffer, 15, sf_stat.st_size, 0);
+
+	g_snprintf (buffer, sizeof (buffer), "%s: %s", 
+		    _(" Permission "), string_perm (sf_stat.st_mode));
+	chown_label (4, buffer);
+
+	size_trunc_len (buffer1, 15, sf_stat.st_size, 0);
+	g_snprintf (buffer, sizeof (buffer), "%s: %s", 
+		    _(" Size "), buffer1);
 	chown_label (3, buffer);
-	chown_label (4, string_perm (sf_stat.st_mode));
+
+	g_snprintf (buffer, sizeof (buffer), "%s: %s", 
+		    _(" Group name "), name_trunc (get_group (sf_stat.st_gid), 15));
+	chown_label (2, buffer);
+
+	g_snprintf (buffer, sizeof (buffer), "%s: %s", 
+		    _(" Owner name "), name_trunc (get_owner (sf_stat.st_uid), 15));
+        chown_label (1, buffer);
+
+	g_snprintf (buffer, sizeof (buffer), "%s: %s", 
+		    _(" Name "), name_trunc (fname, 15));
+        chown_label (0, buffer);
 
 	run_dlg (ch_dlg);
     

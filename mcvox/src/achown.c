@@ -59,6 +59,9 @@
 #define B_OUSER         (B_USER + 6)
 #define B_OGROUP        (B_USER + 7)
 
+#define Y_POS 2
+#define X_POS 0
+
 static struct Dlg_head *ch_dlg;
 
 static struct {
@@ -258,7 +261,7 @@ do_enter_key (Dlg_head * h, int f_pos)
 			"[Advanced Chown]", title, DLG_COMPACT | DLG_REVERSE);
 
 	/* get new listboxes */
-	chl_list = listbox_new (1, 1, 15, 11, NULL);
+	chl_list = listbox_new (Y_POS, X_POS, 15, 11, NULL);
 
 	listbox_add_item (chl_list, 0, 0, "<Unknown>", NULL);
 
@@ -332,34 +335,33 @@ static void chown_refresh (void)
 {
     common_dialog_repaint (ch_dlg);
 
-    attrset (COLOR_NORMAL);
-
-    dlg_move (ch_dlg, BY - 1, 8);
-    addstr (_("owner"));
-    dlg_move (ch_dlg, BY - 1, 16);
-    addstr (_("group"));
-    dlg_move (ch_dlg, BY - 1, 24);
-    addstr (_("other"));
+/*     dlg_move (ch_dlg, BY - 1, 8); */
+/*     addstr (_("owner")); */
+/*     dlg_move (ch_dlg, BY - 1, 16); */
+/*     addstr (_("group")); */
+/*     dlg_move (ch_dlg, BY - 1, 24); */
+/*     addstr (_("other")); */
     
-    dlg_move (ch_dlg, BY - 1, 35);
-    addstr (_("owner"));
-    dlg_move (ch_dlg, BY - 1, 53);
-    addstr (_("group"));
+/*     dlg_move (ch_dlg, BY - 1, 35); */
+/*     addstr (_("owner")); */
+/*     dlg_move (ch_dlg, BY - 1, 53); */
+/*     addstr (_("group")); */
     
-    dlg_move (ch_dlg, 3, 4);
-    addstr (_("On"));
-    dlg_move (ch_dlg, BY + 1, 4);
-    addstr (_("Flag"));
-    dlg_move (ch_dlg, BY + 2, 4);
-    addstr (_("Mode"));
+/*     dlg_move (ch_dlg, 3, 4); */
+/*     addstr (_("On")); */
+/*     dlg_move (ch_dlg, BY + 1, 4); */
+/*     addstr (_("Flag")); */
+/*     dlg_move (ch_dlg, BY + 2, 4); */
+/*     addstr (_("Mode")); */
 
-    if (!single_set){
-	dlg_move (ch_dlg, 3, 54);
-	printw (_("%6d of %d"), files_on_begin - (current_panel->marked) + 1,
-		   files_on_begin);
-    }
+/*     if (!single_set){ */
+/* 	dlg_move (ch_dlg, 3, 54); */
+/* 	printw (_("%6d of %d"), files_on_begin - (current_panel->marked) + 1, */
+/* 		   files_on_begin); */
+/*     } */
 
-    print_flags ();
+/*     print_flags (); */
+
 }
 
 static void chown_info_update (void)
@@ -549,7 +551,7 @@ init_chown_advanced (void)
 		    "[Advanced Chown]", _(" Chown advanced command "),
 		    DLG_CENTER | DLG_REVERSE);
 
-#define XTRACT(i) BY+chown_advanced_but[i].y, BX+chown_advanced_but[i].x, \
+#define XTRACT(i) Y_POS, X_POS, \
 	chown_advanced_but[i].ret_cmd, chown_advanced_but[i].flags, \
 	(chown_advanced_but[i].text), 0
 
