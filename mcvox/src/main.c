@@ -126,7 +126,7 @@ int cd_symlinks = 1;
 
 /* If set then dialogs just clean the screen when refreshing, else */
 /* they do a complete refresh, refreshing all the parts of the program */
-int fast_refresh = 0;
+int fast_refresh = 1;
 
 /* If true, marking a files moves the cursor down */
 int mark_moves_down = 0;
@@ -1870,7 +1870,7 @@ print_mc_usage (poptContext ctx, FILE *stream)
 	   ("\n"
 	    "Please send any bug reports\n"
 	    /*	    "Please send any bug reports (including the output of `mc -V')\n"*/
-	    "to contact@oralux.org\n"), stream);
+	    "to mcvox@oralux.org\n"), stream);
     version (0);
 }
 

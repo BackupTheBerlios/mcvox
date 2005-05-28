@@ -475,10 +475,10 @@ do_select_widget (Dlg_head *h, Widget *w, select_dir_t dir)
 	}
     }
 
-    if (dlg_overlap (w0, h->current)) {
-	send_message (h->current, WIDGET_DRAW, 0);
-	send_message (h->current, WIDGET_FOCUS, 0);
-    }
+/*     if (dlg_overlap (w0, h->current)) { */
+/* 	send_message (h->current, WIDGET_DRAW, 0); */
+/* 	send_message (h->current, WIDGET_FOCUS, 0); */
+/*     } */
 }
 
 

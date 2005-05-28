@@ -48,7 +48,13 @@
 #define TX              50
 #define TY              2
 
+/* Max nb of buttons (because of a variable number of submit buttons) */
 #define BUTTONS		9
+
+/* buttons used as input fields */
+#define NB_INPUT_BUTTON 5
+
+#define LABELS		6
 
 #define B_SETALL        B_USER
 #define B_SKIP          (B_USER + 1)
@@ -72,15 +78,16 @@ static struct {
     { B_ENTER,  DEFPUSH_BUTTON,4, 40, N_("&Set") },
     { B_SKIP,   NORMAL_BUTTON, 4, 23, N_("S&kip") },
     { B_SETALL, NORMAL_BUTTON, 4, 0, N_("Set &all")},
-    { B_ENTER,  NARROW_BUTTON, 0, 47, "               "},
-    { B_ENTER,  NARROW_BUTTON, 0, 29, "               "},
-    { B_ENTER,  NARROW_BUTTON, 0, 19, "   "},
-    { B_ENTER,  NARROW_BUTTON, 0, 11, "   "},
-    { B_ENTER,  NARROW_BUTTON, 0, 3, "   "},
+    { B_ENTER,  INPUT_BUTTON, 0, 47, "               "},
+    { B_ENTER,  INPUT_BUTTON, 0, 29, "               "},
+    { B_ENTER,  INPUT_BUTTON, 0, 19, "   "},
+    { B_ENTER,  INPUT_BUTTON, 0, 11, "   "},
+    { B_ENTER,  INPUT_BUTTON, 0, 3, "   "},
 };
 
 static WButton *b_att[3];	/* permission */
 static WButton *b_user, *b_group;	/* owner */
+static WLabel *l_filename, *l_mode;	
 
 static int files_on_begin;	/* Number of files at startup */
 static int flag_pos;
@@ -92,8 +99,11 @@ static struct stat *sf_stat;
 static int need_update;
 static int end_chown;
 static int current_file;
-static int single_set;
+static int single_set=0;
 static char *fname;
+static int nb_submit_buttons;
+#define NB_BUTTONS (NB_INPUT_BUTTON+nb_submit_buttons)
+static callback_fn button_callback=NULL;
 
 static void get_ownership (void)
 {				/* set buttons  - ownership */
@@ -177,45 +187,16 @@ static umode_t get_mode (void)
 
 static void print_flags (void)
 {
-    int i;
-
-    attrset (COLOR_NORMAL);
-
-    for (i = 0; i < 3; i++){
-	dlg_move (ch_dlg, BY+1, 9+i);
-	addch (ch_flags [i]);
-    }
-    
-    for (i = 0; i < 3; i++){
-	dlg_move (ch_dlg, BY + 1, 17 + i);
-	addch (ch_flags [i+3]);
-    }
-    
-    for (i = 0; i < 3; i++){
-	dlg_move (ch_dlg, BY + 1, 25 + i);
-	addch (ch_flags [i+6]);
-    }
-
     set_perm_by_flags (b_att[0]->text, 0);
     set_perm_by_flags (b_att[1]->text, 3);
     set_perm_by_flags (b_att[2]->text, 6);
-
-    for (i = 0; i < 15; i++){
-	dlg_move (ch_dlg, BY+1, 35+i);
-	addch (ch_flags[9]);
-    }
-    for (i = 0; i < 15; i++){
-	dlg_move (ch_dlg, BY + 1, 53 + i);
-	addch (ch_flags[10]);
-    }
 }
+
+static void chown_info_update (void);
 
 static void update_mode (Dlg_head * h)
 {
-    print_flags ();
-    attrset (COLOR_NORMAL);
-    dlg_move (h, BY + 2, 9);
-    printw ("%12o", get_mode ());
+    chown_info_update();
     send_message (h->current, WIDGET_FOCUS, 0);
 }
 
@@ -335,24 +316,6 @@ static void chown_refresh (void)
 {
     common_dialog_repaint (ch_dlg);
 
-/*     dlg_move (ch_dlg, BY - 1, 8); */
-/*     addstr (_("owner")); */
-/*     dlg_move (ch_dlg, BY - 1, 16); */
-/*     addstr (_("group")); */
-/*     dlg_move (ch_dlg, BY - 1, 24); */
-/*     addstr (_("other")); */
-    
-/*     dlg_move (ch_dlg, BY - 1, 35); */
-/*     addstr (_("owner")); */
-/*     dlg_move (ch_dlg, BY - 1, 53); */
-/*     addstr (_("group")); */
-    
-/*     dlg_move (ch_dlg, 3, 4); */
-/*     addstr (_("On")); */
-/*     dlg_move (ch_dlg, BY + 1, 4); */
-/*     addstr (_("Flag")); */
-/*     dlg_move (ch_dlg, BY + 2, 4); */
-/*     addstr (_("Mode")); */
 
 /*     if (!single_set){ */
 /* 	dlg_move (ch_dlg, 3, 54); */
@@ -366,19 +329,28 @@ static void chown_refresh (void)
 
 static void chown_info_update (void)
 {
-    /* display file info */
-    attrset (COLOR_NORMAL);
-    
-    /* name && mode */
-    dlg_move (ch_dlg, 3, 8);
-    printw ("%s", name_trunc (fname, 45));
-    dlg_move (ch_dlg, BY + 2, 9);
-    printw ("%12o", get_mode ());
-    
-    /* permissions */
-    set_perm_by_flags (b_att[0]->text, 0);
-    set_perm_by_flags (b_att[1]->text, 3);
-    set_perm_by_flags (b_att[2]->text, 6);
+    char  buffer [BUF_SMALL];
+    char  buffer2 [BUF_TINY];
+    print_flags ();
+    g_snprintf (buffer, sizeof(buffer), "%s: %o", _("Mode"), get_mode ());
+    label_set_text (l_mode, buffer);
+
+    if (fname) {
+      *buffer2=0;
+
+      if (!single_set) {
+	g_snprintf (buffer2, sizeof (buffer), _("(%d of %d)"),  
+		    files_on_begin - (current_panel->marked) + 1,
+		    files_on_begin);
+      }
+
+      g_snprintf (buffer, sizeof (buffer), "%s: %s %s",
+		  _("On"), name_trunc (fname, 45),
+		  buffer2
+		  );
+
+      label_set_text (l_filename, buffer);
+    }
 }
 
 static void b_setpos (int f_pos) {
@@ -391,25 +363,60 @@ static void b_setpos (int f_pos) {
 static cb_ret_t
 advanced_chown_callback (Dlg_head *h, dlg_msg_t msg, int parm)
 {
-    int i = 0, f_pos = BUTTONS - h->current->dlg_id - single_set - 1;
+    int i = 0, f_pos = NB_BUTTONS + LABELS - h->current->dlg_id - 1;
 
-    switch (msg) {
-    case DLG_DRAW:
+    if (msg==DLG_DRAW)
+      {
 	chown_refresh ();
 	chown_info_update ();
 	return MSG_HANDLED;
+      }
 
+    /* 
+       dlg_id=0 is the first submit button
+       there are 2 or 4 submit buttons.
+
+       dlg_id=nb_submit_buttons is a label (Mode)
+       then a set of five couples (narrow button+label) 
+       then a label (Filename)
+     */
+    if (h->current->callback == button_callback)
+      {
+	if (h->current->dlg_id > nb_submit_buttons-1) { 
+	  /* Compute the button pos without the labels */
+	  f_pos = (f_pos-1)/2;
+	}
+    }
+    else {
+	return MSG_NOT_HANDLED;
+    }
+
+
+/*     if (h->current->dlg_id > nb_submit_buttons) {  */
+/*       /\* Either a label or a button *\/ */
+/*       /\* Labels have even indexes, except the first one *\/ */
+/*       if (h->current->dlg_id % 2 */
+/* 	  || (h->current->dlg_id >= nb_submit_buttons + 2*(NARROW_BUTTONS))) { */
+/* 	return MSG_NOT_HANDLED; */
+/*       } */
+/*       else {  */
+/* 	/\* Compute the button pos without the labels *\/ */
+/* 	f_pos = f_pos/2; */
+/*       } */
+/*     } */
+      
+    switch (msg) {
     case DLG_POST_KEY:
 	if (f_pos < 3)
 	    b_setpos (f_pos);
 	return MSG_HANDLED;
 
     case DLG_FOCUS:
-	if (f_pos < 3) {
+      if (f_pos < 3) { /* access rights */
 	    if ((flag_pos / 3) != f_pos)
 		flag_pos = f_pos * 3;
 	    b_setpos (f_pos);
-	} else if (f_pos < 5)
+      } else if (f_pos < 5) /* owner and group names */
 	    flag_pos = f_pos + 6;
 	return MSG_HANDLED;
 
@@ -537,11 +544,23 @@ static void
 init_chown_advanced (void)
 {
     int i;
+    char  buffer [BUF_SMALL];
 
     sf_stat = g_new (struct stat, 1);
     do_refresh ();
     end_chown = need_update = current_file = 0;
-    single_set = (current_panel->marked < 2) ? 2 : 0;
+
+    if (current_panel->marked < 2)
+      {
+	nb_submit_buttons=2;
+	single_set=1;
+      }
+    else
+      {
+	nb_submit_buttons=4;
+	single_set=0;
+      }
+
     memset (ch_flags, '=', 11);
     flag_pos = 0;
     x_toggle = 070;
@@ -555,9 +574,8 @@ init_chown_advanced (void)
 	chown_advanced_but[i].ret_cmd, chown_advanced_but[i].flags, \
 	(chown_advanced_but[i].text), 0
 
-    for (i = 0; i < BUTTONS - 5; i++)
-	if (!single_set || i < 2)
-	    add_widget (ch_dlg, button_new (XTRACT (i)));
+    for (i = 0; i < nb_submit_buttons; i++)
+      add_widget (ch_dlg, button_new (XTRACT (i)));
 
     b_att[0] = button_new (XTRACT (8));
     b_att[1] = button_new (XTRACT (7));
@@ -565,11 +583,54 @@ init_chown_advanced (void)
     b_user = button_new (XTRACT (5));
     b_group = button_new (XTRACT (4));
 
+    b_user->hotpos = 0;
+    b_group->hotpos = 0;
+
+    button_callback=b_group->widget.callback;
+
+    l_mode=label_new (Y_POS, X_POS, " ");
+    add_widget (ch_dlg, l_mode);
+
     add_widget (ch_dlg, b_group);
+    g_snprintf (buffer, sizeof (buffer), "5. %s", 
+		_("group"));
+    add_widget (ch_dlg, label_new (Y_POS, X_POS, buffer));
+
     add_widget (ch_dlg, b_user);
+    g_snprintf (buffer, sizeof (buffer), "4. %s", 
+		_("owner"));
+    add_widget (ch_dlg, label_new (Y_POS, X_POS, buffer));
+
+
     add_widget (ch_dlg, b_att[2]);
+    g_snprintf (buffer, sizeof (buffer), "3. %s", 
+		_("other"));
+    add_widget (ch_dlg, label_new (Y_POS, X_POS, buffer));
+
+
     add_widget (ch_dlg, b_att[1]);
+    g_snprintf (buffer, sizeof (buffer), "2. %s", 
+		_("group"));
+    add_widget (ch_dlg, label_new (Y_POS, X_POS, buffer));
+
+
     add_widget (ch_dlg, b_att[0]);
+    g_snprintf (buffer, sizeof (buffer), "1. %s", 
+		_("owner"));
+    add_widget (ch_dlg, label_new (Y_POS, X_POS, buffer));
+
+    /* filename */
+    l_filename = label_new (Y_POS, X_POS, " ");
+    add_widget (ch_dlg, l_filename);
+
+/*     if (!single_set){ */
+/* 	dlg_move (ch_dlg, 3, 54); */
+/* 	printw (_("%6d of %d"), files_on_begin - (current_panel->marked) + 1, */
+/*     g_snprintf (buffer, sizeof (buffer),  */
+/* 		"%s: %s",  */
+/* 		_("On"), text); */
+/*     add_widget (ch_dlg, label_new (Y_POS, X_POS, buffer)); */
+
 }
 
 static void

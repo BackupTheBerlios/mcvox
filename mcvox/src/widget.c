@@ -103,9 +103,15 @@ button_callback (WButton *b, widget_msg_t msg, int parm)
 	return MSG_HANDLED;
 
     case WIDGET_CURSOR:
-      widget_move (&b->widget, 0, 0);
+      {
+	int offset=0;
+	if (b->flags == INPUT_BUTTON) {
+	  offset=b->hotpos + INPUT_ANNOUNCE_WIDTH;
+	}
+	widget_move (&b->widget, 0, offset);
+      }
       return MSG_HANDLED;
-
+      
     case WIDGET_UNFOCUS:
       {
 	int i=0;
@@ -144,6 +150,12 @@ button_callback (WButton *b, widget_msg_t msg, int parm)
       case PUSH_NARROW_BUTTON:
 	g_snprintf (buf, sizeof (buf), 
 		    "*%s",
+		    b->text);
+	break;
+      case INPUT_BUTTON:
+	g_snprintf (buf, sizeof (buf), 
+		    "%s%s",
+		    INPUT_ANNOUNCE,
 		    b->text);
 	break;
       case HIDDEN_BUTTON:

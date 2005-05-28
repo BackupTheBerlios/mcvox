@@ -16,7 +16,8 @@
 #define NARROW_BUTTON		1
 #define NORMAL_BUTTON		2
 #define DEFPUSH_BUTTON		3
-#define PUSH_NARROW_BUTTON	4 /* RAF GC */
+#define PUSH_NARROW_BUTTON      4
+#define INPUT_BUTTON            8
 
 /* button callback */
 typedef int (*bcback) (int);
