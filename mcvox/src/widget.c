@@ -43,15 +43,15 @@
 #include "profile.h"	/* for history loading and saving */
 #include "wtools.h"		/* For common_dialog_repaint() */
 
-#define INPUT_ANNOUNCE "Input: " 
-#define CHECKBOX_ANNOUNCE "Checkbox: " 
-#define BUTTON_ANNOUNCE "Button: " 
-#define RADIO_ANNOUNCE "Radio: " 
+static const char *INPUT_ANNOUNCE = N_("Input: ");
+static const char *CHECKBOX_ANNOUNCE = N_("Checkbox: ");
+static const char *BUTTON_ANNOUNCE = N_("Button: ");
+static const char *RADIO_ANNOUNCE = N_("Radio: ");
 
-#define INPUT_ANNOUNCE_WIDTH (sizeof(INPUT_ANNOUNCE)-1) 
-#define CHECKBOX_ANNOUNCE_WIDTH (sizeof(CHECKBOX_ANNOUNCE)-1) 
-#define BUTTON_ANNOUNCE_WIDTH (sizeof(BUTTON_ANNOUNCE)-1) 
-#define RADIO_ANNOUNCE_WIDTH (sizeof(RADIO_ANNOUNCE)-1) 
+#define INPUT_ANNOUNCE_WIDTH (strlen(INPUT_ANNOUNCE)) 
+#define CHECKBOX_ANNOUNCE_WIDTH (strlen(CHECKBOX_ANNOUNCE)) 
+#define BUTTON_ANNOUNCE_WIDTH (strlen(BUTTON_ANNOUNCE)) 
+#define RADIO_ANNOUNCE_WIDTH (strlen(RADIO_ANNOUNCE)) 
 
 static int button_event (Gpm_Event *event, WButton *b);
 

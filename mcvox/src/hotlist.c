@@ -56,6 +56,9 @@
 #define BX		UX
 #define BY		(LINES - 6)
 
+#define Y_POS 2
+#define X_POS 0
+
 #define BUTTONS		(sizeof(hotlist_but)/sizeof(struct _hotlist_but))
 #define LABELS          3
 #define B_ADD_CURRENT	B_USER
@@ -79,7 +82,8 @@ static WListbox *l_movelist;
 static Dlg_head *hotlist_dlg;
 static Dlg_head *movelist_dlg;
 
-static WLabel *pname, *pname_group, *movelist_group;
+/* static WLabel *pname, *pname_group, *movelist_group; */
+static WLabel *movelist_group;
 
 enum HotListType {
     HL_TYPE_GROUP,
@@ -112,14 +116,7 @@ static struct _hotlist_but {
     char *text;
     int   type;
 } hotlist_but[] = {
-/*     { B_MOVE, NORMAL_BUTTON,         1,   42, N_("&Move"),       LIST_HOTLIST}, */
-/*     { B_REMOVE, NORMAL_BUTTON,       1,   30, N_("&Remove"),     LIST_HOTLIST}, */
-/*     { B_APPEND, NORMAL_BUTTON,       1,   15, N_("&Append"),     LIST_MOVELIST}, */
-/*     { B_INSERT, NORMAL_BUTTON,       1,    0, N_("&Insert"),     LIST_MOVELIST}, */
-/*     { B_NEW_ENTRY, NORMAL_BUTTON,    1,   15, N_("New &Entry"),  LIST_HOTLIST}, */
-/*     { B_NEW_GROUP, NORMAL_BUTTON,    1,    0, N_("New &Group"),  LIST_HOTLIST}, */
-
-    { B_MOVE, NORMAL_BUTTON,         0,   42, N_("&Move"),       LIST_HOTLIST},
+/*     { B_MOVE, NORMAL_BUTTON,         0,   42, N_("&Move"),       LIST_HOTLIST}, */
     { B_REMOVE, NORMAL_BUTTON,       0,   30, N_("&Remove"),     LIST_HOTLIST},
     { B_APPEND, NORMAL_BUTTON,       0,   15, N_("&Append"),     LIST_MOVELIST},
     { B_INSERT, NORMAL_BUTTON,       0,    0, N_("&Insert"),     LIST_MOVELIST},
@@ -159,11 +156,11 @@ static void
 hotlist_refresh (Dlg_head * dlg)
 {
     common_dialog_repaint (dlg);
-    attrset (COLOR_NORMAL);
-    draw_box (dlg, 2, 5, dlg->lines - (hotlist_state.moving ? 6 : 10),
-	      dlg->cols - (UX * 2));
-    if (!hotlist_state.moving)
-	draw_box (dlg, dlg->lines - 8, 5, 3, dlg->cols - (UX * 2));
+/*     attrset (COLOR_NORMAL); */
+/*     draw_box (dlg, 2, 5, dlg->lines - (hotlist_state.moving ? 6 : 10), */
+/* 	      dlg->cols - (UX * 2)); */
+/*     if (!hotlist_state.moving) */
+/* 	draw_box (dlg, dlg->lines - 8, 5, 3, dlg->cols - (UX * 2)); */
 }
 
 /* If current->data is 0, then we are dealing with a VFS pathname */
@@ -188,15 +185,16 @@ update_path_name (void)
     } else {
 	text = "";
     }
-    if (!hotlist_state.moving)
-	label_set_text (pname,
-			name_trunc (text, dlg->cols - (UX * 2 + 4)));
+    /*     if (!hotlist_state.moving) */
+/* 	label_set_text (pname, */
+/* 			name_trunc (text, dlg->cols - (UX * 2 + 4))); */
 
     p = g_strconcat (" ", current_group->label, " ", NULL);
-    if (!hotlist_state.moving)
-	label_set_text (pname_group,
-			name_trunc (p, dlg->cols - (UX * 2 + 4)));
-    else
+/*     if (!hotlist_state.moving) */
+/* 	label_set_text (pname_group, */
+/* 			name_trunc (p, dlg->cols - (UX * 2 + 4))); */
+/*     else */
+    if (hotlist_state.moving)
 	label_set_text (movelist_group,
 			name_trunc (p, dlg->cols - (UX * 2 + 4)));
     g_free (p);
@@ -218,7 +216,7 @@ do { \
 static void fill_listbox (void)
 {
     struct hotlist *current = current_group->head;
-    static char *buf;
+    static char *buf=NULL;
     static int   buflen;
 
     if (!buf)
@@ -230,7 +228,11 @@ static void fill_listbox (void)
 	case HL_TYPE_GROUP:
 	    {
 		CHECK_BUFFER;
-		strcat (strcat (buf, "->"), current->label);
+		g_snprintf(buf, buflen, 
+			   "%s, %s", 
+			   current->label,
+			   _("Subgroup - press ENTER to see list"));
+
 		if (hotlist_state.moving)
 		    listbox_add_item (l_movelist, 0, 0, buf, current);
 		else
@@ -241,7 +243,17 @@ static void fill_listbox (void)
 		if (hotlist_state.moving)
 		    listbox_add_item (l_movelist, 0, 0, current->label, current);
 		else
-		    listbox_add_item (l_hotlist, 0, 0, current->label, current);
+		  {
+/* 		    listbox_add_item (l_hotlist, 0, 0, current->label, current); */
+
+		    char  *lbl = g_strconcat( current->label,
+					      ",",
+					      _(" Directory path "),
+					      current->directory,
+					      NULL);
+		    listbox_add_item (l_hotlist, 0, 0, lbl, current);
+		    g_free(lbl);
+		  }
 	    break;
 	default:
 	    break;
@@ -603,6 +615,7 @@ init_hotlist (int list_type)
     int i;
     char *title, *help_node;
     int hotlist_cols;
+    char buffer [ BUF_SMALL ];
 
     hotlist_cols = init_i18n_stuff (list_type, COLS - 6);
 
@@ -627,36 +640,35 @@ init_hotlist (int list_type)
     for (i = 0; i < BUTTONS; i++) {
 	if (hotlist_but[i].type & list_type)
 	    add_widget (hotlist_dlg,
-			button_new (BY + hotlist_but[i].y,
-				    0,
+			button_new (Y_POS, X_POS,
 				    hotlist_but[i].ret_cmd,
 				    hotlist_but[i].flags,
 				    hotlist_but[i].text,
 				    hotlist_button_callback));
-
-/* 				    BX + hotlist_but[i].x, */
-
-
     }
+
+
+    g_snprintf(buffer, sizeof(buffer), "2. %s", _("Commands list"));
+    add_widget (hotlist_dlg, label_new (Y_POS, X_POS, buffer));
 
     /* We add the labels. 
      *    pname       will hold entry's pathname;
      *    pname_group will hold name of current group
      */
-    pname = label_new (UY - 11 + LINES, UX + 2, "");
-    add_widget (hotlist_dlg, pname);
+/*     pname = label_new (Y_POS, X_POS, ""); */
+/*     add_widget (hotlist_dlg, pname); */
     if (!hotlist_state.moving) {
-	add_widget (hotlist_dlg,
-		    label_new (UY - 12 + LINES, UX + 1,
-			       _(" Directory path ")));
+/* 	add_widget (hotlist_dlg, */
+/* 		    label_new (Y_POS, X_POS, */
+/* 			       _(" Directory path "))); */
 
-	/* This one holds the displayed pathname */
-	pname_group = label_new (UY, UX + 1, _(" Directory label "));
-	add_widget (hotlist_dlg, pname_group);
+/* 	/\* This one holds the displayed pathname *\/ */
+/* 	pname_group = label_new (Y_POS, X_POS, _(" Directory label ")); */
+/* 	add_widget (hotlist_dlg, pname_group); */
     }
     /* get new listbox */
     l_hotlist =
-	listbox_new (UY + 1, UX + 1, COLS - 2 * UX - 8, LINES - 14,
+	listbox_new (Y_POS, X_POS, COLS - 1, LINES - 14,
 		     l_call);
 
     /* Fill the hotlist with the active VFS or the hotlist */
@@ -666,7 +678,7 @@ init_hotlist (int list_type)
 	vfs_fill_names (add_name_to_list);
     } else
 #endif				/* !USE_VFS */
-	fill_listbox ();
+      fill_listbox ();
 
     add_widget (hotlist_dlg, l_hotlist);
     /* add listbox to the dialogs */
@@ -689,8 +701,8 @@ init_movelist (int list_type, struct hotlist *item)
     for (i = 0; i < BUTTONS; i++) {
 	if (hotlist_but[i].type & list_type)
 	    add_widget (movelist_dlg,
-			button_new (BY - 4 + hotlist_but[i].y,
-				    0,
+			button_new (Y_POS,
+				    X_POS,
 				    hotlist_but[i].ret_cmd,
 				    hotlist_but[i].flags,
 				    hotlist_but[i].text,
@@ -702,11 +714,11 @@ init_movelist (int list_type, struct hotlist *item)
     /* We add the labels.  We are interested in the last one,
      * that one will hold the path name label
      */
-    movelist_group = label_new (UY, UX + 1, _(" Directory label "));
+    movelist_group = label_new (Y_POS, X_POS, _(" Directory label "));
     add_widget (movelist_dlg, movelist_group);
     /* get new listbox */
     l_movelist =
-	listbox_new (UY + 1, UX + 1, movelist_dlg->cols - 2 * UX - 2,
+	listbox_new (Y_POS, X_POS, movelist_dlg->cols - 1,
 		     movelist_dlg->lines - 8, l_call);
 
     fill_listbox ();
@@ -792,12 +804,24 @@ add2hotlist (char *label, char *directory, enum HotListType type, int pos)
 
     if (hotlist_state.running && type != HL_TYPE_COMMENT) {
 	if (type == HL_TYPE_GROUP) {
-	    char  *lbl = g_strconcat ("->", new->label, NULL);
-
+	    char  *lbl = g_strconcat( new->label, 
+				      ", ",
+				      _("Subgroup - press ENTER to see list"),
+				      NULL);
 	    listbox_add_item (l_hotlist, pos, 0, lbl, new);
 	    g_free (lbl);
-	} else
+	} else {
+/* 	    char  *lbl = g_strconcat( new->label,  */
+/* 				      ", ", */
+/* 				      _(" Directory path "), */
+/* 				      ": ", */
+/* 				      directory, */
+/* 				      NULL); */
+/* 	    listbox_add_item (l_hotlist, pos, 0, lbl, new); */
 	    listbox_add_item (l_hotlist, pos, 0, new->label, new);
+/* 	    g_free (lbl); */
+
+	}
 	listbox_select_entry (l_hotlist, l_hotlist->current);
     }
     return new;
@@ -1401,7 +1425,7 @@ load_hotlist (void)
     
     hotlist	       = new_hotlist ();
     hotlist->type      = HL_TYPE_GROUP;
-    hotlist->label     = g_strdup (_(" Top level group "));
+    hotlist->label     = g_strdup_printf ("1. %s",_(" Top level group "));
     hotlist->up        = hotlist;
     /*
      * compatibility :-(

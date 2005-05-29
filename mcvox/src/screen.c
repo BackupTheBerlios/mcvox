@@ -763,7 +763,8 @@ mini_info_separator (WPanel *panel)
 static void
 show_dir (WPanel *panel)
 {
-    char tmp[200];
+    char buffer [BUF_SMALL];
+    char buffer2 [BUF_SMALL];
 
     set_colors (panel);
     draw_double_box (panel->widget.parent,
@@ -783,20 +784,25 @@ show_dir (WPanel *panel)
     if (panel->active)
 	attrset (REVERSE_COLOR);
 
-    char* announce=N_("Directory: ");
+    char* announce=_("directory");
 
-    widget_move (&panel->widget, 0, strlen(announce)+1);
-
-    trim (strip_home_and_password (panel->cwd), tmp,
-	  max (panel->widget.cols - 7, 0));
-    addstr (tmp);
     widget_move (&panel->widget, 0, 1);
-/*     addstr ("<"); */
-    printw( announce);
-/*     widget_move (&panel->widget, 0, panel->widget.cols - 2); */
-/*     addstr (">"); */
-/*     widget_move (&panel->widget, 0, panel->widget.cols - 3); */
-/*     addstr ("v"); */
+
+    trim (strip_home_and_password (panel->cwd), buffer2,
+	  max (panel->widget.cols - 7, 0));
+/*     addstr (tmp); */
+/*     widget_move (&panel->widget, 0, 1); */
+/* /\*     addstr ("<"); *\/ */
+
+  g_snprintf( buffer, sizeof(buffer), "%s: %s, %s:",
+	      _("directory"), buffer2, _("Name"));
+  printw(buffer);
+
+/*     printw( announce); */
+/* /\*     widget_move (&panel->widget, 0, panel->widget.cols - 2); *\/ */
+/* /\*     addstr (">"); *\/ */
+/* /\*     widget_move (&panel->widget, 0, panel->widget.cols - 3); *\/ */
+/* /\*     addstr ("v"); *\/ */
 
     if (panel->active)
 	standend ();
