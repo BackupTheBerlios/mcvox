@@ -2864,11 +2864,11 @@ msgstr "Regelnummer instellen om de interne editor mee te starten"
 msgid ""
 "\n"
 "Please send any bug reports\n"
-"to contact@oralux.org\n"
+"to mcvox@oralux.org\n"
 msgstr ""
 "\n"
 "\"Stuur bugreports (met de uitvoer van 'mc -V')\n"
-"naar mc-devel@gnome.org\n"
+"naar mcvox@oralux.org\n"
 
 #: src/main.c:1884
 msgid ""

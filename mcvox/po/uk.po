@@ -2856,11 +2856,11 @@ msgstr "Встановити номер початкового рядка для редактора"
 msgid ""
 "\n"
 "Please send any bug reports\n"
-"to contact@oralux.org\n"
+"to mcvox@oralux.org\n"
 msgstr ""
 "\n"
 "Будь ласка, в╕дсилайте будь як╕ пов╕домлення про помилки\n"
-"(включаючи вив╕д \"mc -V\") на адресу mc-devel@gnome.org\n"
+"(включаючи вив╕д \"mc -V\") на адресу mcvox@oralux.org\n"
 
 #: src/main.c:1884
 msgid ""

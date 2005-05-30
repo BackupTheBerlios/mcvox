@@ -2862,11 +2862,11 @@ msgstr "Nastaviť počiatočné číslo riadku pre interný editor"
 msgid ""
 "\n"
 "Please send any bug reports\n"
-"to contact@oralux.org\n"
+"to mcvox@oralux.org\n"
 msgstr ""
 "\n"
 "Správy o chybách posielajte (vrátane výpisu `mc -V')\n"
-"na adresu mc-devel@gnome.org\n"
+"na adresu mcvox@oralux.org\n"
 
 #: src/main.c:1884
 msgid ""

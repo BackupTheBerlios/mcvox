@@ -2868,11 +2868,11 @@ msgstr "Nastavit poèáteèní èíslo øádku pro interní editor"
 msgid ""
 "\n"
 "Please send any bug reports\n"
-"to contact@oralux.org\n"
+"to mcvox@oralux.org\n"
 msgstr ""
 "\n"
 "Chyby v programu oznamujte (vèetnì výstupu `mc -V')\n"
-"na mc-devel@gnome.org (pouze anglicky), pøipomínky\n"
+"na mcvox@oralux.org (pouze anglicky), pøipomínky\n"
 "k pøekladu zasílejte na adresu cs@li.org (èesky)\n"
 
 #: src/main.c:1884

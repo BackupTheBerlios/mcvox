@@ -2898,11 +2898,11 @@ msgstr "Ställ in initialt radnummer för den interna redigeraren"
 msgid ""
 "\n"
 "Please send any bug reports\n"
-"to contact@oralux.org\n"
+"to mcvox@oralux.org\n"
 msgstr ""
 "\n"
 "Skicka felrapporter (ta med utdata från \"mc -V\") till\n"
-"mc-devel@gnome.org och kommentarer på översättningen till sv@li.org\n"
+"mcvox@oralux.org och kommentarer på översättningen till sv@li.org\n"
 
 #: src/main.c:1884
 msgid ""

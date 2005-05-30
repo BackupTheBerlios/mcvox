@@ -2866,11 +2866,11 @@ msgstr "Поставите број почетног реда за уграђени уређивач"
 msgid ""
 "\n"
 "Please send any bug reports\n"
-"to contact@oralux.org\n"
+"to mcvox@oralux.org\n"
 msgstr ""
 "\n"
 "Молим да пошаљете пријаве грешака (укључивши излаз наредбе `mc -V')\n"
-"на адресу mc-devel@gnome.org\n"
+"на адресу mcvox@oralux.org\n"
 
 #: src/main.c:1884
 msgid ""

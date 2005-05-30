@@ -2868,11 +2868,11 @@ msgstr ""
 msgid ""
 "\n"
 "Please send any bug reports\n"
-"to contact@oralux.org\n"
+"to mcvox@oralux.org\n"
 msgstr ""
 "\n"
 "Моля, изпращайте всякакви съобщения за бъгове (заедно с изхода на 'mc -V')\n"
-"на mc-devel@gnome.org. Коментари по превода изпращайте на adrez@mail.bg.\n"
+"на mcvox@oralux.org. Коментари по превода изпращайте на adrez@mail.bg.\n"
 
 #: src/main.c:1884
 msgid ""

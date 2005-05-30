@@ -2874,11 +2874,11 @@ msgstr "Imposta numero di riga iniziale per l'editor interno"
 msgid ""
 "\n"
 "Please send any bug reports\n"
-"to contact@oralux.org\n"
+"to mcvox@oralux.org\n"
 msgstr ""
 "\n"
 "Prego spedire rapporti su bug (inclusa l'uscita di `mc -V')\n"
-"a mc-devel@gnome.org\n"
+"a mcvox@oralux.org\n"
 
 #: src/main.c:1884
 msgid ""

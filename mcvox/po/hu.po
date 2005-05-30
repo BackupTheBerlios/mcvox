@@ -2908,11 +2908,11 @@ msgstr "A kezdõsor számának megadása a belsõ szerkesztõ számára."
 msgid ""
 "\n"
 "Please send any bug reports\n"
-"to contact@oralux.org\n"
+"to mcvox@oralux.org\n"
 msgstr ""
 "\n"
 "Hibajelentéseket (az 'mc -V' kimenetét is mellékelve) a következõ\n"
-"címre várunk: mc-devel@gnome.org\n"
+"címre várunk: mcvox@oralux.org\n"
 
 #: src/main.c:1884
 msgid ""

@@ -2806,7 +2806,7 @@ msgstr ""
 msgid ""
 "\n"
 "Please send any bug reports\n"
-"to contact@oralux.org\n"
+"to mcvox@oralux.org\n"
 msgstr ""
 
 #: src/main.c:1884

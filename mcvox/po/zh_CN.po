@@ -2849,11 +2849,11 @@ msgstr ""
 msgid ""
 "\n"
 "Please send any bug reports\n"
-"to contact@oralux.org\n"
+"to mcvox@oralux.org\n"
 msgstr ""
 "\n"
 "请发送错误报告(包含有`mc -V`的输出)\n"
-"到 mc-devel@gnome.org\n"
+"到 mcvox@oralux.org\n"
 
 #: src/main.c:1884
 msgid ""

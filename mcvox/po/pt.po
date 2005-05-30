@@ -2872,11 +2872,11 @@ msgstr ""
 msgid ""
 "\n"
 "Please send any bug reports\n"
-"to contact@oralux.org\n"
+"to mcvox@oralux.org\n"
 msgstr ""
 "\n"
 "Envie quaisquer relatórios de erro (incluindo o resultado de `mc -V')\n"
-"para mc-devel@gnome.org\n"
+"para mcvox@oralux.org\n"
 
 #: src/main.c:1884
 msgid ""

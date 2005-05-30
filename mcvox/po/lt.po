@@ -2839,11 +2839,11 @@ msgstr ""
 msgid ""
 "\n"
 "Please send any bug reports\n"
-"to contact@oralux.org\n"
+"to mcvox@oralux.org\n"
 msgstr ""
 "\n"
 "Prašome siųsti klaidų pranešimus (taip pat ir „mc -V“ išvestį)\n"
-"į mc-devel@gnome.org\n"
+"į mcvox@oralux.org\n"
 
 #: src/main.c:1884
 msgid ""

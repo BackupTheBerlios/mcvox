@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: mc 4.5.99a\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-05-13 11:39+0200\n"
-"PO-Revision-Date: 2005-05-19 00:46+0200\n"
+"PO-Revision-Date: 2005-05-28 15:11+0200\n"
 "Last-Translator: Christophe Merlet (RedFox) <christophe@merlet.net>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -258,8 +258,9 @@ msgid "case &Sensitive"
 msgstr "Re&spect de la casse"
 
 #: edit/editcmd.c:1246
+#, fuzzy
 msgid " Enter replacement argument order eg. 3,2,1,4 "
-msgstr " Saisissez l'ordre des arguments (ex. : 3,2,1,4) "
+msgstr " Saisissez l'ordre des arguments (exemple : 3,2,1,4) "
 
 #: edit/editcmd.c:1250
 msgid " Enter replacement string:"
@@ -1099,7 +1100,7 @@ msgstr "Ne peut converti de %s vers %s"
 
 #: src/chmod.c:77
 msgid "execute/search by others"
-msgstr "exéc./rech. par les autres"
+msgstr "exécution/recherche par les autres"
 
 #: src/chmod.c:78
 msgid "write by others"
@@ -1111,7 +1112,7 @@ msgstr "lecture par les autres"
 
 #: src/chmod.c:80
 msgid "execute/search by group"
-msgstr "exéc./rech. par le groupe"
+msgstr "exécution/recherche par le groupe"
 
 #: src/chmod.c:81
 msgid "write by group"
@@ -1122,16 +1123,17 @@ msgid "read by group"
 msgstr "lecture par le groupe"
 
 #: src/chmod.c:83
+#, fuzzy
 msgid "execute/search by owner"
-msgstr "exéc./rech. par le propr."
+msgstr "exécution/recherche par le propriétaire"
 
 #: src/chmod.c:84
 msgid "write by owner"
-msgstr "écriture par le propr."
+msgstr "écriture par le propriétaire"
 
 #: src/chmod.c:85
 msgid "read by owner"
-msgstr "lecture par le propr."
+msgstr "lecture par le propriétaire"
 
 #: src/chmod.c:86
 msgid "sticky bit"
@@ -1143,7 +1145,7 @@ msgstr "exécuter avec l'ID groupe"
 
 #: src/chmod.c:88
 msgid "set user ID on execution"
-msgstr "exécuter avec l'ID propr."
+msgstr "exécuter avec l'ID propriétaire"
 
 #: src/chmod.c:98
 msgid "C&lear marked"
@@ -1211,7 +1213,7 @@ msgstr " Nom "
 
 #: src/chown.c:105
 msgid " Owner name "
-msgstr " Nom du propr. "
+msgstr " Nom du propriétaire "
 
 #: src/chown.c:107 src/chown.c:117
 msgid " Group name "
@@ -2734,8 +2736,9 @@ msgid "select &Group      M-+"
 msgstr "Sélectionner &Groupe   M-+"
 
 #: src/main.c:861
+#, fuzzy
 msgid "u&Nselect group    M-\\"
-msgstr "Désélect&. groupe      M-\\"
+msgstr "Désélectionner groupe      M-\\"
 
 #: src/main.c:862
 msgid "reverse selec&Tion M-*"
@@ -2775,7 +2778,7 @@ msgstr "&Tâches de fond                C-x j"
 
 #: src/main.c:891
 msgid "&Undelete files (ext2fs only)"
-msgstr "Réc&up. de fichiers (ext2fs seul)"
+msgstr "Réc&upération de fichiers (ext2fs seul)"
 
 #: src/main.c:894
 msgid "&Listing format edit"
@@ -2873,11 +2876,11 @@ msgstr ""
 msgid ""
 "\n"
 "Please send any bug reports\n"
-"to contact@oralux.org\n"
+"to mcvox@oralux.org\n"
 msgstr ""
 "\n"
 "Envoyer vos rapports d'anomalies (incluant la sortie de `mc -V')\n"
-"à mc-devel@gnome.org\n"
+"à mcvox@oralux.org\n"
 
 #: src/main.c:1884
 msgid ""
@@ -3050,7 +3053,7 @@ msgstr "M&Enus autos"
 
 #: src/option.c:64
 msgid "&Auto save setup"
-msgstr "&Auto-enreg. des réglages"
+msgstr "&Auto-enregistrement des réglages"
 
 #: src/option.c:65
 msgid "shell &Patterns"
@@ -3081,12 +3084,13 @@ msgid "ma&Rk moves down"
 msgstr "Déplacer les marques vers le &Bas"
 
 #: src/option.c:73
+#, fuzzy
 msgid "show &Hidden files"
-msgstr "Afficher les fic. &Cachés"
+msgstr "Afficher les fichiers &Cachés"
 
 #: src/option.c:74
 msgid "show &Backup files"
-msgstr "Afficher les fic. de &Sauvegarde"
+msgstr "Afficher les fichiers de &Sauvegarde"
 
 #: src/option.c:85
 msgid "&Never"
@@ -3210,15 +3214,15 @@ msgstr "Taille"
 
 #: src/screen.c:409
 msgid "MTime"
-msgstr "Date de modif."
+msgstr "Date de modification"
 
 #: src/screen.c:410
 msgid "ATime"
-msgstr "Date d'acc."
+msgstr "Date d'accès"
 
 #: src/screen.c:411
 msgid "CTime"
-msgstr "Date de créa."
+msgstr "Date de création"
 
 #: src/screen.c:412
 msgid "Permission"
@@ -3627,7 +3631,7 @@ msgstr "%s octets"
 
 #: src/view.c:801
 msgid "  [grow]"
-msgstr " [augm.]"
+msgstr " [augmentation]"
 
 #: src/view.c:1826
 msgid "Invalid hex search expression"

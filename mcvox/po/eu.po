@@ -2880,11 +2880,11 @@ msgstr ""
 msgid ""
 "\n"
 "Please send any bug reports\n"
-"to contact@oralux.org\n"
+"to mcvox@oralux.org\n"
 msgstr ""
 "\n"
 "Bidali akatsen berri-emateak (`mc -V'-ren irteera barne)\n"
-"mc-devel@gnome.org helbidera\n"
+"mcvox@oralux.org helbidera\n"
 
 #: src/main.c:1884
 msgid ""

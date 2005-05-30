@@ -2862,10 +2862,10 @@ msgstr "Línea de comienzo al abrir archivo con editor interno"
 msgid ""
 "\n"
 "Please send any bug reports\n"
-"to contact@oralux.org\n"
+"to mcvox@oralux.org\n"
 msgstr ""
 "\n"
-"Si detecta algún fallo puede comunicarlo a mc-devel@gnome.org\n"
+"Si detecta algún fallo puede comunicarlo a mcvox@oralux.org\n"
 "incluyendo la descripción obtenida con `mc -V'.\n"
 
 #: src/main.c:1884

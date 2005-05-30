@@ -2859,11 +2859,11 @@ msgstr "내장 편집기를 위한 초기 줄 번호 설정"
 msgid ""
 "\n"
 "Please send any bug reports\n"
-"to contact@oralux.org\n"
+"to mcvox@oralux.org\n"
 msgstr ""
 "\n"
 "버그 레포트 (`mc -V'의 출력결과를 포함)를\n"
-"to mc-devel@gnome.org로 보내주세요\n"
+"to mcvox@oralux.org로 보내주세요\n"
 
 #: src/main.c:1884
 msgid ""

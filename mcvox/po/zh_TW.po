@@ -2871,11 +2871,11 @@ msgstr ""
 msgid ""
 "\n"
 "Please send any bug reports\n"
-"to contact@oralux.org\n"
+"to mcvox@oralux.org\n"
 msgstr ""
 "\n"
 "請將臭蟲回報 (包含 `mc -V' 的輸出)\n"
-"給 mc-devel@gnome.org\n"
+"給 mcvox@oralux.org\n"
 
 #: src/main.c:1884
 msgid ""

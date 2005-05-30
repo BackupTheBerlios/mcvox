@@ -2873,10 +2873,10 @@ msgstr ""
 msgid ""
 "\n"
 "Please send any bug reports\n"
-"to contact@oralux.org\n"
+"to mcvox@oralux.org\n"
 msgstr ""
 "\n"
-"不具合報告を ('mc -V' の出力を含めて) mc-devel@gnome.org\n"
+"不具合報告を ('mc -V' の出力を含めて) mcvox@oralux.org\n"
 "まで送ってください\n"
 
 #: src/main.c:1884

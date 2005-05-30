@@ -2868,11 +2868,11 @@ msgstr "Pocz±tkowy numer wiersza dla wbudowanego edytora"
 msgid ""
 "\n"
 "Please send any bug reports\n"
-"to contact@oralux.org\n"
+"to mcvox@oralux.org\n"
 msgstr ""
 "\n"
 "Wszelkie komunikaty o b³êdach (wraz z wyj¶ciem \"mc -V\")\n"
-"wysy³aj na adres mc-devel@gnome.org\n"
+"wysy³aj na adres mcvox@oralux.org\n"
 
 #: src/main.c:1884
 msgid ""

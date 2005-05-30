@@ -2871,11 +2871,11 @@ msgstr "Задать начальную строку для встроенного редактора"
 msgid ""
 "\n"
 "Please send any bug reports\n"
-"to contact@oralux.org\n"
+"to mcvox@oralux.org\n"
 msgstr ""
 "\n"
 "Пожалуйста, посылайте любые сообщения об ошибках (включая вывод 'mc -V')\n"
-"по адресу mc-devel@gnome.org\n"
+"по адресу mcvox@oralux.org\n"
 
 #: src/main.c:1884
 msgid ""

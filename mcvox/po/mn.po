@@ -2867,11 +2867,11 @@ msgstr "дотоод засварлагчын эхлэл мөрийн дугаа
 msgid ""
 "\n"
 "Please send any bug reports\n"
-"to contact@oralux.org\n"
+"to mcvox@oralux.org\n"
 msgstr ""
 "\n"
 "Ямарваа нэгэн алдааны мэдээллийг ('mc -V' гаралттай хамтатган)\n"
-"mc-devel@gnome.org хаяг руу илгээнэ үү\n"
+"mcvox@oralux.org хаяг руу илгээнэ үү\n"
 
 #: src/main.c:1884
 msgid ""

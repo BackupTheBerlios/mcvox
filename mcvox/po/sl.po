@@ -2865,11 +2865,11 @@ msgstr "Nastavi začetno številko vrstice za vgrajen urejevalnik"
 msgid ""
 "\n"
 "Please send any bug reports\n"
-"to contact@oralux.org\n"
+"to mcvox@oralux.org\n"
 msgstr ""
 "\n"
 "Prosimo pošljite poročila o hroščih (vključite izpis `mc -V')\n"
-"na mc-devel@gnome.org\n"
+"na mcvox@oralux.org\n"
 
 #: src/main.c:1884
 msgid ""
