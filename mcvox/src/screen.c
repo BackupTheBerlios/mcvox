@@ -850,9 +850,9 @@ panel_update_contents (WPanel *panel)
 static void
 paint_panel (WPanel *panel)
 {
-    paint_frame (panel);
-    panel_update_contents (panel);
-    mini_info_separator (panel);
+  paint_frame (panel);
+  panel_update_contents (panel);
+  mini_info_separator (panel);
 }
 
 /*
@@ -867,8 +867,9 @@ update_dirty_panels (void)
     if (current_panel->dirty)
 	panel_update_contents (current_panel);
 
-    if ((get_other_type () == view_listing) && other_panel->dirty)
-	panel_update_contents (other_panel);
+/* Only one panel at the moment */
+/*     if ((get_other_type () == view_listing) && other_panel->dirty) */
+/* 	panel_update_contents (other_panel); */
 }
 
 static void
@@ -1127,6 +1128,8 @@ paint_frame (WPanel *panel)
     show_dir (panel);
 
     widget_move (&panel->widget, 1, 1);
+
+    return; /* No format header at the moment*/
 
     for (side = 0; side <= panel->split; side++){
 	format_e *format;
@@ -2142,7 +2145,8 @@ static const key_map panel_keymap [] = {
     { XCTRL('s'), start_search },	/* C-s like emacs */
     { ALT('s'),   start_search },	/* M-s not like emacs */
     { XCTRL('t'), mark_file },
-    { ALT('o'),   chdir_other_panel },
+/* Only one panel at the moment */
+/*     { ALT('o'),   chdir_other_panel }, */
     { ALT('l'),   chdir_to_readlink },
     { ALT('H'),   directory_history_list },
     { KEY_F(13),  view_simple_cmd },

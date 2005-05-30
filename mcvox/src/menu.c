@@ -667,7 +667,7 @@ destroy_menu (Menu *menu)
 {
     g_free (menu->name);
     g_free (menu->help_node);
-    g_free (menu);
+     g_free (menu);
 }
 
 WMenu *

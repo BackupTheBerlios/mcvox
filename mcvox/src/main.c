@@ -1070,13 +1070,13 @@ create_panels (void)
     }
     set_display_type (current_index, current_mode);
 
-    /* The other panel */
-    if (other_dir) {
-	if (original_dir[0])
-	    translated_mc_chdir (original_dir);
-	translated_mc_chdir (other_dir);
-    }
-    set_display_type (other_index, other_mode);
+/*     /\* The other panel *\/ */
+/*     if (other_dir) { */
+/* 	if (original_dir[0]) */
+/* 	    translated_mc_chdir (original_dir); */
+/* 	translated_mc_chdir (other_dir); */
+/*     } */
+/*     set_display_type (other_index, other_mode); */
 
     if (startup_left_mode == view_listing) {
 	current_panel = left_panel;
@@ -1227,13 +1227,17 @@ static const key_map ctl_x_map[] = {
     {'a', reselect_vfs},
 #endif				/* USE_VFS */
     {'p', copy_current_pathname},
-    {XCTRL ('p'), copy_other_pathname},
+
+/* Only one panel at the moment */
+/*     {XCTRL ('p'), copy_other_pathname}, */
     {'t', copy_current_tagged},
-    {XCTRL ('t'), copy_other_tagged},
+/* Only one panel at the moment */
+/*     {XCTRL ('t'), copy_other_tagged}, */
     {'c', chmod_cmd},
     {'o', chown_cmd},
     {'r', copy_current_readlink},
-    {XCTRL ('r'), copy_other_readlink},
+/* Only one panel at the moment */
+/*     {XCTRL ('r'), copy_other_readlink}, */
     {'l', link_cmd},
     {'s', symlink_cmd},
     {XCTRL ('s'), edit_symlink_cmd},
@@ -1266,7 +1270,8 @@ static const key_map default_map[] = {
 
     /* Copy useful information to the command line */
     {ALT ('a'), copy_current_pathname},
-    {ALT ('A'), copy_other_pathname},
+/* Only one panel at the moment */
+/*     {ALT ('A'), copy_other_pathname}, */
 
     {ALT ('c'), quick_cd_cmd},
 
@@ -1664,11 +1669,12 @@ setup_panels_and_run_mc (void)
 
     add_widget (midnight_dlg, the_menubar);
     add_widget (midnight_dlg, get_panel_widget (0));
-    add_widget (midnight_dlg, get_panel_widget (1));
-    add_widget (midnight_dlg, the_hint);
-    load_hint (1);
-    add_widget (midnight_dlg, cmdline);
-    add_widget (midnight_dlg, the_prompt);
+/* Only one panel at the moment */
+/*     add_widget (midnight_dlg, get_panel_widget (1)); */
+/*     add_widget (midnight_dlg, the_hint); */
+/*     load_hint (1); */
+/*     add_widget (midnight_dlg, cmdline); */
+/*     add_widget (midnight_dlg, the_prompt); */
     add_widget (midnight_dlg, the_bar);
     init_labels ();
 

@@ -629,6 +629,9 @@ done_screen ()
 static void
 panel_do_cols (int index)
 {
+/* Only one panel at the moment */
+  index=0;
+
     if (get_display_type (index) == view_listing)
 	set_panel_formats ((WPanel *) panels [index].widget);
     else {
@@ -671,18 +674,21 @@ setup_panels (void)
 	widget_set_size (panels[0].widget, start_y, 0, first_panel_size,
 			 0);
 
-	widget_set_size (panels[1].widget, start_y + first_panel_size, 0,
-			 height - first_panel_size, 0);
+/* Only one panel at the moment */
+/* 	widget_set_size (panels[1].widget, start_y + first_panel_size, 0, */
+/* 			 height - first_panel_size, 0); */
     } else {
 	int first_x = first_panel_size;
 
 	widget_set_size (panels[0].widget, start_y, 0, height, 0);
 
-	widget_set_size (panels[1].widget, start_y, first_x, height, 0);
+	/* Only one panel at the moment */
+	/* 	widget_set_size (panels[1].widget, start_y, first_x, height, 0); */
 
     }
     panel_do_cols (0);
-    panel_do_cols (1);
+/* Only one panel at the moment */
+/*     panel_do_cols (1); */
 
     promptl = strlen (prompt);
 
@@ -1089,13 +1095,20 @@ void swap_panels ()
 
 int get_display_type (int index)
 {
-    return panels [index].type;
+/*     return panels [index].type; */
+  if (index == 0)
+    return panels [0].type;
+  else
+    return view_info;
+/* Only one panel at the moment */
 }
 
 struct Widget *
 get_panel_widget (int index)
 {
-    return panels[index].widget;
+/* Only one panel at the moment */
+    return panels[0].widget;
+/*     return panels[index].widget; */
 }
 
 int get_current_index (void)
@@ -1123,14 +1136,18 @@ int get_current_type (void)
     if (panels [0].widget == (Widget *) current_panel)
 	return panels [0].type;
     else
-	return panels [1].type;
+	return view_info;
+/* Only one panel at the moment */
+/* 	return panels [1].type; */
 }
 
 /* Returns the view type of the unselected panel */
 int get_other_type (void)
 {
     if (panels [0].widget == (Widget *) current_panel)
-	return panels [1].type;
+	return view_info;
+/* Only one panel at the moment */
+     /*	return panels [1].type;*/
     else
 	return panels [0].type;
 }
