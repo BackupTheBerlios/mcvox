@@ -1,0 +1,2 @@
+* Re-enable 'Move' in hotlist.
+* Widget callback: DRAW: no operation, FOCUS: render, UNFOCUS: blank line, CURSOR; start of the line (or input text). Less info might help the screen reader.

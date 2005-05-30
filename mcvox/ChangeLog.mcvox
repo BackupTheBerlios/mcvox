@@ -2,11 +2,15 @@ mcvox Changelog
 
 * 0.4
 ** Minor enhancements
-** Copy files: the input field order has been changed to be better understandable: destination and source input boxes and then the checkboxes.
-** TAG prefix: indicates that a file has been marked.
-** widget callback: DRAW: no operation, FOCUS: render, UNFOCUS: blank line, CURSOR; start of the line (or input text). Less info might help the screen reader.
-** The shortcuts (e.g. C-x, M-x) have been replaced by their full name (e.g Control-x, Escape-x). Escape has been chosen instead of Meta.
-** the chmod item is now available.
+** 30 May 2005, Gilles Casse <gcasse@oralux.org>
+
+The order of labels and input fields has been changed to be better understandable (concerned menu: copy files, chmod, advanced chmod, hotlist). 
+
+In the file listing, the TAG prefix indicates that a file has been marked.
+
+The shortcuts (e.g. C-x, M-x) have been replaced by their full name (e.g Control-x, Escape-x). Escape has been chosen instead of Meta.
+
+Only one panel managed at the moment.
 
 * 0.3
 ** Major bug fix
