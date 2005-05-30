@@ -71,11 +71,11 @@ For!idem, fond: inverse
 #define MENU_HOT_COLOR        IF_COLOR (14, 0)
 #define MENU_HOTSEL_COLOR     IF_COLOR (15, 0)
 
-#define HELP_NORMAL_COLOR  IF_COLOR (16, A_REVERSE)
-#define HELP_ITALIC_COLOR  IF_COLOR (17, A_REVERSE)
-#define HELP_BOLD_COLOR    IF_COLOR (18, A_REVERSE)
-#define HELP_LINK_COLOR    IF_COLOR (19, 0)
-#define HELP_SLINK_COLOR   IF_COLOR (20, A_BOLD)
+#define HELP_NORMAL_COLOR  IF_COLOR (16, 0)
+#define HELP_ITALIC_COLOR  IF_COLOR (17, 0)
+#define HELP_BOLD_COLOR    IF_COLOR (18, 0)
+#define HELP_LINK_COLOR    IF_COLOR (19, A_BOLD)
+#define HELP_SLINK_COLOR   IF_COLOR (20, A_REVERSE)
 
 /*
  * This should be selectable independently. Default has to be black background
