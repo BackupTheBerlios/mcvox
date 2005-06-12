@@ -1,5 +1,12 @@
 mcvox Changelog
 
+* 0.5
+** Minor enhancements
+** 11 June 2005, Gilles Casse <gcasse@oralux.org>
+
+Default values: 
+auto_menu on, use_internal_view off, use_internal_edit off.
+
 * 0.4
 ** Minor enhancements
 ** 30 May 2005, Gilles Casse <gcasse@oralux.org>

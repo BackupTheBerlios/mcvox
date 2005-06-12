@@ -78,7 +78,7 @@
 int output_starts_shell = 0;
 
 /* If set, use the builtin editor */
-int use_internal_edit = 1;
+int use_internal_edit = 0;
 
 
 int

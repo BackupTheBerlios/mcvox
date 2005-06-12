@@ -132,7 +132,7 @@ int fast_refresh = 1;
 int mark_moves_down = 0;
 
 /* If true, at startup the user-menu is invoked */
-int auto_menu = 0;
+int auto_menu = 1;
 
 /* If true, use + and \ keys normally and select/unselect do if M-+ / M-\ 
    and M-- and keypad + / - */
@@ -160,7 +160,7 @@ int full_eight_bits = 0;
 #endif				/* !HAVE_CHARSET */
 
 /* If true use the internal viewer */
-int use_internal_view = 1;
+int use_internal_view = 0;
 
 /* Have we shown the fast-reload warning in the past? */
 int fast_reload_w = 0;

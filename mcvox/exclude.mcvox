@@ -26,6 +26,7 @@ mcvox
 po/Makefile.in
 po/POTFILES
 stamp-h1
+tmp
 vfs/extfs/a
 vfs/extfs/apt
 vfs/extfs/audio
